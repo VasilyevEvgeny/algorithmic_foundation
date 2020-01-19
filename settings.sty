@@ -1,0 +1,60 @@
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage[left=3cm,right=3cm,top=1cm,bottom=1cm]{geometry}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+
+\lstdefinestyle{C++}{
+	backgroundcolor=\color{black!5}, % set backgroundcolor
+    basicstyle=\footnotesize,% basic font setting
+    frame=tb,
+    tabsize=4,
+    showstringspaces=false,
+    numbers=left,
+    upquote=true,
+    commentstyle=\color{commentgreen},
+    keywordstyle=\color{eminence},
+    stringstyle=\color{red},
+    basicstyle=\small\ttfamily, % basic font setting
+    emph={int,char,double,float,unsigned,void,bool,return,while,include,
+    for,if},
+    emphstyle={\color{blue}},
+    escapechar=\&,
+    % keyword highlighting
+    classoffset=1, % starting new class
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{weborange},
+    classoffset=0,
+}
+
+\lstdefinestyle{Python}{
+	backgroundcolor=\color{black!5}, % set backgroundcolor
+    basicstyle=\footnotesize,% basic font setting
+    frame=tb,
+    tabsize=4,
+    showstringspaces=false,
+    numbers=left,
+    upquote=true,
+    commentstyle=\color{commentgreen},
+    keywordstyle=\color{eminence},
+    stringstyle=\color{red},
+    basicstyle=\small\ttfamily, % basic font setting
+    emph={def,float,int,return,while,for,if},
+    emphstyle={\color{blue}},
+    escapechar=\&,
+    % keyword highlighting
+    classoffset=1, % starting new class
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{weborange},
+    classoffset=0,}
+
+\newcommand{\LINE}{
+\begin{center}
+\rule{8cm}{0.4pt}
+\end{center}}
+
+\newcommand{\SPACE}{
+\ \\[0.1cm]}

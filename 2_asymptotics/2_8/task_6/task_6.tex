@@ -1,0 +1,66 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+Рассмотрим следующую функцию, которая раскладывает целое число $x$ на простые множители. Пусть число $x$ не превышает $C$. Оцените асимптотику времени работы этой функции.
+
+\SPACE
+
+\noindent C++:
+
+\begin{lstlisting}[style=C++]
+#include <vector>
+
+std::vector<int> primes(int x) {
+    std::vector<int> result;
+    int i = 2;
+    while (i * i <= x) {
+        while (x % i == 0) {
+            result.push_back(i);
+            x /= i;
+        }
+        ++i;
+    }
+    if (x != 1) {
+        result.push_back(x);
+    }
+    return result;
+}
+\end{lstlisting}
+
+\SPACE
+
+\noindent Python:
+
+\begin{lstlisting}[style=Python]
+def primes(x):
+    result = []
+    i = 2
+    while i * i <= x:
+        while x % i == 0:
+            result.append(i)
+            x //= i
+        i += 1
+    if x != 1:
+        result.append(x)
+    return result
+\end{lstlisting}
+
+\SPACE
+
+\LINE
+
+\SPACE
+
+\begin{itemize}
+\item $O(\sqrt{C} + \log C)$
+\item $O(\sqrt{C} \log C)$
+\item $O(\log C)$
+\item $O(\sqrt{C})$
+\item $O(C)$
+\end{itemize}
+
+\end{document}
