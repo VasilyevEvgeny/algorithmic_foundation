@@ -5,7 +5,7 @@
 
 \begin{document}
 
-Рассмотрим следующую функцию, которая раскладывает целое число $x$ на простые множители. Пусть число $x$ не превышает $C$. Оцените асимптотику времени работы этой функции.
+Consider the following function, which decomposes the integer $x$ into prime factors. Let the number $x$ not exceed $C$. Estimate the asymptotic behavior of the running time of this function.
 
 \SPACE
 
@@ -59,7 +59,7 @@ def primes(x):
 \item $O(\sqrt{C} + \log C)$
 \item $O(\sqrt{C} \log C)$
 \item $O(\log C)$
-\item {\color{red}{$\mathbf{O(\sqrt{C})}$}}
+\item {\color{OliveGreen}{$\mathbf{O(\sqrt{C})}$}}
 \item $O(C)$
 \end{itemize}
 
@@ -67,7 +67,7 @@ def primes(x):
 
 \newpage
 
-В худшем случае алгоритм не заходит во внутренний цикл и итерируется во внешнем $\sqrt{n}$ раз. В общем случае $x$ уменьшается логарифмически, сокращая сложность.
+In the worst case, the algorithm does not go into the inner loop and iterates in the outer $\sqrt{C}$ times. In general, $x$ decreases logarithmically, reducing complexity.
 
 \begin{center}
 \includegraphics[width=15cm]{6.png}

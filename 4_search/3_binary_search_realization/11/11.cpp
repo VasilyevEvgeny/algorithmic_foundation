@@ -35,7 +35,7 @@ int FindTargetNumber(std::vector<int>& v, int x) {
 }
 
 int main() {
-    int N;
+    int N = 0;
     std::cin >> N;
 
     std::vector<int> v(N);
@@ -43,10 +43,10 @@ int main() {
         std::cin >> v[i];
     }
 
-    int M;
+    int M = 0;
     std::cin >> M;
 
-    int x;
+    int x = 0;
     for (size_t i = 0; i < M; ++i) {
         std::cin >> x;
         std::cout << FindTargetNumber(v, x) << std::endl;
