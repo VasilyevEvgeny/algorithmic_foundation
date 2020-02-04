@@ -6,18 +6,6 @@
 #include <vector>
 
 
-std::ostream& operator<<(std::ostream& os, const std::vector<int>& v)
-{
-    os << "[";
-    for (size_t i = 0; i < v.size(); ++i) {
-        os << v[i];
-        if (i != v.size() - 1)
-            os << ", ";
-    }
-    os << "]\n";
-    return os;
-}
-
 int FindTargetNumber(std::vector<int>& v, int x) {
     int l = 0;
     int r = (int)v.size() - 1;
