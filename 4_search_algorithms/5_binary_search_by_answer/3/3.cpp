@@ -114,7 +114,7 @@ int main() {
     std::cin >> L;
 
     std::cout << fast(N, K, M, L);
-    //std::cout << greedy(N, K, M, L);
+//    std::cout << greedy(N, K, M, L);
 
     return 0;
 }

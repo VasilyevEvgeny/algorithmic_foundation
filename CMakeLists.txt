@@ -13,3 +13,6 @@ add_executable(4_search_algorithms__5_binary_search_by_answer__2
 
 add_executable(4_search_algorithms__5_binary_search_by_answer__3
         4_search_algorithms/5_binary_search_by_answer/3/3.cpp)
+
+add_executable(4_search_algorithms__5_binary_search_by_answer__6
+        4_search_algorithms/5_binary_search_by_answer/6/6.cpp)
