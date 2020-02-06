@@ -25,3 +25,7 @@ add_executable(4_search_algorithms__5_binary_search_by_answer__6
 # 6_assignments
 add_executable(4_search_algorithms__6_assignments__1
         4_search_algorithms/6_assignments/1/1.cpp)
+
+# 6_assignments
+add_executable(4_search_algorithms__6_assignments__2
+        4_search_algorithms/6_assignments/2/2.cpp)
