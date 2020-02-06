@@ -3,6 +3,11 @@ project(algorithmic_foundation)
 
 set(CMAKE_CXX_STANDARD 14)
 
+
+#####################
+# 4_search_algorithms
+#####################
+
 # 3_binary_search_realization
 add_executable(4_search_algorithms__3_binary_search_realization__11
         4_search_algorithms/3_binary_search_realization/11/11.cpp)
@@ -16,3 +21,7 @@ add_executable(4_search_algorithms__5_binary_search_by_answer__3
 
 add_executable(4_search_algorithms__5_binary_search_by_answer__6
         4_search_algorithms/5_binary_search_by_answer/6/6.cpp)
+
+# 6_assignments
+add_executable(4_search_algorithms__6_assignments__1
+        4_search_algorithms/6_assignments/1/1.cpp)
