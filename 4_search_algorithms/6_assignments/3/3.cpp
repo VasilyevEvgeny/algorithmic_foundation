@@ -100,10 +100,6 @@ void extreme_testing() {
             if (!occurrences) {
                 meerkats[epochs] = val;
                 epochs++;
-                continue;
-            }
-            else {
-                continue;
             }
         }
         sort(meerkats.begin(), meerkats.end());
