@@ -1,0 +1,24 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+In a certain state, a year consists of $N$ days, and the week consists of $\omega$ consecutive working days. Unions require that $h$ days off be added after ww business days, so the week will consist of $\omega + h$ days - first $\omega$ business days, then $h$ weekends, again $\omega$ business days, then $h$ weekends, etc. The last week may be incomplete (if $N$ is not divisible by $\omega + h$), then in the incomplete week, business days first go (no more than $\omega$), then the weekend.
+
+The oligarchs agree to such a reform of the calendar, but insist that the total number of working days in a year be at least $M$. Determine what the maximum number of days off in each week can be added to the calendar so as to fulfill the requirements of the oligarchs.
+
+The program receives three integers $N$, $M$, $\omega$, written in one line, separated by spaces. $N$ is the number of days in a year, $M$ is the minimum total number of working days in a year, $\omega$ is the number of working days in one week. $1 \le N \le 10^{18}$, $1 \le M \le N$, $1 \le \omega < M$.
+
+The program should print a single integer - the maximum number of days off that can be added per week so that the total number of working days in a year will be at least $M$.
+
+\LINE
+
+\noindent \textbf{Sample input}\\
+100 70 8\\
+
+\noindent \textbf{Sample output}\\
+3
+
+\end{document}
