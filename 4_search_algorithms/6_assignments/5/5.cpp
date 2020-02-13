@@ -6,12 +6,19 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <random>
 #include <cassert>
 
-// 1 - work, 2 - manual tests
-#define MODE 2
+// 1 - work, 2 - manual testing, 3 - stress testing
+#define MODE 1
 
 #define VERBOSE false
+
+using integer = int64_t;
+
+//
+// straight
+//
 
 class Paper {
 public:
@@ -21,7 +28,9 @@ public:
 
 class Copier {
 public:
-    Copier(std::string _name, const int _duration)
+    Copier() : name(""), duration(0) {};
+
+    Copier(std::string _name, const integer _duration)
     : name(std::move(_name))
     , duration(_duration) {};
 
@@ -39,15 +48,16 @@ public:
         t = duration;
     }
 
-    std::vector<Paper> process_epoch(int dt) {
+    std::vector<Paper> process(integer dt) {
         if (VERBOSE) {std::cout << "process_epoch for " << name << std::endl;}
 
-        t = std::max(0, t - dt);
-        if (t) {
-            return {};
+        integer t_prev = t;
+        t = std::max((integer)0, t - dt);
+        if (t == 0 && t_prev > 0) {
+            return {Paper(), Paper()};
         }
         else {
-            return {Paper(), Paper()};
+            return {};
         }
     }
 
@@ -59,7 +69,7 @@ public:
     // properties
     //
 
-    int get_duration() const {
+    integer get_duration() const {
         return duration;
     }
 
@@ -72,73 +82,155 @@ private:
 
     // parameters
 
-    const std::string name;
-    const int duration;
-    int t = 0;
+    std::string name;
+    integer duration;
+    integer t = 0;
 };
 
-void process_copier(Copier& copier, std::vector<Paper>& papers, int dt) {
-    auto result = copier.process_epoch(dt);
-    std::copy(result.begin(), result.end(), std::back_inserter(papers));
-}
+class StraightSolver {
+public:
+    StraightSolver()
+    : N(0), x(0), y(0) {
+        copier_1 = Copier();
+        copier_2 = Copier();
+        dt = 0; };
 
-void load(Copier& copier_1, Copier& copier_2, std::vector<Paper>& papers) {
-    if (papers.size() <= 1) {
-        if (copier_1.is_ready() && copier_2.is_ready()) {
-            (copier_1.get_duration() <= copier_2.get_duration()) ? copier_1.load_paper(papers) : copier_2.load_paper(papers);
-        }
-        else if (copier_1.is_ready()) {
-            copier_1.load_paper(papers);
-        }
-        else {
-            copier_2.load_paper(papers);
-        }
-    }
-    else {
-        if (copier_1.is_ready()) {
-            copier_1.load_paper(papers);
-        }
-        if (copier_2.is_ready()) {
-            copier_2.load_paper(papers);
-        }
-    }
-}
+    StraightSolver(integer _N, integer _x, integer _y)
+    : N(_N)
+    , x(_x)
+    , y(_y) {
+        copier_1 = Copier("1st", x);
+        copier_2 = Copier("2nd", y);
 
-int straight(int N, int x, int y) {
-    auto copier_1 = Copier("1st", x);
-    auto copier_2 = Copier("2nd", y);
+        dt = 1;
 
-    int dt = std::min(copier_1.get_duration(), copier_2.get_duration());
+        papers = std::vector<Paper>({Paper()});
 
-    auto papers = std::vector<Paper>({Paper()});
+    };
 
-    load(copier_1, copier_2, papers);
-
-    int t_epoch = 0;
-    while (papers.size() <= N) {
-        if (VERBOSE) {std::cout << "papers.size() = " << papers.size() << std:: endl;}
-        if (VERBOSE) { copier_1.print_state(); copier_2.print_state(); }
-
-        // process
-
-        process_copier(copier_1, papers, dt);
-        process_copier(copier_2, papers, dt);
-
-        if (VERBOSE) { copier_1.print_state(); copier_2.print_state(); }
-
-        load(copier_1, copier_2, papers);
-
-        if (VERBOSE) { copier_1.print_state(); copier_2.print_state(); }
-
-        t_epoch += dt;
-
-        if (VERBOSE) {std::cout << "**********\nt_epoch = " << t_epoch << ", papers.size() = " << papers.size() << std::endl;}
+    ~StraightSolver() {
+        papers.clear();
     }
 
-    return t_epoch;
-}
+    integer count_papers() {
+        integer in_copiers = 0;
+        if (!copier_1.is_ready()) { in_copiers++; }
+        if (!copier_2.is_ready()) { in_copiers++; }
+        return in_copiers + papers.size();
+    }
 
-void manual_tests() {
+    integer solve() {
+
+        loading();
+        if (VERBOSE) { std::cout << "*************" << std::endl; }
+
+        integer t_epoch = 0;
+        while (count_papers() <= N) {
+            t_epoch += dt;
+
+            if (VERBOSE) { std::cout << "papers = " << count_papers() << std:: endl; }
+            if (VERBOSE) { copier_1.print_state(); copier_2.print_state(); }
+
+            // process
+
+            process_copier(copier_1);
+            process_copier(copier_2);
+
+            if (VERBOSE) { copier_1.print_state(); copier_2.print_state(); }
+
+            loading();
+
+            if (VERBOSE) { copier_1.print_state(); copier_2.print_state(); }
+
+            if (VERBOSE) { std::cout << "t_epoch = " << t_epoch << ", count_papers() = " << count_papers() <<
+            "\n*************" <<std::endl; }
+        }
+
+        return t_epoch;
+    }
+
+private:
+
+    void process_copier(Copier& copier) {
+        auto result = copier.process(dt);
+        std::copy(result.begin(), result.end(), std::back_inserter(papers));
+    }
+
+    void loading() {
+        if (papers.size() == 1) {
+            if (copier_1.is_ready() && copier_2.is_ready()) {
+                (copier_1.get_duration() <= copier_2.get_duration()) ? copier_1.load_paper(papers) : copier_2.load_paper(papers);
+            }
+            else if (copier_1.is_ready()) {
+                copier_1.load_paper(papers);
+            }
+            else {
+                copier_2.load_paper(papers);
+            }
+        }
+        else if (papers.size() > 1) {
+            if (copier_1.is_ready()) {
+                copier_1.load_paper(papers);
+            }
+            if (copier_2.is_ready()) {
+                copier_2.load_paper(papers);
+            }
+        }
+    }
+
+    const integer N, x, y;
+    Copier copier_1, copier_2;
+    integer dt = 0;
+    std::vector<Paper> papers;
+};
+
+//
+// binary
+//
+
+class BinarySolver {
+public:
+    BinarySolver(integer _N, integer _x, integer _y)
+    : N(_N), x(_x), y(_y) {};
+
+    integer solve() {
+        if (x > y) {
+            std::swap(x, y);
+        }
+
+        integer r = 1;
+
+        while (!is_time_valid(r)) {
+            r *= 2;
+        }
+
+        integer l = r / 2;
+
+        while (r - l > 1) {
+            integer M = l + (r - l) / 2;
+
+            if (!is_time_valid(M)) {
+                l = M;
+            }
+            else {
+                r = M;
+            }
+        }
+
+        return  r;
+    }
+
+private:
+
+    bool is_time_valid(integer t) {
+        return t / x + (t - x) / y >= N;
+    }
+
+    integer N, x, y;
+};
+
+
+void manual_testing() {
     std::vector<std::map<std::string, int>> test_data = {
 
             // N, 1, 1
@@ -178,13 +270,43 @@ void manual_tests() {
     for (const auto& line : test_data) {
         int N = line.at("N"), x = line.at("x"), y = line.at("y");
         auto t_true = line.at("t");
-        auto t_pred = straight(N, x, y);
+        auto t_pred_straight = StraightSolver(N, x, y).solve();
+        auto t_pred_binary = BinarySolver(N, x, y).solve();
 
-        std::cerr << "N = " << N << ", x = " << x << ", y = " << y <<  ", t_true = " << t_true << ", t_pred = " << t_pred << std::endl;
-        assert(t_true == t_pred);
+        std::cerr << "N = " << N << ", x = " << x << ", y = " << y <<  ", t_true = " << t_true << ", t_pred_straight = "
+        << t_pred_straight << ", t_pred_binary = " << t_pred_binary << std::endl;
+
+        assert(t_true == t_pred_straight);
+        assert(t_true == t_pred_binary);
 
     }
 }
+
+
+void stress_testing() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    const integer MIN_N = 1, MAX_N = 100;
+    const integer MIN_DURATION = 1, MAX_DURATION = 10;
+
+    std::uniform_int_distribution<> dist_N(MIN_N, MAX_N);
+    std::uniform_int_distribution<> dist_duration(MIN_DURATION, MAX_DURATION);
+
+    integer N, x, y;
+    while (true) {
+        N = dist_N(gen);
+        x = dist_duration(gen);
+        y = dist_duration(gen);
+
+        auto res_straight = StraightSolver(N, x, y).solve();
+        auto res_binary = BinarySolver(N, x, y).solve();
+
+        std::cout << "N = " << N << ", x = " << x << ", y = " << y << ", res_straight = " << res_straight <<", res_binary = " << res_binary << std::endl;
+        assert(res_straight == res_binary);
+    }
+}
+
 
 int main() {
 
@@ -192,14 +314,14 @@ int main() {
     int N = 0, x = 0, y = 0;
     std::cin >> N >> x >> y;
 
-    auto res = straight(N, x, y);
+//    auto res = StraightSolver(N, x, y).solve();
+    auto res = BinarySolver(N, x, y).solve();
 
-    if (VERBOSE) {std::cout << "**********" << std::endl;}
     std::cout << res << std::endl;
 #elif MODE == 2
-    manual_tests();
+    manual_testing();
 #elif MODE == 3
-
+    stress_testing();
 #endif
 
 
