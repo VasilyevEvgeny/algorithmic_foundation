@@ -1,0 +1,33 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+The farmer Nikolai hired two lumberjacks: Dmitry and Fedor, to cut down the forest, in the place of which there should be a corn field. $X$ trees grow in the forest.
+
+Dmitry cuts down $A$ trees a day, but every $K$-th day he rests and does not cut any trees. Thus, Dmitry rests on the $K$-th, $2K$-th, $3K$-th day, and so on.
+
+Fedor cuts down $B$ trees a day, but every $M$ day he rests and does not cut down a single tree. Thus, Fedor rests on the $M$-th, $2M$-th, $3M$-th day, and so on.
+
+Lumberjacks work in parallel and, thus, on days when none of them rest, they cut down $A + B$ trees, on days when only Fedor rests - $A$ trees, and on days when only Dmitry rests - $B$ trees. In the days when both lumberjacks rest, not a single tree is cut down.
+
+Farmer Nikolai wants to understand how many days lumberjacks cut down all the trees and he can sow a corn field.
+
+It is required to write a program that, given the integers $A$, $K$, $B$, $M$, and $X$, determines how many days all the trees in the forest will be cut down.
+
+The input file contains five integers separated by spaces: $A$, $K$, $B$, $M$, and $X$ ($1 \le A, B \le 10^9$, $2 \le K, M \le 10^{18}$, $1 \le X \le 10^{18}$).
+
+The output file must contain a single integer - the desired number of days.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+2 4 3 3 25\\
+
+\noindent \textbf{Sample output:}\\
+7
+
+
+\end{document}

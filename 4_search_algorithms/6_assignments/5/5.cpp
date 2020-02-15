@@ -194,39 +194,31 @@ public:
     : N(_N), x(_x), y(_y) {};
 
     integer solve() {
-        if (x > y) {
-            std::swap(x, y);
-        }
+        integer min_time = std::min(x, y);
+        integer l = min_time;
+        integer r = N * min_time;
 
-        integer r = 1;
+        while (l <= r) {
+            integer m = l + (r - l) / 2;
 
-        while (!is_time_valid(r)) {
-            r *= 2;
-        }
-
-        integer l = r / 2;
-
-        while (r - l > 1) {
-            integer M = l + (r - l) / 2;
-
-            if (!is_time_valid(M)) {
-                l = M;
+            if (is_time_valid(m - min_time)) {
+                l = m + 1;
             }
             else {
-                r = M;
+                r = m - 1;
             }
         }
 
-        return  r;
+        return  r + 1;
     }
 
 private:
 
     bool is_time_valid(integer t) {
-        return t / x + (t - x) / y >= N;
+        return t / x + t / y < N - 1;
     }
 
-    integer N, x, y;
+    const integer N, x, y;
 };
 
 
