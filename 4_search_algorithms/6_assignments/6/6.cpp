@@ -34,7 +34,7 @@ public:
 
     integer solve() {
         integer l = 0;
-        integer r = std::max({K, M, X});
+        integer r = 2 * X / (A + B);
         while (l <= r) {
             integer m = l + (r - l) / 2;
             if (VERBOSE) { std::cout << "m = " << m << std::endl; }
@@ -80,9 +80,9 @@ void stress_testing() {
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    const integer MIN_AB = 1, MAX_AB = 1;
-    const integer MIN_KM = 2, MAX_KM = 5;
-    const integer MIN_X = 1, MAX_X = 20;
+    const integer MIN_AB = 1, MAX_AB = 100;
+    const integer MIN_KM = 2, MAX_KM = 1000;
+    const integer MIN_X = 1, MAX_X = 1000;
 
     std::uniform_int_distribution<> dist_AB(MIN_AB, MAX_AB);
     std::uniform_int_distribution<> dist_KM(MIN_KM, MAX_KM);
