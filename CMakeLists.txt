@@ -46,3 +46,6 @@ add_executable(4_search_algorithms__6_assignments__5
 add_executable(4_search_algorithms__6_assignments__6
         4_search_algorithms/6_assignments/6/6.cpp)
 
+# 6_assignments
+add_executable(4_search_algorithms__6_assignments__7
+        4_search_algorithms/6_assignments/7/7.cpp)
