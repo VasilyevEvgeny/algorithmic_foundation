@@ -11,14 +11,14 @@ Since her husband, Johnny, was fired in connection with the latest financial cri
 
 For herself, she decided to leave only $k$ best. The best in terms of maximizing a rather specific expression: let her leave for herself the jewelry number $i_1, i_2, \ldots, i_k$, then the maximum should be
 \[
-	\sum\limits_{j=1}^{k} v_i \middle/ \sum\limits_{j=1}^{k} w_i.
+	\sum\limits_{j=1}^{k} v_{i_j} \Biggm/ \sum\limits_{j=1}^{k} w_{i_j}.
 \]
 
 Help the Demians determine what maximum value of this value can be obtained by choosing $k$ jewels in the required way.
 
 The first line of input contains the numbers $n$ and $k$ ($1 \le k \le n \le 1000$).
 
-The next $n$ lines contain pairs of integers $v_i$, $w_i$ ($0 \le v_i 10^6$, $1 \le w_i \le 10^6$). The sum of all $v_i$ does not exceed $10^7$, the sum of all $w_i$ also does not exceed $10^7$.
+The next $n$ lines contain pairs of integers $v_i$, $w_i$ ($0 \le v_i \le 10^6$, $1 \le w_i \le 10^6$). The sum of all $v_i$ does not exceed $10^7$, the sum of all $w_i$ also does not exceed $10^7$.
 
 Print one real number -- the maximum value of the desired quantity. The answer must be rounded and displayed with an accuracy of \textbf{exactly} 5 decimal places.
 
