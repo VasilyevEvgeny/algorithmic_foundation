@@ -49,3 +49,18 @@ add_executable(4_search_algorithms__6_assignments__6
 # 6_assignments
 add_executable(4_search_algorithms__6_assignments__7
         4_search_algorithms/6_assignments/7/7.cpp)
+
+
+
+
+#####################
+# 6_two_pointer_method
+#####################
+
+# 2_segment_with_a_given_sum
+add_executable(6_two_pointer_method__2_segment_with_a_given_sum__5
+        6_two_pointer_method/2_segment_with_a_given_sum/5/5.cpp)
+
+# 3_sorted_arrays
+add_executable(6_two_pointer_method__3_sorted_arrays__4
+        6_two_pointer_method/3_sorted_arrays/4/4.cpp)
