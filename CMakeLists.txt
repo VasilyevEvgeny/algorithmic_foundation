@@ -64,3 +64,7 @@ add_executable(6_two_pointer_method__2_segment_with_a_given_sum__5
 # 3_sorted_arrays
 add_executable(6_two_pointer_method__3_sorted_arrays__4
         6_two_pointer_method/3_sorted_arrays/4/4.cpp)
+
+# 4_long_pressed_name
+add_executable(6_two_pointer_method__4_long_pressed_name__2
+        6_two_pointer_method/4_long_pressed_name/2/2.cpp)
