@@ -7,7 +7,12 @@
 
 Your friend is typing his \textit{\textbf{name}} into a keyboard.  Sometimes, when typing a character  \textit{\textbf{c}}, the key might get long pressed, and the character will be typed 1 or more times.
 
-You examine the typed characters of the keyboard.  Return <<True>> if it is possible that it was your friends name, with some characters (possibly none) being long pressed.
+You examine the \textit{\textbf{typed}} characters of the keyboard.  Return <<True>> if it is possible that it was your friends name, with some characters (possibly none) being long pressed.
+
+\ \\
+name.length <= 1000\\
+typed.length <= 1000\\
+The characters of name and typed are lowercase letters.
 
 \LINE
 
@@ -36,6 +41,16 @@ name = <<leelee>>, typed = <<lleeelee>>\\
 
 
 \noindent \textbf{Sample output 3:}\\
+true
+
+
+\SPACE
+
+\noindent \textbf{Sample input 4:}\\
+name = <<laiden>>, typed = <<laiden>>\\
+
+
+\noindent \textbf{Sample output 4:}\\
 true
 
 
