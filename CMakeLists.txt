@@ -68,3 +68,11 @@ add_executable(6_two_pointer_method__3_sorted_arrays__4
 # 4_long_pressed_name
 add_executable(6_two_pointer_method__4_long_pressed_name__2
         6_two_pointer_method/4_long_pressed_name/2/2.cpp)
+
+# 6_assignments
+add_executable(6_two_pointer_method__6_assignments__1
+        6_two_pointer_method/6_assignments/1/1.cpp)
+
+# 6_assignments
+add_executable(6_two_pointer_method__6_assignments__2
+        6_two_pointer_method/6_assignments/2/2.cpp)
