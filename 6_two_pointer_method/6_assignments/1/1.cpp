@@ -9,7 +9,7 @@
 #include <algorithm>
 
 // 1 - work, 2 - stress testing
-#define MODE 2
+#define MODE 1
 
 #define VERBOSE false
 
