@@ -1,0 +1,28 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+A string is called \textit{binary} if it consists only of the characters $0$ and $1$.
+
+String $v$ is called a \textit{substring} of string $w$ if it has a nonzero length, and it can be read, starting from some position, in string $w$. For example, line $010$ has six substrings: $0$, $1$, $0$, $01$, $10$, $010$. Two substrings are considered different if their occurrence positions are different. In other words, each substring must be counted as many times as it occurs.
+
+Given a binary string $s$. Your task is to find the number of its substrings containing exactly $k$ units.
+
+The first line contains a single integer $k$ ($0 \le k \le 10^6$). The second line contains a non-empty binary string $s$. Length $s$ does not exceed $10^6$ characters.
+
+Print a single integer -- the number of substrings of a given string containing exactly $k$ units.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+1\\
+1010\\
+
+
+\noindent \textbf{Sample output:}\\
+6
+
+\end{document}
