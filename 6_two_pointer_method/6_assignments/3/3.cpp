@@ -6,10 +6,13 @@
 #include <vector>
 #include <string>
 #include <random>
+#include <chrono>
 #include <cassert>
 
+using tt = std::chrono::steady_clock;
+
 // 1 - work, 2 - stress testing
-#define MODE 1
+#define MODE 2
 
 #define VERBOSE false
 
@@ -29,6 +32,7 @@ std::ostream& operator << (std::ostream& os, const std::vector<T>& v) {
 }
 
 
+/*
 std::vector<size_t> get_v(std::string& s) {
     std::vector<size_t> v;
     for (auto e : s) { v.push_back(e - '0'); }
@@ -44,9 +48,10 @@ std::vector<size_t> get_units(std::vector<size_t>& v) {
 
     return units;
 }
+*/
 
 
-size_t optimal(size_t k, std::string& s) {
+size_t fast(size_t k, std::string& s) {
     size_t sum = 0;
     if (!k) {
         size_t n = 0;
@@ -108,53 +113,53 @@ size_t optimal(size_t k, std::string& s) {
 }
 
 
-size_t fastest(size_t k, std::vector<size_t>& v) {
-    auto units = get_units(v);
-    if (VERBOSE) { std::cout << "units = " << units << std::endl; }
-
-    size_t sum = 0;
-    if (k > units.size()) {
-        return 0;
-    }
-    else if (!k) {
-        size_t n = 0;
-        for (auto i = 0; i < v.size(); ++i) {
-            if (v[i] == 0) { n++; }
-            else {
-                sum += (1 + n) * n / 2;
-                if (VERBOSE) { std::cout << "n = " << n << ", sum is changed to " << sum << std::endl; }
-                n = 0;
-            }
-            if (i == v.size() - 1) {
-                sum += (1 + n) * n / 2;
-            }
-        }
-    }
-    else {
-        bool out = false;
-        for (auto l = 0, r = 0; l < units.size(); ++l, r = l) {
-            while (r - l < k - 1) {
-                if (r < units.size() - 1) { r++; }
-                else { out = true; break; }
-            }
-            if (out) { break; }
-
-            size_t n_before = 0, n_after = 0;
-
-            if (!l) { n_before = units[0]; }
-            else { n_before = units[l] - units[l - 1] - 1; }
-
-            if (r == units.size() - 1) { n_after = v.size() - units[units.size()-1] - 1; }
-            else { n_after = units[r + 1] - units[r] - 1; }
-
-            sum += (n_before + 1) * (n_after + 1);
-
-            if (VERBOSE) { std::cout << "l = " << l << ", r = " << r << ", n_before = " << n_before << ", n_after = " << n_after << ", sum = " << sum << std::endl;}
-        }
-    }
-
-    return sum;
-}
+//size_t fastest(size_t k, std::vector<size_t>& v) {
+//    auto units = get_units(v);
+//    if (VERBOSE) { std::cout << "units = " << units << std::endl; }
+//
+//    size_t sum = 0;
+//    if (k > units.size()) {
+//        return 0;
+//    }
+//    else if (!k) {
+//        size_t n = 0;
+//        for (auto i = 0; i < v.size(); ++i) {
+//            if (v[i] == 0) { n++; }
+//            else {
+//                sum += (1 + n) * n / 2;
+//                if (VERBOSE) { std::cout << "n = " << n << ", sum is changed to " << sum << std::endl; }
+//                n = 0;
+//            }
+//            if (i == v.size() - 1) {
+//                sum += (1 + n) * n / 2;
+//            }
+//        }
+//    }
+//    else {
+//        bool out = false;
+//        for (auto l = 0, r = 0; l < units.size(); ++l, r = l) {
+//            while (r - l < k - 1) {
+//                if (r < units.size() - 1) { r++; }
+//                else { out = true; break; }
+//            }
+//            if (out) { break; }
+//
+//            size_t n_before = 0, n_after = 0;
+//
+//            if (!l) { n_before = units[0]; }
+//            else { n_before = units[l] - units[l - 1] - 1; }
+//
+//            if (r == units.size() - 1) { n_after = v.size() - units[units.size()-1] - 1; }
+//            else { n_after = units[r + 1] - units[r] - 1; }
+//
+//            sum += (n_before + 1) * (n_after + 1);
+//
+//            if (VERBOSE) { std::cout << "l = " << l << ", r = " << r << ", n_before = " << n_before << ", n_after = " << n_after << ", sum = " << sum << std::endl;}
+//        }
+//    }
+//
+//    return sum;
+//}
 
 
 size_t greedy(size_t k, std::string& s) {
@@ -178,13 +183,13 @@ void stress_testing() {
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    const size_t MIN_K = 0, MAX_K = 10;
+    const size_t MIN_K = 0, MAX_K = 1000;
     std::uniform_int_distribution<> dist_K(MIN_K, MAX_K);
 
     const size_t MIN_VAL = 0, MAX_VAL = 1;
     std::uniform_int_distribution<> dist_VAL(MIN_VAL, MAX_VAL);
 
-    const int MIN_L = 1, MAX_L = 10;
+    const int MIN_L = 1, MAX_L = 1000000;
     std::uniform_int_distribution<> dist_L(MIN_L, MAX_L);
 
     while (true) {
@@ -199,13 +204,21 @@ void stress_testing() {
             s += (val) ? '1' : '0';
         }
 
-        auto res_greedy = greedy(k, s);
-        auto res_fast = optimal(k, s);
+        tt::steady_clock::time_point begin_greedy = tt::now();
+        auto res_greedy = 0; //greedy(k, s);
+        tt::steady_clock::time_point end_greedy = tt::now();
+        auto duration_greedy = std::chrono::duration_cast<std::chrono::nanoseconds> (end_greedy - begin_greedy).count();
 
-        std::cout << "k = " << k << ", s = " << s <<
-                  ", res_greedy = " << res_greedy <<", res_fast = " << res_fast << std::endl;
+        tt::steady_clock::time_point begin_fast = tt::now();
+        auto res_fast = fast(k, s);
+        tt::steady_clock::time_point end_fast = tt::now();
+        auto duration_fast = std::chrono::duration_cast<std::chrono::nanoseconds> (end_fast - begin_fast).count();
 
-        assert(res_greedy == res_fast);
+//        std::cout << "k = " << k << ", s = " << s << std::endl;
+        std::cout << std::scientific << "T = " << duration_greedy * 1e-9 << " s :: res_greedy = " << res_greedy << std::endl;
+        std::cout << std::scientific << "T = " << duration_fast * 1e-9 << " s :: res_fast = " << res_fast << std::endl;
+
+//        assert(res_greedy == res_fast);
 
         s.clear();
     }
@@ -223,11 +236,11 @@ int main() {
     if (VERBOSE) { std::cout << "k = " << k << std::endl; }
 
     std::string s;
-    std::getline (std::cin, s);
+    std::getline(std::cin, s);
     if (VERBOSE) { std::cout << "s = " << s << std::endl; }
 
 //    std::cout << greedy(k, s) << std::endl;
-    std::cout << optimal(k, s) << std::endl;
+    std::cout << fast(k, s) << std::endl;
 
 #elif MODE == 2
     stress_testing();
