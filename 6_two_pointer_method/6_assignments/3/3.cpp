@@ -3,23 +3,23 @@
 //
 
 #include <iostream>
-#include <vector>
 #include <string>
 #include <random>
 #include <chrono>
 #include <cassert>
+#include <deque>
 
 using tt = std::chrono::steady_clock;
 
 // 1 - work, 2 - stress testing
-#define MODE 2
+#define MODE 1
 
-#define VERBOSE false
+#define VERBOSE true
 
 
 
 template <typename T>
-std::ostream& operator << (std::ostream& os, const std::vector<T>& v) {
+std::ostream& operator << (std::ostream& os, const std::deque<T>& v) {
     os << "[ ";
     for (size_t i = 0; i < v.size(); ++i) {
         os << v[i];
@@ -30,6 +30,8 @@ std::ostream& operator << (std::ostream& os, const std::vector<T>& v) {
     os << " ]";
     return os;
 }
+
+
 
 
 /*
@@ -51,6 +53,7 @@ std::vector<size_t> get_units(std::vector<size_t>& v) {
 */
 
 
+
 size_t fast(size_t k, std::string& s) {
     size_t sum = 0;
     if (!k) {
@@ -68,49 +71,122 @@ size_t fast(size_t k, std::string& s) {
         }
     }
     else {
-        for (size_t l = 0; l < s.length(); ++l) {
+        if (s.length() == 1) { return (k == std::stod(s)) ? 1 : 0; }
 
-            // set left unit pos
-            if (s[l] == '0') { continue; }
-            size_t r = l;
-            if (VERBOSE) { std::cout << "l = r = " << l << std::endl; }
-
-            // find right unit pos
-            size_t k_local = (s[r] == '1') ? 1 : 0;
-            while (k_local < k && r < s.length() - 1) {
-                r++;
-                if (s[r] == '1') { k_local++; }
-                if (VERBOSE) { std::cout << "k_local = " << k_local << ", l = " << l << ", r = " << r << std::endl; }
-            }
-            if (k_local < k) { break; }
-
-            // find n_before
-            size_t n_before = 0, before = l;
-            if (l) {
-                while (s[before - 1] == '0' && before > 0) {
-                    before--;
+        std::deque<size_t> units_coords;
+        size_t l = 0, r = 0, n_units = 0, first_unit = 0, last_unit = 0;
+        size_t n_it = 0;
+        while (l < s.length() && r < s.length()) {
+            while (n_units <= k && r < s.length()) {
+                if (s[r] == '1') {
+                    if (!n_units) { first_unit = r; }
+                    if (n_units == k - 1) { last_unit = r; }
+                    if (n_units <= k - 1) {
+                        ++n_units;
+                        units_coords.push_back(r);
+                    }
                 }
+                if (r == s.length() - 1) { break; }
+                if (n_units == k && s[r + 1] == '1') { break; }
+                ++r;
             }
-            n_before = l - before;
-            if (VERBOSE) { std::cout << "n_before = " << n_before << std::endl; }
 
-            // find n_after
-            size_t n_after = 0, after = r;
-            if (r < s.length() - 1) {
-                while (s[after + 1] == '0' && after < s.length() - 1) {
-                    after++;
-                }
-            }
-            n_after = after - r;
-            if (VERBOSE) { std::cout << "n_after = " << n_after << std::endl; }
+            if (n_units < k) { break; }
+
+            size_t n_before = first_unit - l;
+            size_t n_after = r - last_unit;
 
             sum += (n_before + 1) * (n_after + 1);
-            if (VERBOSE) { std::cout << "sum = " << sum << std::endl; }
+
+            if (VERBOSE) { std::cout << "l = " << l << ", r = " << r << ", first_unit = " << first_unit <<
+                                     ", last_unit = " << last_unit << ", n_before = " << n_before << ", n_after = " << n_after <<
+                                     ", units_coords = " << units_coords << ", SUM = " << sum << std::endl; }
+
+
+
+            l = first_unit + 1;
+            r = std::min(s.length() - 1, r + 1);
+            if (l == r && k != 1) { break; }
+
+            --n_units;
+            units_coords.pop_front();
+            if (!units_coords.empty()) { first_unit = units_coords[0]; }
+
+            if (VERBOSE) { std::cout << "n_units = " << n_units << ", units_coords = " << units_coords <<
+            ", l = " << l << ", first_unit = " << first_unit << std::endl; }
+
+            if (n_it == 10) { exit(-1); }
+            n_it++;
         }
     }
 
     return sum;
 }
+
+
+
+
+
+//size_t fast(size_t k, std::string& s) {
+//    size_t sum = 0;
+//    if (!k) {
+//        size_t n = 0;
+//        for (auto i = 0; i < s.length(); ++i) {
+//            if (s[i] == '0') { n++; }
+//            else {
+//                sum += (1 + n) * n / 2;
+//                if (VERBOSE) { std::cout << "n = " << n << ", sum is changed to " << sum << std::endl; }
+//                n = 0;
+//            }
+//            if (i == s.length() - 1) {
+//                sum += (1 + n) * n / 2;
+//            }
+//        }
+//    }
+//    else {
+//        for (size_t l = 0; l < s.length(); ++l) {
+//
+//            // set left unit pos
+//            if (s[l] == '0') { continue; }
+//            size_t r = l;
+//            if (VERBOSE) { std::cout << "l = r = " << l << std::endl; }
+//
+//            // find right unit pos
+//            size_t k_local = (s[r] == '1') ? 1 : 0;
+//            while (k_local < k && r < s.length() - 1) {
+//                r++;
+//                if (s[r] == '1') { k_local++; }
+//                if (VERBOSE) { std::cout << "k_local = " << k_local << ", l = " << l << ", r = " << r << std::endl; }
+//            }
+//            if (k_local < k) { break; }
+//
+//            // find n_before
+//            size_t n_before = 0, before = l;
+//            if (l) {
+//                while (s[before - 1] == '0' && before > 0) {
+//                    before--;
+//                }
+//            }
+//            n_before = l - before;
+//            if (VERBOSE) { std::cout << "n_before = " << n_before << std::endl; }
+//
+//            // find n_after
+//            size_t n_after = 0, after = r;
+//            if (r < s.length() - 1) {
+//                while (s[after + 1] == '0' && after < s.length() - 1) {
+//                    after++;
+//                }
+//            }
+//            n_after = after - r;
+//            if (VERBOSE) { std::cout << "n_after = " << n_after << std::endl; }
+//
+//            sum += (n_before + 1) * (n_after + 1);
+//            if (VERBOSE) { std::cout << "sum = " << sum << std::endl; }
+//        }
+//    }
+//
+//    return sum;
+//}
 
 
 //size_t fastest(size_t k, std::vector<size_t>& v) {
@@ -183,13 +259,13 @@ void stress_testing() {
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    const size_t MIN_K = 0, MAX_K = 1000;
+    const size_t MIN_K = 0, MAX_K = 10;
     std::uniform_int_distribution<> dist_K(MIN_K, MAX_K);
 
     const size_t MIN_VAL = 0, MAX_VAL = 1;
     std::uniform_int_distribution<> dist_VAL(MIN_VAL, MAX_VAL);
 
-    const int MIN_L = 1, MAX_L = 1000000;
+    const int MIN_L = 1, MAX_L = 10;
     std::uniform_int_distribution<> dist_L(MIN_L, MAX_L);
 
     while (true) {
@@ -204,8 +280,10 @@ void stress_testing() {
             s += (val) ? '1' : '0';
         }
 
+        std::cout << "k = " << k << ", s = " << s << std::endl;
+
         tt::steady_clock::time_point begin_greedy = tt::now();
-        auto res_greedy = 0; //greedy(k, s);
+        auto res_greedy = greedy(k, s);
         tt::steady_clock::time_point end_greedy = tt::now();
         auto duration_greedy = std::chrono::duration_cast<std::chrono::nanoseconds> (end_greedy - begin_greedy).count();
 
@@ -214,11 +292,11 @@ void stress_testing() {
         tt::steady_clock::time_point end_fast = tt::now();
         auto duration_fast = std::chrono::duration_cast<std::chrono::nanoseconds> (end_fast - begin_fast).count();
 
-//        std::cout << "k = " << k << ", s = " << s << std::endl;
+
         std::cout << std::scientific << "T = " << duration_greedy * 1e-9 << " s :: res_greedy = " << res_greedy << std::endl;
         std::cout << std::scientific << "T = " << duration_fast * 1e-9 << " s :: res_fast = " << res_fast << std::endl;
 
-//        assert(res_greedy == res_fast);
+        assert(res_greedy == res_fast);
 
         s.clear();
     }
@@ -239,7 +317,7 @@ int main() {
     std::getline(std::cin, s);
     if (VERBOSE) { std::cout << "s = " << s << std::endl; }
 
-//    std::cout << greedy(k, s) << std::endl;
+    std::cout << greedy(k, s) << std::endl;
     std::cout << fast(k, s) << std::endl;
 
 #elif MODE == 2
