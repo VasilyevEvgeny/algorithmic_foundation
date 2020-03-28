@@ -1,0 +1,40 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+Given two lines $s$ and $t$. Count the number of $s$ substrings that can be composed of $t$ characters. Two substrings are considered different if the boundaries of their occurrence are different.
+
+For example, if $s = aaab$, and $t = aba$, then three occurrences of substring $a$, substring $b$, two occurrences of substring $a$, substring $ab$, and substring $aab$ are suitable for us. The substrings $aaa$ and $aaab$ are not suitable, since there are only two letters $a$ in the $t$ string.
+
+The first line of the input contains two integers $n$ and $m$ -- the lengths of the lines $s$ and $t$, respectively ($1 \le n, m \le 10^5$).
+
+The second line contains the string $s$. The third line contains the string $t$. Both lines consist only of lowercase Latin letters.
+
+Print a single integer -- the number of substrings in $s$ that can be composed of characters in the string $t$.
+
+\LINE
+
+\noindent \textbf{Sample input 1:}\\
+4 3\\
+aaab\\
+aba\\
+
+
+\noindent \textbf{Sample output 1:}\\
+8
+
+\SPACE
+
+\noindent \textbf{Sample input 2:}\\
+7 3\\
+abacaba\\
+abc\\
+
+
+\noindent \textbf{Sample output 2:}\\
+15
+
+\end{document}
