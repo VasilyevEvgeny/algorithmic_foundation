@@ -170,7 +170,7 @@ void manual_testing() {
 
         size_t res_true = std::stoi(line.at("true"));
         auto pred_greedy = greedy(k, s);
-        auto pred_fast = greedy(k, s);
+        auto pred_fast = fast(k, s);
 
         std::cerr << "k = " << k << ", s = " << s << ", true = " << res_true <<  ", pred_greedy = " << pred_greedy <<
         ", pred_fast = " << pred_fast << std::endl;
