@@ -6,12 +6,17 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <random>
+#include <chrono>
 #include <cassert>
 
 // 1 - work, 2 - manual testing, 3 - stress_testing
-#define MODE 1
+#define MODE 3
 
-#define VERBOSE true
+#define VERBOSE false
+
+using tt = std::chrono::steady_clock;
+
 
 std::ostream& operator<< (std::ostream& os, const std::map<char, size_t>& target) {
     for (auto item : target) { os << "{" << item.first << " : " << item.second << "}, "; }
@@ -95,155 +100,75 @@ public:
 
     }
 
-
-//    size_t process() {
-//
-//
-//
-//        size_t sum = 0;
-//
-//        std::map<char, size_t> dict;
-//        dict.insert(base_dict_.begin(), base_dict_.end());
-//
-//        size_t n_it = 0;
-//
-//        bool is_possible;
-//        size_t l = 0, r = 0;
-//        while (l < n_ && r < n_) {
-//            if (n_it && !l && !r) { break; }
-//            if (VERBOSE) { std::cout << "dict_ = " << dict << std::endl; }
-//
-//            do {
-//                is_possible = dict.at(s_[r]) < t_dict_.at(s_[r]);
-//                if (VERBOSE) {
-//                    if (is_possible) {
-//                        std::cout << "s[" << r << "] = " << s_.at(r) << ", " << "dict[" << s_.at(r) << "] "  <<  dict.at(s_[r]) << " < t_dict_[" << s_.at(r) << "] "
-//                                  << t_dict_.at(s_[r]) << " --> possible!" << std::endl;
-//                    }
-//                    else {
-//                        std::cout << "s[" << r << "] = " << s_.at(r) << ", " << "dict[" << s_.at(r) << "] "  <<  dict.at(s_[r]) << " >= t_dict_[" << s_.at(r) << "] "
-//                                  << t_dict_.at(s_[r]) << " --> not possible!" << std::endl;
-//                    }
-//                }
-//
-//                if (is_possible) {
-//                    dict.at(s_[r])++;
-//                    if (VERBOSE) { std::cout << "dict[" << s_.at(r) << "]++ " << dict.at(s_[r]) << std::endl; }
-//
-//                    if (r == n_ - 1) {
-//                        if (VERBOSE) { std::cout << "r = n - 1, break " << r << std::endl; }
-//                        break;
-//                    }
-//                    else {
-//                        ++r;
-//                        if (VERBOSE) { std::cout << "r++ " << r << std::endl; }
-//                    }
-//                }
-//                else {
-//                    if (!r) { return 1; }
-//                    --r;
-//                    if (VERBOSE) { std::cout << "r-- " << r << std::endl; }
-//                    break;
-//                }
-//
-//            } while (is_possible && r < n_);
-//
-//            auto n = r - l + 1;
-//            sum += (n + 1) * n / 2 - 1;
-//
-//            if (VERBOSE) { std::cout << "first dict: " << dict << std::endl; }
-//            if (VERBOSE) { std::cout << "l = " << l << ", r = " << r << ", substr = " << s_.substr(l, r - l + 1) <<  ", sum = " << sum << std::endl; }
-//
-//            if (l == n_ - 1 or r == n_ - 1) {
-//                sum++;
-//                if (VERBOSE) { std::cout << "!!!!! l = " << l << ", r = " << r << ", sum++ " << sum << std::endl; }
-//                break;
-//            }
-//
-//
-//            for (auto i = l; i < r; ++i) { dict.at(s_[i])--; }
-//            if (VERBOSE) { std::cout << "after minus: " << dict << std::endl; }
-//
-//            l = r;
-//            dict.clear();
-//            dict.insert(base_dict_.begin(), base_dict_.end());
-//
-//            if (VERBOSE) { std::cout << "====================" << std::endl; }
-//
-//            if (n_it == 10) { exit(-1); }
-//            n_it++;
-//        }
-//
-//
-//        return sum;
-//    }
-
-
     size_t solve() {
         size_t sum = 0;
-
-        size_t l = 0, r = 0;
-        std::string substr;
         bool is_possible;
-        size_t n_it = 0;
-        while (l < n_ && r < n_) {
-            do {
-                auto diff = r - l;
-                substr = s_.substr(l, diff + 1);
-                if (VERBOSE) { std::cout << "l = " << l << ", r = " << r << ", substr = " << substr << std::endl; }
+        bool go_next;
+        std::map<char, size_t> dict;
+        dict.insert(base_dict_.begin(), base_dict_.end());
+        for (size_t l = 0, l_prev = -1, r = 0, r_prev = -1; l < n_ && r < n_; ++l) {
+            go_next = false;
 
-                is_possible = is_possible_to_compose(substr);
+            do {
+                if (VERBOSE) { std::cout << "l = " << l << ", r = " << r << std::endl; }
+                auto substr = s_.substr(l, r - l + 1);
+                if (VERBOSE) { std::cout << "substr = " << substr << std::endl; }
+                dict.at(s_[r])++;
+
+                if (VERBOSE) { std::cout << "dict --> " << dict << std::endl; }
+                is_possible = is_possible_to_compose(dict);
+//                is_possible = is_possible_to_compose(substr);
+
                 if (is_possible) {
-                    if (VERBOSE) { std::cout << "is possible!" << std::endl; }
-                    if (r == n_ - 1) {
-                        if (VERBOSE) { std::cout << "r = n_ - 1!!!" << std::endl; }
-                        break;
+                    if (VERBOSE) { std::cout << "is possible!!" << std::endl; }
+                    if (r < n_ - 1) {
+                        ++r;
+                        if (VERBOSE) { std::cout << "r < n_ - 1, r --> " << r << std::endl; }
                     }
                     else {
-                        r++;
-                        if (VERBOSE) { std::cout << "r increased to " << r << std::endl; }
+                        if (VERBOSE) { std::cout << "r = n_ - 1, break " << std::endl; }
+                        break;
                     }
                 }
                 else {
-                    if (VERBOSE) { std::cout << "is not possible!" << std::endl; }
-                    if (diff > 1) {
-                        r--;
-                        if (VERBOSE) { std::cout << "r-- " << r << std::endl; }
+                    if (VERBOSE) { std::cout << "not possible!!" << std::endl; }
+                    dict.at(s_[r]) = std::max(0, static_cast<int>(dict.at(s_[r])-1));
+                    if (VERBOSE) { std::cout << "dict --> " << dict << std::endl; }
+                    if (l == r) {
+                        go_next = true;
+                        ++r;
+                        if (VERBOSE) { std::cout << "go_next = true, break" << std::endl; }
+                        break;
                     }
-                    else {
-                        ++l;
-                        r = l;
-                        if (VERBOSE) { std::cout << "l = r = " << r << std::endl; }
-                    }
+                    --r;
                 }
+            } while (is_possible && l < n_ && r < n_);
 
-            } while (is_possible && r < n_);
-
-            auto n = r - l;
-            auto ds = (n + 1) * n / 2;
-            if (n <= 1) { sum += ds; }
-            else { sum += ds - 1; }
-            if (VERBOSE) { std::cout << "sum increased to = " << sum << std::endl; }
-
-            if (r == n_ - 1) {
-                substr = s_.substr(n_- 1, 1);
-                if (is_possible_to_compose(substr)) {
-                    sum++;
-                    if (VERBOSE) { std::cout << "sum++ " << sum << std::endl; }
-                }
-
-                if (VERBOSE) { std::cout << "!!! r = n_ - 1" << std::endl; }
-                break;
+            if (go_next) {
+                dict.at(s_[l]) = std::max(0, static_cast<int>(dict.at(s_[l])-1));
+                if (VERBOSE) { std::cout << "dict --> " << dict << std::endl; }
+                continue;
             }
 
-            l = r;
-            if (VERBOSE) { std::cout << "=============" << std::endl; }
+            auto n = r - l + 1;
+            sum += (n + 1) * n / 2;
+            if (VERBOSE) { std::cout << "sum plus --> " << sum << std::endl; }
+
+            auto d = std::max(0, static_cast<int>(r_prev - l + 1));
+            sum -= (d + 1) * d / 2;
+            if (VERBOSE) { std::cout << "sum minus --> " << sum << std::endl; }
+
+            if (r == n_ - 1) { break; }
+
+            l_prev = l;
+            r_prev = r;
+
+            ++r;
+            dict.at(s_[l]) = std::max(0, static_cast<int>(dict.at(s_[l])-1));
+            if (VERBOSE) { std::cout << "dict --> " << dict << std::endl; }
 
 
-            if (n_it == 10) {
-                exit(-1);
-            }
-            n_it++;
+            if (VERBOSE) { std::cout << "======================" << std::endl; }
         }
 
         return sum;
@@ -288,17 +213,17 @@ private:
         return true;
     }
 
-//    bool is_possible_to_compose(std::map<char, size_t>& dict) {
-//        // compose substr from symbols of string t
-//        for (auto item : dict) {
-//            auto symbol = item.first;
-//            auto freq = item.second;
-//            if (t_dict_.at(symbol) < freq) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
+    bool is_possible_to_compose(std::map<char, size_t>& dict) {
+        // compose substr from symbols of string t
+        for (auto item : dict) {
+            auto symbol = item.first;
+            auto freq = item.second;
+            if (t_dict_.at(symbol) < freq) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 };
 
@@ -312,15 +237,18 @@ void manual_testing() {
             {{"n", "1"}, {"s", "a"}, {"m", "1"}, {"t", "a"}, {"true", "1"}},
             {{"n", "1"}, {"s", "a"}, {"m", "1"}, {"t", "b"}, {"true", "0"}},
             {{"n", "1"}, {"s", "a"}, {"m", "2"}, {"t", "ab"}, {"true", "1"}},
-//            {{"n", "2"}, {"s", "ab"}, {"m", "1"}, {"t", "a"}, {"true", "1"}},
+            {{"n", "2"}, {"s", "ab"}, {"m", "1"}, {"t", "a"}, {"true", "1"}},
 
             // simple
             {{"n", "4"}, {"s", "aaab"}, {"m", "3"}, {"t", "aba"}, {"true", "8"}},
             {{"n", "3"}, {"s", "abc"}, {"m", "3"}, {"t", "def"}, {"true", "0"}},
             {{"n", "3"}, {"s", "abc"}, {"m", "4"}, {"t", "adef"}, {"true", "1"}},
+            {{"n", "3"}, {"s", "abc"}, {"m", "4"}, {"t", "dbef"}, {"true", "1"}},
+            {{"n", "3"}, {"s", "abc"}, {"m", "4"}, {"t", "defa"}, {"true", "1"}},
 
             // medium
             {{"n", "7"}, {"s", "abacaba"}, {"m", "3"}, {"t", "abc"}, {"true", "15"}},
+            {{"n", "8"}, {"s", "acbacaba"}, {"m", "3"}, {"t", "abc"}, {"true", "19"}},
 
     };
 
@@ -341,6 +269,60 @@ void manual_testing() {
         assert(res_true == pred_fast);
     }
 }
+
+
+void stress_testing() {
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    const size_t MIN_N = 1, MAX_N = 2;
+    std::uniform_int_distribution<> dist_N(MIN_N, MAX_N);
+
+    const size_t MIN_M = 1, MAX_M = 2;
+    std::uniform_int_distribution<> dist_M(MIN_M, MAX_M);
+
+    const char MIN_VAL = 'a', MAX_VAL = 'c';
+    std::uniform_int_distribution<> dist_VAL(MIN_VAL, MAX_VAL);
+
+    while (true) {
+        std::cout << "======================" << std::endl;
+
+        size_t n = dist_N(gen);
+        std::string s;
+        for (size_t i = 0; i < n; ++i) {
+            s += static_cast<char>(dist_VAL(gen));
+        }
+
+        size_t m = dist_M(gen);
+        std::string t;
+        for (size_t i = 0; i < m; ++i) {
+            t += static_cast<char>(dist_VAL(gen));
+        }
+
+        std::cout << "n = " << n << ", s = " << s << ", m = " << m << ", t = " << t << std::endl;
+
+        tt::steady_clock::time_point begin_greedy = tt::now();
+        auto res_greedy = GreedySolver(n, s, m ,t).solve();
+        tt::steady_clock::time_point end_greedy = tt::now();
+        auto duration_greedy = std::chrono::duration_cast<std::chrono::nanoseconds> (end_greedy - begin_greedy).count();
+
+        tt::steady_clock::time_point begin_fast = tt::now();
+        auto res_fast = FastSolver(n, s, m ,t).solve();
+        tt::steady_clock::time_point end_fast = tt::now();
+        auto duration_fast = std::chrono::duration_cast<std::chrono::nanoseconds> (end_fast - begin_fast).count();
+
+        std::cout << std::scientific << "T = " << duration_greedy * 1e-9 << " s :: res_greedy = " << res_greedy << std::endl;
+        std::cout << std::scientific << "T = " << duration_fast * 1e-9 << " s :: res_fast = " << res_fast << std::endl;
+
+        assert(res_greedy == res_fast);
+
+        s.clear();
+        t.clear();
+    }
+}
+
+
 
 int main() {
 
@@ -366,7 +348,7 @@ int main() {
     manual_testing();
 
 #elif MODE == 3
-//    manual_testing();
+    stress_testing();
 
 #endif
 
