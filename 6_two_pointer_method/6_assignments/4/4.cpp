@@ -7,7 +7,7 @@
 #include <cassert>
 
 // 1 - work, 2 - manual testing, 3 - stress_testing
-#define MODE 3
+#define MODE 1
 
 #define VERBOSE false
 
@@ -54,7 +54,6 @@ private:
     const size_t m_;
     const std::string t_;
 
-    // freq
     const std::map<char, size_t> base_dict_;
     const std::map<char, size_t> t_dict_;
 
@@ -175,7 +174,6 @@ private:
     const size_t m_;
     const std::string t_;
 
-    // dict
     const std::map<char, size_t> base_dict_;
     const std::map<char, size_t> t_dict_;
 
@@ -323,7 +321,7 @@ int main() {
         std::cout << "t = " << t << std::endl;
     }
 
-    std::cout << GreedySolver(n, s, m, t).solve() << std::endl;
+//    std::cout << GreedySolver(n, s, m, t).solve() << std::endl;
     std::cout << FastSolver(n, s, m, t).solve() << std::endl;
 
 #elif MODE == 2
