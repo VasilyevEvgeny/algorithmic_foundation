@@ -1,7 +1,3 @@
-//
-// Created by evasilyev on 25.03.2020.
-//
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -28,9 +24,9 @@ std::ostream& operator<< (std::ostream& os, const std::map<char, size_t>& target
 class GreedySolver {
 public:
     GreedySolver(size_t n, std::string s, size_t m, std::string t)
-    : n_(n), s_(std::move(s)), m_(m), t_(std::move(t)), base_freq_(initialize_base_freq()), t_freq_(make_freq(t_)) {
+    : n_(n), s_(std::move(s)), m_(m), t_(std::move(t)), base_dict_(initialize_base_dict()), t_dict_(make_dict(t_)) {
 
-     if (VERBOSE) { std::cout << t_freq_ << std::endl; }
+     if (VERBOSE) { std::cout << t_dict_ << std::endl; }
 
     }
 
@@ -59,19 +55,19 @@ private:
     const std::string t_;
 
     // freq
-    const std::map<char, size_t> base_freq_;
-    const std::map<char, size_t> t_freq_;
+    const std::map<char, size_t> base_dict_;
+    const std::map<char, size_t> t_dict_;
 
-    static std::map<char, size_t> initialize_base_freq() {
+    static std::map<char, size_t> initialize_base_dict() {
         std::map<char, size_t> res;
-        for (char c = 97; c <= 122; ++c) { res[c] = 0; }
+        for (char c = 'a'; c <= 'z'; ++c) { res[c] = 0; }
 
         return res;
     }
 
-    std::map<char, size_t> make_freq(const std::string& str) {
+    std::map<char, size_t> make_dict(const std::string& str) {
         std::map<char, size_t> res;
-        res.insert(base_freq_.begin(), base_freq_.end());
+        res.insert(base_dict_.begin(), base_dict_.end());
         for (auto c : str) { ++res.at(c); }
 
         return res;
@@ -79,11 +75,11 @@ private:
 
     bool is_possible_to_compose(std::string& substr) {
         // compose substr from symbols of string t
-        auto substr_dict = make_freq(substr);
+        auto substr_dict = make_dict(substr);
         for (auto item : substr_dict) {
             auto symbol = item.first;
             auto freq = item.second;
-            if (t_freq_.at(symbol) < freq) {
+            if (t_dict_.at(symbol) < freq) {
                 return false;
             }
         }
@@ -106,7 +102,7 @@ public:
         bool go_next;
         std::map<char, size_t> dict;
         dict.insert(base_dict_.begin(), base_dict_.end());
-        for (size_t l = 0, l_prev = -1, r = 0, r_prev = -1; l < n_ && r < n_; ++l) {
+        for (size_t l = 0, r = 0, r_prev = -1; l < n_ && r < n_; ++l) {
             go_next = false;
 
             do {
@@ -117,7 +113,6 @@ public:
 
                 if (VERBOSE) { std::cout << "dict --> " << dict << std::endl; }
                 is_possible = is_possible_to_compose(dict);
-//                is_possible = is_possible_to_compose(substr);
 
                 if (is_possible) {
                     if (VERBOSE) { std::cout << "is possible!!" << std::endl; }
@@ -160,7 +155,6 @@ public:
 
             if (r == n_ - 1) { break; }
 
-            l_prev = l;
             r_prev = r;
 
             ++r;
@@ -187,7 +181,7 @@ private:
 
     static std::map<char, size_t> initialize_base_dict() {
         std::map<char, size_t> res;
-        for (char c = 97; c <= 122; ++c) { res[c] = 0; }
+        for (char c = 'a'; c <= 'z'; ++c) { res[c] = 0; }
 
         return res;
     }
@@ -200,21 +194,7 @@ private:
         return res;
     }
 
-    bool is_possible_to_compose(std::string& substr) {
-        // compose substr from symbols of string t
-        auto dict = make_dict(substr);
-        for (auto item : dict) {
-            auto symbol = item.first;
-            auto freq = item.second;
-            if (t_dict_.at(symbol) < freq) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     bool is_possible_to_compose(std::map<char, size_t>& dict) {
-        // compose substr from symbols of string t
         for (auto item : dict) {
             auto symbol = item.first;
             auto freq = item.second;
@@ -245,6 +225,8 @@ void manual_testing() {
             {{"n", "3"}, {"s", "abc"}, {"m", "4"}, {"t", "adef"}, {"true", "1"}},
             {{"n", "3"}, {"s", "abc"}, {"m", "4"}, {"t", "dbef"}, {"true", "1"}},
             {{"n", "3"}, {"s", "abc"}, {"m", "4"}, {"t", "defa"}, {"true", "1"}},
+            {{"n", "5"}, {"s", "aaaaa"}, {"m", "5"}, {"t", "aaaaa"}, {"true", "15"}},
+            {{"n", "5"}, {"s", "abcde"}, {"m", "5"}, {"t", "de"}, {"true", "3"}},
 
             // medium
             {{"n", "7"}, {"s", "abacaba"}, {"m", "3"}, {"t", "abc"}, {"true", "15"}},
@@ -276,13 +258,13 @@ void stress_testing() {
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    const size_t MIN_N = 1, MAX_N = 2;
+    const size_t MIN_N = 1, MAX_N = 100;
     std::uniform_int_distribution<> dist_N(MIN_N, MAX_N);
 
-    const size_t MIN_M = 1, MAX_M = 2;
+    const size_t MIN_M = 1, MAX_M = 100;
     std::uniform_int_distribution<> dist_M(MIN_M, MAX_M);
 
-    const char MIN_VAL = 'a', MAX_VAL = 'c';
+    const char MIN_VAL = 'a', MAX_VAL = 'z';
     std::uniform_int_distribution<> dist_VAL(MIN_VAL, MAX_VAL);
 
     while (true) {
@@ -341,7 +323,7 @@ int main() {
         std::cout << "t = " << t << std::endl;
     }
 
-//    std::cout << GreedySolver(n, s, m, t).solve() << std::endl;
+    std::cout << GreedySolver(n, s, m, t).solve() << std::endl;
     std::cout << FastSolver(n, s, m, t).solve() << std::endl;
 
 #elif MODE == 2
