@@ -5,16 +5,18 @@
 #include <random>
 #include <chrono>
 #include <cassert>
+#include <exception>
 
 // 1 - work, 2 - manual testing, 3 - stress_testing
-#define MODE 1
+#define MODE 2
 
 #define VERBOSE false
 
 using tt = std::chrono::steady_clock;
+using size = int64_t;
 
 
-std::ostream& operator<< (std::ostream& os, const std::map<char, size_t>& target) {
+std::ostream& operator<< (std::ostream& os, const std::map<char, size>& target) {
     for (auto item : target) { os << "{" << item.first << " : " << item.second << "}, "; }
 
     return os;
@@ -23,19 +25,19 @@ std::ostream& operator<< (std::ostream& os, const std::map<char, size_t>& target
 
 class GreedySolver {
 public:
-    GreedySolver(size_t n, std::string s, size_t m, std::string t)
+    GreedySolver(size n, std::string s, size m, std::string t)
     : n_(n), s_(std::move(s)), m_(m), t_(std::move(t)), base_dict_(initialize_base_dict()), t_dict_(make_dict(t_)) {
 
      if (VERBOSE) { std::cout << t_dict_ << std::endl; }
 
     }
 
-    size_t solve() {
-        size_t sum = 0;
+    size solve() {
+        size sum = 0;
 
         for (auto i = 0; i < n_; ++i) {
             for (auto j = i; j < n_; ++j) {
-                std::string substr = s_.substr(i, std::min(static_cast<size_t>(j - i + 1), s_.length()));
+                std::string substr = s_.substr(i, std::min(static_cast<uint64_t>(j - i + 1), s_.length()));
                 if (VERBOSE) { std::cout << "substr = " << substr << std::endl; }
 
                 if (is_possible_to_compose(substr)) {
@@ -49,23 +51,23 @@ public:
     }
 
 private:
-    const size_t n_;
+    const size n_;
     const std::string s_;
-    const size_t m_;
+    const size m_;
     const std::string t_;
 
-    const std::map<char, size_t> base_dict_;
-    const std::map<char, size_t> t_dict_;
+    const std::map<char, size> base_dict_;
+    const std::map<char, size> t_dict_;
 
-    static std::map<char, size_t> initialize_base_dict() {
-        std::map<char, size_t> res;
+    static std::map<char, size> initialize_base_dict() {
+        std::map<char, size> res;
         for (char c = 'a'; c <= 'z'; ++c) { res[c] = 0; }
 
         return res;
     }
 
-    std::map<char, size_t> make_dict(const std::string& str) {
-        std::map<char, size_t> res;
+    std::map<char, size> make_dict(const std::string& str) {
+        std::map<char, size> res;
         res.insert(base_dict_.begin(), base_dict_.end());
         for (auto c : str) { ++res.at(c); }
 
@@ -90,18 +92,16 @@ private:
 
 class FastSolver {
 public:
-    FastSolver(size_t n, std::string s, size_t m, std::string t)
-    : n_(n), s_(std::move(s)), m_(m), t_(std::move(t)), base_dict_(initialize_base_dict()), t_dict_(make_dict(t_)) {
+    FastSolver(size n, std::string s, size m, std::string t)
+    : n_(n), s_(std::move(s)), m_(m), t_(std::move(t)), base_dict_(initialize_base_dict()), t_dict_(make_dict(t_)) {}
 
-    }
-
-    size_t solve() {
-        size_t sum = 0;
+    size solve() {
+        size sum = 0;
         bool is_possible;
         bool go_next;
-        std::map<char, size_t> dict;
+        std::map<char, size> dict;
         dict.insert(base_dict_.begin(), base_dict_.end());
-        for (size_t l = 0, r = 0, r_prev = -1; l < n_ && r < n_; ++l) {
+        for (size l = 0, r = 0, r_prev = -1; l < n_ && r < n_; ++l) {
             go_next = false;
 
             do {
@@ -169,30 +169,30 @@ public:
 
 
 private:
-    const size_t n_;
+    const size n_;
     const std::string s_;
-    const size_t m_;
+    const size m_;
     const std::string t_;
 
-    const std::map<char, size_t> base_dict_;
-    const std::map<char, size_t> t_dict_;
+    const std::map<char, size> base_dict_;
+    const std::map<char, size> t_dict_;
 
-    static std::map<char, size_t> initialize_base_dict() {
-        std::map<char, size_t> res;
+    static std::map<char, size> initialize_base_dict() {
+        std::map<char, size> res;
         for (char c = 'a'; c <= 'z'; ++c) { res[c] = 0; }
 
         return res;
     }
 
-    std::map<char, size_t> make_dict(const std::string& str) {
-        std::map<char, size_t> res;
+    std::map<char, size> make_dict(const std::string& str) {
+        std::map<char, size> res;
         res.insert(base_dict_.begin(), base_dict_.end());
         for (auto c : str) { ++res.at(c); }
 
         return res;
     }
 
-    bool is_possible_to_compose(std::map<char, size_t>& dict) {
+    bool is_possible_to_compose(std::map<char, size>& dict) {
         for (auto item : dict) {
             auto symbol = item.first;
             auto freq = item.second;
@@ -230,15 +230,29 @@ void manual_testing() {
             {{"n", "7"}, {"s", "abacaba"}, {"m", "3"}, {"t", "abc"}, {"true", "15"}},
             {{"n", "8"}, {"s", "acbacaba"}, {"m", "3"}, {"t", "abc"}, {"true", "19"}},
 
+            // additional
+            {{"n", "22"}, {"s", "akablabcpabcdlabcdabcd"}, {"m", "4"}, {"t", "dacb"}, {"true", "46"}},
+            {{"n", "20"}, {"s", "abcabaabcdabcdaababc"}, {"m", "4"}, {"t", "abcd"}, {"true", "54"}},
+            {{"n", "8"}, {"s", "abcabaab"}, {"m", "14"}, {"t", "abcdadaadadada"}, {"true", "25"}},
+            {{"n", "2"}, {"s", "ab"}, {"m", "7"}, {"t", "dabcabc"}, {"true", "3"}},
+            {{"n", "12"}, {"s", "abkabcpdeabc"}, {"m", "6"}, {"t", "aabbcc"}, {"true", "15"}},
+            {{"n", "5"}, {"s", "abaad"}, {"m", "3"}, {"t", "aab"}, {"true", "9"}},
+            {{"n", "5"}, {"s", "aaaaa"}, {"m", "1"}, {"t", "a"}, {"true", "5"}},
+            {{"n", "4"}, {"s", "aaaa"}, {"m", "3"}, {"t", "aaa"}, {"true", "9"}},
+            {{"n", "1"}, {"s", "a"}, {"m", "3"}, {"t", "aaa"}, {"true", "1"}},
+            {{"n", "12"}, {"s", "abkabcpdeabc"}, {"m", "4"}, {"t", "zzzz"}, {"true", "0"}},
+            {{"n", "18"}, {"s", "abcpabcdeebcqabcde"}, {"m", "5"}, {"t", "abcde"}, {"true", "42"}},
+            {{"n", "17"}, {"s", "axajayatajataraha"}, {"m", "1"}, {"t", "a"}, {"true", "9"}},
+
     };
 
     for (auto& line : test_data) {
-        size_t n = static_cast<size_t>(std::stoi(line.at("n")));
+        size n = static_cast<size>(std::stoi(line.at("n")));
         std::string s = line.at("s");
-        size_t m = static_cast<size_t>(std::stoi(line.at("m")));
+        size m = static_cast<size>(std::stoi(line.at("m")));
         std::string t = line.at("t");
 
-        size_t res_true = static_cast<size_t>(std::stoi(line.at("true")));
+        size res_true = static_cast<size>(std::stoi(line.at("true")));
         auto pred_greedy = GreedySolver(n, s, m, t).solve();
         auto pred_fast = FastSolver(n, s, m, t).solve();
 
@@ -256,10 +270,10 @@ void stress_testing() {
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    const size_t MIN_N = 1, MAX_N = 100;
+    const size MIN_N = 1, MAX_N = 4;
     std::uniform_int_distribution<> dist_N(MIN_N, MAX_N);
 
-    const size_t MIN_M = 1, MAX_M = 100;
+    const size MIN_M = 1, MAX_M = 4;
     std::uniform_int_distribution<> dist_M(MIN_M, MAX_M);
 
     const char MIN_VAL = 'a', MAX_VAL = 'z';
@@ -268,15 +282,15 @@ void stress_testing() {
     while (true) {
         std::cout << "======================" << std::endl;
 
-        size_t n = dist_N(gen);
+        size n = dist_N(gen);
         std::string s;
-        for (size_t i = 0; i < n; ++i) {
+        for (size i = 0; i < n; ++i) {
             s += static_cast<char>(dist_VAL(gen));
         }
 
-        size_t m = dist_M(gen);
+        size m = dist_M(gen);
         std::string t;
-        for (size_t i = 0; i < m; ++i) {
+        for (size i = 0; i < m; ++i) {
             t += static_cast<char>(dist_VAL(gen));
         }
 
@@ -307,7 +321,7 @@ void stress_testing() {
 int main() {
 
 #if MODE == 1
-    size_t n = 0, m = 0;
+    size n = 0, m = 0;
     std::cin >> n >> m;
 
     std::cin.ignore();
