@@ -96,3 +96,7 @@ add_executable(6_two_pointer_method__6_assignments__5
 # 6_assignments
 add_executable(6_two_pointer_method__6_assignments__6
         6_two_pointer_method/6_assignments/6/6.cpp)
+
+# 6_assignments
+add_executable(6_two_pointer_method__6_assignments__7
+        6_two_pointer_method/6_assignments/7/7.cpp)
