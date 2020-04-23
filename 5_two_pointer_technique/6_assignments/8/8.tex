@@ -1,0 +1,33 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+
+Deciphering the Mayan script turned out to be more difficult than anticipated by earlier research. For more than two hundred years, not much has been learned. Key results have been obtained over the past 30 years.
+
+Maya's writing is based on small drawings known as icons that indicate sounds. Mayan words are usually spelled using these icons, which are located next to each other in some order. One of the problems with deciphering the Mayan script is to determine this order. When drawing the icons of a certain word, Mayan writers sometimes chose positions for icons based on aesthetic views rather than specific rules. This led to the fact that although the sounds for many of the icons are known, archaeologists are not always sure how the recorded word should be pronounced.
+
+Archaeologists are looking for some word $w$. They know the badges for him, but they don’t know all the possible ways to arrange them. They ask you for help. They will give you the $g$ of the badges that make up the word $w$, and the $s$ sequence of all the badges in the inscription they are studying, in the order they appear. Help them by counting the number of possible occurrences of the word $w$.
+
+Write a program that calculates the number of all possible occurrences of the word $w$ in $s$ by the word ww and the sequence $s$ of inscription icons; that is, the number of all different positions of consecutive $g$  icons in the $s$ sequence, which are some sort of permutation of the icons of the word $w$.
+
+The first line of input contains two integers $g$ and $|s|$ -- the number of characters in the word $w$ and the number of characters in the sequence $s$ ($1 \le g \le 3000$, $g \le |s| \le 3 \cdot 10^6$). The second line contains the word $w$. The third line contains the $s$ sequence. It is guaranteed that $w$ and $s$ consist of uppercase and lowercase letters of the Latin alphabet.
+
+Print a single integer -- the number of possible occurrences of the word $w$ in $w$.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+4 11\\
+cAda
+AbrAcadAbRa\\
+
+
+\noindent \textbf{Sample output:}\\
+2
+
+
+\end{document}

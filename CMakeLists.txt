@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 # 3_binary_search_realization
 add_executable(3_search_algorithms__3_binary_search_realization__11
-        3_search_algorithms/3_binary_search_realization/11/11.cpp)
+        3_search_algorithms/3_binary_search_realization/11/11.cpp 5_two_pointer_technique/6_assignments/8/8.cpp)
 
 # 5_binary_search_by_answer
 add_executable(3_search_algorithms__5_binary_search_by_answer__2
@@ -96,3 +96,7 @@ add_executable(5_two_pointer_technique__6_assignments__6
 # 6_assignments
 add_executable(5_two_pointer_technique__6_assignments__7
         5_two_pointer_technique/6_assignments/7/7.cpp)
+
+# 6_assignments
+add_executable(5_two_pointer_technique__6_assignments__8
+        5_two_pointer_technique/6_assignments/8/8.cpp)
