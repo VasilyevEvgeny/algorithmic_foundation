@@ -244,7 +244,7 @@ public:
                 {{"sticks", "3 4 5"}, {"true", "0"}},
                 {{"sticks", "3 4 6"}, {"true", "1"}},
                 {{"sticks", "3 4 5 6"}, {"true", "2"}},
-                {{"sticks", "4 4 4 7"}, {"true", "1"}},
+                {{"sticks", "4 4 4 7_elementary_data_structures"}, {"true", "1"}},
                 {{"sticks", "5 6 6 9"}, {"true", "2"}},
                 {{"sticks", "4 5 8 9"}, {"true", "2"}},
                 {{"sticks", "3 4 5 5 6"}, {"true", "2"}},

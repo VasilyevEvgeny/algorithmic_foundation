@@ -183,14 +183,14 @@ void manual_testing() {
             {{"n", "5"}, {"s", "abcde"}, {"m", "5"}, {"t", "de"}, {"true", "3"}},
 
             // medium
-            {{"n", "7"}, {"s", "abacaba"}, {"m", "3"}, {"t", "abc"}, {"true", "15"}},
+            {{"n", "7_elementary_data_structures"}, {"s", "abacaba"}, {"m", "3"}, {"t", "abc"}, {"true", "15"}},
             {{"n", "8"}, {"s", "acbacaba"}, {"m", "3"}, {"t", "abc"}, {"true", "19"}},
 
             // additional
             {{"n", "22"}, {"s", "akablabcpabcdlabcdabcd"}, {"m", "4"}, {"t", "dacb"}, {"true", "46"}},
             {{"n", "20"}, {"s", "abcabaabcdabcdaababc"}, {"m", "4"}, {"t", "abcd"}, {"true", "54"}},
             {{"n", "8"}, {"s", "abcabaab"}, {"m", "14"}, {"t", "abcdadaadadada"}, {"true", "25"}},
-            {{"n", "2"}, {"s", "ab"}, {"m", "7"}, {"t", "dabcabc"}, {"true", "3"}},
+            {{"n", "2"}, {"s", "ab"}, {"m", "7_elementary_data_structures"}, {"t", "dabcabc"}, {"true", "3"}},
             {{"n", "12"}, {"s", "abkabcpdeabc"}, {"m", "6"}, {"t", "aabbcc"}, {"true", "15"}},
             {{"n", "5"}, {"s", "abaad"}, {"m", "3"}, {"t", "aab"}, {"true", "9"}},
             {{"n", "5"}, {"s", "aaaaa"}, {"m", "1"}, {"t", "a"}, {"true", "5"}},
