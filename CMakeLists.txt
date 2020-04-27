@@ -100,3 +100,12 @@ add_executable(5_two_pointer_technique__6_assignments__7
 # 6_assignments
 add_executable(5_two_pointer_technique__6_assignments__8
         5_two_pointer_technique/6_assignments/8/8.cpp)
+
+
+##############################
+# 7_elementary_data_structures
+##############################
+
+# 2_linked_list
+add_executable(7_elementary_data_structures__2_linked_list__3
+        7_elementary_data_structures/2_linked_list/3_remove_linked_list_elements/3.cpp)
