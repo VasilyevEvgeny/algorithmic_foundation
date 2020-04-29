@@ -9,9 +9,9 @@
 #include <cassert>
 
 // 1 - work, 2 - manual testing
-#define MODE 2
+#define MODE 1
 
-#define VERBOSE false
+#define VERBOSE true
 
 template <typename T>
 std::ostream& operator << (std::ostream& os, const std::vector<T>& v) {
@@ -39,8 +39,14 @@ std::vector<ListNode*> make_linked_list(std::vector<int>& values) {
         auto node = new ListNode(val);
         linked_list.push_back(node);
     }
-    for (size_t i = 0; i < linked_list.size() - 1; ++i) {
+    for (int i = 0; i < std::max(0, static_cast<int>(linked_list.size() - 1)); ++i) {
         linked_list[i]->next = linked_list[i + 1];
+    }
+
+    if (linked_list.empty()) {
+        auto dummy = new ListNode(0);
+        linked_list.push_back(dummy);
+        return linked_list;
     }
 
     return linked_list;
@@ -88,52 +94,22 @@ bool operator == (ListNode& lhs_head, ListNode& rhs_head) {
 class Solution {
 public:
     static ListNode* removeElements(ListNode* head, int val) {
-        ListNode* node = head;
-        ListNode* prev;
+        if (!head) { return nullptr; }
 
-        while (node) {
-            bool flag_break = false;
-            if (node->val != val) {
-                prev = node;
-                if (VERBOSE) { std::cout << "node->val = " << node->val << " is not equal to val! prev --> " << (*prev).val << std::endl;}
-            }
-            else {
-                if (node->next == nullptr) {
-                    prev->next = nullptr;
-                    if (VERBOSE) { std::cout << "node->next == nullptr! prev->next --> nullptr" << std::endl; }
-                    break;
-                }
-                if (VERBOSE) { std::cout << "node->val = " << node->val << " is equal to val!" << std::endl; }
-                while (node->val == val) {
-                    node = node-> next;
-                    if (VERBOSE) { std::cout << ".....node --> " << (*node).val << std::endl; }
-                    if (node->next == nullptr) {
-                        flag_break = true;
-                        if (VERBOSE) { std::cout << ".....node = " << (*node).val << ", node->next is nullptr! flag_break = true!" << std::endl; }
-                        break;
-                    }
-                }
-
-                if (flag_break) {
-                    if (node->val != val) { prev->next = node; }
-                    else { prev->next = nullptr; }
-                    if (VERBOSE) { std::cout << "prev->next --> nullptr" << std::endl; }
-                    break;
-                }
-                prev->next = node;
-                if (VERBOSE) { std::cout << "prev->next --> " << (*prev->next).val << std::endl; }
-            }
-
+        for (ListNode* node = head; node; node = node->next) {
             if (node->next) {
-                node = node->next;
-                if (VERBOSE) { std::cout << "node --> " << (*node).val << std::endl; }
+                while (node->next->val == val) {
+                    node->next = node->next->next;
+                    if (!node->next) { break; }
+                }
             }
-            else { break; }
         }
 
-        if (head->val == val) {
+        if (head->val == val && head->next) {
             head = head->next;
-            if (VERBOSE) { std::cout << "head->val = " << head->val << " is equal to val! head --> " << head << std::endl; }
+        }
+        if (head->val == val) {
+            return head->next;
         }
 
         return head;
@@ -147,15 +123,25 @@ public:
 
     static void test() {
         std::vector<std::map<std::string, std::string>> test_data {
+            // boundary
+            {{"linked_list", ""}, {"val", "1"}, {"true", ""}},
+            {{"linked_list", "1"}, {"val", "1"}, {"true", ""}},
+            {{"linked_list", "1 1 1"}, {"val", "1"}, {"true", ""}},
+
             // basic
             {{"linked_list", "1"}, {"val", "100"}, {"true", "1"}},
             {{"linked_list", "1 2"}, {"val", "100"}, {"true", "1 2"}},
             {{"linked_list", "1 1 2"}, {"val", "2"}, {"true", "1 1"}},
-//            {{"linked_list", "1 1 2"}, {"val", "1"}, {"true", "2"}},
+            {{"linked_list", "1 1 2"}, {"val", "1"}, {"true", "2"}},
+            {{"linked_list", "1 1 2 2"}, {"val", "1"}, {"true", "2 2"}},
             {{"linked_list", "1 1 2"}, {"val", "100"}, {"true", "1 1 2"}},
+            {{"linked_list", "1 2 1"}, {"val", "1"}, {"true", "2"}},
+            {{"linked_list", "1 2 1"}, {"val", "2"}, {"true", "1 1"}},
 
             // medium
             {{"linked_list", "1 2 6 3 4 5 6"}, {"val", "6"}, {"true", "1 2 3 4 5"}},
+//            {{"linked_list", "1 2 1 2 1 2 1"}, {"val", "1"}, {"true", "2 2 2"}},
+//            {{"linked_list", "1 2 1 2 1 2 1"}, {"val", "2"}, {"true", "1 1 1 1"}},
         };
 
         for (const auto& line : test_data) {
@@ -163,7 +149,7 @@ public:
 
             std::string s = line.at("linked_list");
             std::vector<int> v = str_to_vector(s);
-            auto head = make_linked_list(v)[0];
+            ListNode* head = make_linked_list(v)[0];
             std::cerr << "linked_list:\n" << head << "val = " << val << "\n" << std::endl;
 
             std::cout << std::endl;
@@ -207,7 +193,7 @@ private:
 int main() {
 
 #if MODE == 1
-    std::vector<int> values{1, 1, 2};
+    std::vector<int> values{1};
 
     auto linked_list = make_linked_list(values);
     std::cout << "Initial:\n" << linked_list[0] << std::endl;
