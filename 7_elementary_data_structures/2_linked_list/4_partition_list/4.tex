@@ -1,0 +1,45 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+Given a linked list and a value $x$, partition it such that all nodes less than x come before nodes greater than or equal to $x$.
+
+You should preserve the original relative order of the nodes in each of the two partitions.
+
+\ \\
+
+\noindent C++:
+
+\begin{lstlisting}[style=C++]
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        
+    }
+};
+\end{lstlisting}
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+$head = 1 \rightarrow 4 \rightarrow 3 \rightarrow 2 \rightarrow 5 \rightarrow 2$, $x=3$\\
+
+\noindent \textbf{Sample output:}\\
+$1 \rightarrow 2 \rightarrow 2 \rightarrow 4 \rightarrow 3 \rightarrow 5$\\
+
+
+
+\end{document}

@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 # 3_binary_search_realization
 add_executable(3_search_algorithms__3_binary_search_realization__11
-        3_search_algorithms/3_binary_search_realization/11/11.cpp 5_two_pointer_technique/6_assignments/8/8.cpp 7_elementary_data_structures/2_linked_list/1_middle_of_the_linked_list/1.cpp 7_elementary_data_structures/2_linked_list/2_reverse_linked_list/2.cpp 7_elementary_data_structures/2_linked_list/3_remove_linked_list_elements/3.cpp)
+        3_search_algorithms/3_binary_search_realization/11/11.cpp 5_two_pointer_technique/6_assignments/8/8.cpp 7_elementary_data_structures/2_linked_list/1_middle_of_the_linked_list/1.cpp 7_elementary_data_structures/2_linked_list/2_reverse_linked_list/2.cpp 7_elementary_data_structures/2_linked_list/3_remove_linked_list_elements/3.cpp 7_elementary_data_structures/2_linked_list/4_partition_list/4.cpp)
 
 # 5_binary_search_by_answer
 add_executable(3_search_algorithms__5_binary_search_by_answer__2

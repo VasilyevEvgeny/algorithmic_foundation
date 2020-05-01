@@ -9,9 +9,9 @@
 #include <cassert>
 
 // 1 - work, 2 - manual testing
-#define MODE 1
+#define MODE 2
 
-#define VERBOSE true
+#define VERBOSE false
 
 template <typename T>
 std::ostream& operator << (std::ostream& os, const std::vector<T>& v) {
@@ -94,7 +94,7 @@ bool operator == (ListNode& lhs_head, ListNode& rhs_head) {
 class Solution {
 public:
     static ListNode* removeElements(ListNode* head, int val) {
-        if (!head) { return nullptr; }
+        if (!head) { return nullptr }
 
         for (ListNode* node = head; node; node = node->next) {
             if (node->next) {
