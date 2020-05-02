@@ -1,0 +1,40 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+Implement a minimum stack data structure. The structure should support the following types of operations: add a number to the top of the stack, remove the number from the top of the stack and print the minimum number on the stack. The stack is initially empty.
+
+The first line of the input contains an integer $q$ - the number of operations with the stack ($1 \le q \le 10^6$).
+
+Each of the following qq lines contains a description of the stack operation:
+\begin{itemize}
+\item \textbf{push} $x$ -- add an integer $x$ to the top of the stack ($0 \le x \le 10^9$)
+\item \textbf{pop} -- delete the number lying on the top of the stack. It is guaranteed that the stack is not empty
+\item \textbf{min} -- print the minimum number on the stack. It is guaranteed that the stack is not empty
+\end{itemize}
+For each min operation, output the minimum number on the stack.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+7\\
+push 3\\
+push 2\\
+min\\
+pop\\
+min\\
+push 1\\
+min\\
+
+
+\noindent \textbf{Sample output:}\\
+2\\
+3\\
+1\\
+
+
+
+\end{document}
