@@ -1,0 +1,38 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+Given a sequence consisting of round, square and curly brackets. Check if it is the correct bracket sequence.
+
+A sequence $A$ is called a regular bracket sequence if it satisfies one of the following conditions:
+\begin{itemize}
+\item $A$ is an empty sequence
+\item $A = (B)$, where $B$ is the correct bracket sequence
+\item $A = [B]$, where $B$ is the correct bracket sequence
+\item $A = {B}$, where $B$ is the correct bracket sequence
+\item $A = BC$, where $B$ and $C$ are regular bracket sequences
+\end{itemize}
+A single line of input contains a sequence of parentheses, brackets and square brackets. The length of the sequence does not exceed $10^6$.
+
+Print \textbf{YES} if the sequence is the correct bracket sequence, and \textbf{NO} if not.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+$([]{})[]$
+
+\noindent \textbf{Sample output:}\\
+YES\\
+
+
+\noindent \textbf{Sample input:}\\
+$[(])$
+
+\noindent \textbf{Sample output:}\\
+NO\\
+
+
+\end{document}
