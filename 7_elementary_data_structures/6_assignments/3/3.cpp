@@ -113,6 +113,7 @@ private:
         if (VERBOSE) { std::cout << "add first portion squared, sum_of_squares --> " << sum_of_squares << std::endl; }
         // add second portion
         enterprises_.insert(it, portions.second);
+//        v.insert(it, portions.second);
         sum_of_squares += std::pow(portions.second, 2);
         if (VERBOSE) { std::cout << "add second portion squared, sum_of_squares --> " << sum_of_squares << std::endl; }
         // erase initial element
@@ -144,9 +145,8 @@ private:
             enterprises_.erase(std::prev(it));
         }
         else {
-//            auto it = enterprises_.begin();
-            auto it = enterprises_.begin() + sizeof(std::list<size>) * j;
-//            std::advance(it, j - 1);
+            auto it = enterprises_.begin();
+            std::advance(it, j - 1);
 
             auto portions = calculate_portions(*it);
 
@@ -170,14 +170,6 @@ private:
             enterprises_.erase(it);
         }
     }
-
-//    std::list<size>::iterator find_binary(size j) {
-//        auto l_it = enterprises_.begin();
-//        auto r_it = enterprises_.end();
-//        while (l_it != r_it) {
-//            auto
-//        }
-//    }
 
     const size n_;
     std::vector<size> a_;
