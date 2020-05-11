@@ -13,7 +13,7 @@
 #include <cassert>
 
 // 1 - work, 3 - stress testing
-#define MODE 1
+#define MODE 3
 
 #define VERBOSE false
 
@@ -73,28 +73,26 @@ std::ostream& operator << (std::ostream& os, const std::vector<std::list<size>>&
 class Greedy {
 public:
     Greedy(size n, std::vector<size>& a, size k, std::vector<size>& e, std::vector<size>& v)
-    : n_(n), a_(a), k_(k), e_(e), v_(v) {
+    : n_(n), a_(a), k_(k), e_(e), v_(v), sum_of_squares_(0) {
         for (size i = 0; i < n_; ++i) {
             enterprises_.push_back(a_[i]);
-            sum_of_squares += std::pow(a_[i], 2);
+            sum_of_squares_ += std::pow(a_[i], 2);
         }
 
         if (VERBOSE) { std::cout << "Enterprises initial: " << enterprises_ << std::endl; }
     }
 
-    void make_evolution() {
+    std::string make_evolution() {
+        std::string output;
 
-#if MODE == 1
-        std::cout << sum_of_squares << std::endl;
-#endif
+        output += std::to_string(sum_of_squares_);
+
         for (size i = 0; i < k_; ++i) {
 
             if (e_[i] == 1) { bankrupt(v_[i]); }
             else if (e_[i] == 2) { divide(v_[i]); }
 
-#if MODE == 1
-            std::cout  << sum_of_squares << std::endl;
-#endif
+            output += "\n" + std::to_string(sum_of_squares_);
 
             if (VERBOSE) {
                 std::cout << "enterprises_ = " << enterprises_ << std::endl;
@@ -103,6 +101,8 @@ public:
         }
 
         if (VERBOSE) { std::cout << "Enterprises after evolution: " << enterprises_ << std::endl; }
+
+        return output;
     }
 
 private:
@@ -127,40 +127,40 @@ private:
 
         // add first portion
         enterprises_.insert(it, portions.first);
-        sum_of_squares += std::pow(portions.first, 2);
-        if (VERBOSE) { std::cout << "add first portion squared, sum_of_squares --> " << sum_of_squares << std::endl; }
+        sum_of_squares_ += std::pow(portions.first, 2);
+        if (VERBOSE) { std::cout << "add first portion squared, sum_of_squares --> " << sum_of_squares_ << std::endl; }
 
         // add second portion
         enterprises_.insert(it, portions.second);
-        sum_of_squares += std::pow(portions.second, 2);
-        if (VERBOSE) { std::cout << "add second portion squared, sum_of_squares --> " << sum_of_squares << std::endl; }
+        sum_of_squares_ += std::pow(portions.second, 2);
+        if (VERBOSE) { std::cout << "add second portion squared, sum_of_squares --> " << sum_of_squares_ << std::endl; }
 
         // erase initial element
-        sum_of_squares -= std::pow(*it, 2);
+        sum_of_squares_ -= std::pow(*it, 2);
         enterprises_.erase(it);
-        if (VERBOSE) { std::cout << "remove initial squared, sum_of_squares --> " << sum_of_squares << std::endl; }
+        if (VERBOSE) { std::cout << "remove initial squared, sum_of_squares --> " << sum_of_squares_ << std::endl; }
     }
 
     void bankrupt(size j) {
         if (VERBOSE) { std::cout << "===> go bankrupt! j = " << j << std::endl; }
         if (j == 1) {
             auto it = enterprises_.begin();
-            sum_of_squares -= std::pow(*it, 2);
-            sum_of_squares -= std::pow(*std::next(it), 2);
-            if (VERBOSE) { std::cout << "j = 1, remove cur and next squared, sum_of_squares --> " << sum_of_squares << std::endl; }
+            sum_of_squares_ -= std::pow(*it, 2);
+            sum_of_squares_ -= std::pow(*std::next(it), 2);
+            if (VERBOSE) { std::cout << "j = 1, remove cur and next squared, sum_of_squares --> " << sum_of_squares_ << std::endl; }
             *std::next(it) += *it;
-            sum_of_squares += std::pow(*std::next(it), 2);
-            if (VERBOSE) { std::cout << "j = 1, add next squared, sum_of_squares --> " << sum_of_squares << std::endl; }
+            sum_of_squares_ += std::pow(*std::next(it), 2);
+            if (VERBOSE) { std::cout << "j = 1, add next squared, sum_of_squares --> " << sum_of_squares_ << std::endl; }
             enterprises_.erase(it);
         }
         else if (j == enterprises_.size()) {
             auto it = enterprises_.end();
-            sum_of_squares -= std::pow(*std::prev(std::prev(it)), 2);
-            sum_of_squares -= std::pow(*std::prev(it), 2);
-            if (VERBOSE) { std::cout << "j = size, remove prev-prev and prev squared, sum_of_squares --> " << sum_of_squares << std::endl; }
+            sum_of_squares_ -= std::pow(*std::prev(std::prev(it)), 2);
+            sum_of_squares_ -= std::pow(*std::prev(it), 2);
+            if (VERBOSE) { std::cout << "j = size, remove prev-prev and prev squared, sum_of_squares --> " << sum_of_squares_ << std::endl; }
             *std::prev(std::prev(it)) += *std::prev(it);
-            sum_of_squares += std::pow(*std::prev(std::prev(it)), 2);
-            if (VERBOSE) { std::cout << "j = size, add prev squared, sum_of_squares --> " << sum_of_squares << std::endl; }
+            sum_of_squares_ += std::pow(*std::prev(std::prev(it)), 2);
+            if (VERBOSE) { std::cout << "j = size, add prev squared, sum_of_squares --> " << sum_of_squares_ << std::endl; }
             enterprises_.erase(std::prev(it));
         }
         else {
@@ -170,21 +170,21 @@ private:
             auto portions = calculate_portions(*it);
 
             //cur
-            sum_of_squares -= std::pow(*it, 2);
-            if (VERBOSE) { std::cout << "remove cur squared, sum_of_squares --> " << sum_of_squares << std::endl; }
+            sum_of_squares_ -= std::pow(*it, 2);
+            if (VERBOSE) { std::cout << "remove cur squared, sum_of_squares --> " << sum_of_squares_ << std::endl; }
             // prev
-            sum_of_squares -= std::pow(*std::prev(it), 2);
-            if (VERBOSE) { std::cout << "remove prev squared, sum_of_squares --> " << sum_of_squares << std::endl; }
+            sum_of_squares_ -= std::pow(*std::prev(it), 2);
+            if (VERBOSE) { std::cout << "remove prev squared, sum_of_squares --> " << sum_of_squares_ << std::endl; }
             *std::prev(it) += portions.first;
-            sum_of_squares += std::pow(*std::prev(it), 2);
-            if (VERBOSE) { std::cout << "add prev squared, sum_of_squares --> " << sum_of_squares << std::endl; }
+            sum_of_squares_ += std::pow(*std::prev(it), 2);
+            if (VERBOSE) { std::cout << "add prev squared, sum_of_squares --> " << sum_of_squares_ << std::endl; }
 
             // next
-            sum_of_squares -= std::pow(*std::next(it), 2);
-            if (VERBOSE) { std::cout << "remove next squared, sum_of_squares --> " << sum_of_squares << std::endl; }
+            sum_of_squares_ -= std::pow(*std::next(it), 2);
+            if (VERBOSE) { std::cout << "remove next squared, sum_of_squares --> " << sum_of_squares_ << std::endl; }
             *std::next(it) += portions.second;
-            sum_of_squares += std::pow(*std::next(it), 2);
-            if (VERBOSE) { std::cout << "add next squared, sum_of_squares --> " << sum_of_squares << std::endl; }
+            sum_of_squares_ += std::pow(*std::next(it), 2);
+            if (VERBOSE) { std::cout << "add next squared, sum_of_squares --> " << sum_of_squares_ << std::endl; }
 
             enterprises_.erase(it);
         }
@@ -197,14 +197,15 @@ private:
     std::vector<size> v_;
 
     std::list<size> enterprises_;
-    size sum_of_squares = 0;
+    size sum_of_squares_;
+
 };
 
 
 class Fast {
 public:
     Fast(size n, std::vector<size>& a, size k, std::vector<size>& e, std::vector<size>& v)
-    : n_(n), a_(a), k_(k), e_(e), v_(v), sqrt_val_(316), left_bound_(0), right_bound_(0),
+    : n_(n), a_(a), k_(k), e_(e), v_(v), sqrt_val_(317), left_bound_(0), right_bound_(0),
     res_squared_sum_(0), number_of_nodes_(0) {
 
         for (size i = 0; i < sqrt_val_; ++i) {
@@ -213,7 +214,7 @@ public:
         }
 
         for (size i = 0; i < n_; ++i) {
-            auto group_number = number_of_nodes_ / 1;
+            auto group_number = number_of_nodes_ / 100000 / sqrt_val_;
             if (group_number > right_bound_) { right_bound_ = group_number; }
 
             groups_[group_number].push_back(a[i]);
@@ -223,48 +224,49 @@ public:
             number_of_nodes_++;
         }
 
-        std::cout << "groups_ = " << groups_ << std::endl;
-        std::cout << "sizes_ = " << sizes_ << std::endl;
-        std::cout << "res_squared_sum = " << res_squared_sum_ << std::endl;
-        std::cout << "number_of_nodes_ = " << number_of_nodes_ << std::endl;
-        std::cout << "left_bound = " << left_bound_ << std::endl;
-        std::cout << "right_bound = " << right_bound_ << std::endl;
+//        std::cout << "groups_ = " << groups_ << std::endl;
+//        std::cout << "sizes_ = " << sizes_ << std::endl;
+//        std::cout << "res_squared_sum = " << res_squared_sum_ << std::endl;
+//        std::cout << "number_of_nodes_ = " << number_of_nodes_ << std::endl;
+//        std::cout << "left_bound = " << left_bound_ << std::endl;
+//        std::cout << "right_bound = " << right_bound_ << std::endl;
 
     }
 
-    void make_evolution() {
+    std::string make_evolution() {
+        std::string output;
 
-#if MODE == 1
-        std::cout << res_squared_sum_ << std::endl;
-#endif
+        output += std::to_string(res_squared_sum_);
+
 //        divide(3);
-        bankrupt(2);
+//        bankrupt(2);
 
-        std::cout << "groups_ = " << groups_ << std::endl;
-        std::cout << "sizes_ = " << sizes_ << std::endl;
-        std::cout << "res_squared_sum = " << res_squared_sum_ << std::endl;
-        std::cout << "number_of_nodes_ = " << number_of_nodes_ << std::endl;
-        std::cout << "left_bound = " << left_bound_ << std::endl;
-        std::cout << "right_bound = " << right_bound_ << std::endl;
+//        std::cout << "groups_ = " << groups_ << std::endl;
+//        std::cout << "sizes_ = " << sizes_ << std::endl;
+//        std::cout << "res_squared_sum = " << res_squared_sum_ << std::endl;
+//        std::cout << "number_of_nodes_ = " << number_of_nodes_ << std::endl;
+//        std::cout << "left_bound = " << left_bound_ << std::endl;
+//        std::cout << "right_bound = " << right_bound_ << std::endl;
 
 
-//        for (size i = 0; i < k_; ++i) {
-//
-//            if (e_[i] == 1) { bankrupt(v_[i]); }
-//            else if (e_[i] == 2) { divide(v_[i]); }
-//
-//#if MODE == 1
-//            std::cout  << res_squared_sum << std::endl;
-//#endif
-//
+        for (size i = 0; i < k_; ++i) {
+
+            if (e_[i] == 1) { bankrupt(v_[i]); }
+            else if (e_[i] == 2) { divide(v_[i]); }
+
+            output += "\n" + std::to_string(res_squared_sum_);
+
 //            if (VERBOSE) {
 //                std::cout << "enterprises_ = " << enterprises_ << std::endl;
 //                std::cout << "===========================================" << std::endl;
 //            }
-//        }
+
+
+        }
 //
 //        if (VERBOSE) { std::cout << "Enterprises after evolution: " << enterprises_ << std::endl; }
 
+        return output;
     }
 
 
@@ -296,7 +298,7 @@ private:
         auto position = find_position(j);
         auto group_number = position.first;
         auto index_in_group = position.second;
-        std::cout << "group_number = " << group_number << ", index in group = " << index_in_group << std::endl;
+//        std::cout << "group_number = " << group_number << ", index in group = " << index_in_group << std::endl;
 
         auto it = groups_[group_number].begin();
         std::advance(it, index_in_group);
@@ -323,6 +325,32 @@ private:
         number_of_nodes_++;
     }
 
+    size find_first_nonempty_group(size start_idx, const std::string& direction) {
+        if (direction == "forward") {
+            for (size i = start_idx; i < sqrt_val_; ++i) {
+                if (std::distance(groups_[i].begin(), groups_[i].end()) > 1) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        else if (direction == "backward") {
+            for (size i = start_idx; i >= 0; --i) {
+                if (std::distance(groups_[i].begin(), groups_[i].end()) > 1) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        else {
+            throw std::runtime_error("Wrong direction!");
+        }
+    }
+
+    bool is_group_unit(size group_number) {
+        return std::distance(groups_[group_number].begin(), groups_[group_number].end()) == 2;
+    }
+
     void bankrupt(size j) {
         if (VERBOSE) { std::cout << "===> go bankrupt! j = " << j << std::endl; }
 
@@ -332,9 +360,8 @@ private:
             if (VERBOSE) { std::cout << "j = 1, remove cur and next squared, sum_of_squares --> " << res_squared_sum_ << std::endl; }
             std::list<size>::iterator next;
             if (sizes_[left_bound_] == 1) {
-                size i_gr = left_bound_ + 1;
-                while (std::distance(groups_[i_gr].begin(), groups_[i_gr].end()) > 1) { ++i_gr; };
-                next = groups_[i_gr].begin();
+                size target = find_first_nonempty_group(left_bound_ + 1, "forward");
+                next = groups_[target].begin();
                 sizes_[left_bound_] = 0;
             }
             else {
@@ -349,16 +376,13 @@ private:
             if (groups_[left_bound_].empty()) { left_bound_++; }
         }
         else if (j == number_of_nodes_) {
-//            std::cout << "here!" << std::endl;
             auto it = groups_[right_bound_].end();
-            std::cout << "it = " << *it << std::endl;
             res_squared_sum_ -= std::pow(*std::prev(it), 2);
             if (VERBOSE) { std::cout << "j = size, remove it squared, sum_of_squares --> " << res_squared_sum_ << std::endl; }
             std::list<size>::iterator prevprev;
             if (sizes_[right_bound_] == 1) {
-                size i_gr = right_bound_ - 1;
-                while (std::distance(groups_[i_gr].begin(), groups_[i_gr].end()) > 1 && i_gr > 0) { --i_gr; }
-                prevprev = std::prev(groups_[i_gr].end());
+                size target = find_first_nonempty_group(right_bound_ - 1, "backward");
+                prevprev = std::prev(groups_[target].end());
                 sizes_[right_bound_] = 0;
             }
             else {
@@ -366,24 +390,17 @@ private:
                 sizes_[right_bound_]--;
             }
             res_squared_sum_ -= std::pow(*prevprev, 2);
-            std::cout << "prevprev = " << *prevprev << std::endl;
-
             *prevprev += *std::prev(it);
-
-            std::cout << "prevprev upd = " << *prevprev << std::endl;
-
             res_squared_sum_ += std::pow(*prevprev, 2);
             if (VERBOSE) { std::cout << "j = size, add prev squared, sum_of_squares --> " << res_squared_sum_ << std::endl; }
             groups_[right_bound_].erase(std::prev(it));
-
             if (groups_[right_bound_].empty()) { right_bound_--; }
-
         }
         else {
             auto position = find_position(j);
             auto group_number = position.first;
             auto index_in_group = position.second;
-            std::cout << "group_number = " << group_number << ", index in group = " << index_in_group << std::endl;
+//            std::cout << "group_number = " << group_number << ", index in group = " << index_in_group << std::endl;
 
             auto it = groups_[group_number].begin();
             std::advance(it, index_in_group);
@@ -392,12 +409,26 @@ private:
             std::list<size>::iterator prev, next;
             if (index_in_group == 0) {
                 assert (group_number != 0);
-                prev = std::prev(groups_[group_number-1].end());
-                next = std::next(groups_[group_number].begin());
+                auto prev_idx = find_first_nonempty_group(group_number - 1, "backward");
+                prev = std::prev(groups_[prev_idx].end());
+                if (is_group_unit(group_number)) {
+                    auto next_idx = find_first_nonempty_group(group_number, "forward");
+                    next = groups_[next_idx].begin();
+                }
+                else {
+                    next = std::next(groups_[group_number].begin());
+                }
             }
-            else if (index_in_group != sizes_[group_number] - 1)  {
-                prev = std::prev(std::prev(groups_[group_number].end()));
-                next = groups_[group_number + 1].begin();
+            else if (index_in_group == sizes_[group_number] - 1)  {
+                if (is_group_unit(group_number)) {
+                    auto prev_idx = find_first_nonempty_group(group_number, "backward");
+                    prev = std::prev(groups_[prev_idx].end());
+                }
+                else {
+                    prev = std::prev(std::prev(groups_[group_number].end()));
+                }
+                auto next_idx = find_first_nonempty_group(group_number + 1, "forward");
+                next = groups_[next_idx].begin();
             }
             else {
                 prev = std::prev(it);
@@ -422,6 +453,7 @@ private:
             if (VERBOSE) { std::cout << "add next squared, sum_of_squares --> " << res_squared_sum_ << std::endl; }
 
             groups_[group_number].erase(it);
+            sizes_[group_number]--;
         }
 
         number_of_nodes_--;
@@ -440,7 +472,6 @@ private:
     size number_of_nodes_;
     size left_bound_;
     size right_bound_;
-
 };
 
 
@@ -452,19 +483,19 @@ public:
         std::random_device rd;
         std::mt19937 gen(rd());
 
-        const size MIN_N = 50000, MAX_N = 50000;
+        const size MIN_N = 100000, MAX_N = 100000;
         std::uniform_int_distribution<> dist_N(MIN_N, MAX_N);
 
-        const size MIN_VAL_A = 500, MAX_VAL_A = 1000;
+        const size MIN_VAL_A = 1, MAX_VAL_A = 10000;
         std::uniform_int_distribution<> dist_VAL_A(MIN_VAL_A, MAX_VAL_A);
 
         const size MIN_K = 100000, MAX_K = 100000;
         std::uniform_int_distribution<> dist_K(MIN_K, MAX_K);
 
-        const size MIN_E = 2, MAX_E = 2;
+        const size MIN_E = 1, MAX_E = 2;
         std::uniform_int_distribution<> dist_E(MIN_E, MAX_E);
 
-        const size MIN_V = 45000, MAX_V = 45000;
+        const size MIN_V = 1, MAX_V = 70000;
         std::uniform_int_distribution<> dist_V(MIN_V, MAX_V);
 
         while (true) {
@@ -485,13 +516,23 @@ public:
             std::cout << "k = " << k << std::endl; //", ev = " << ev << std::endl;
 
             tt::steady_clock::time_point begin_greedy = tt::now();
-            Greedy(n, a, k, e, v).make_evolution();
+            auto res_greedy = 0; //Greedy(n, a, k, e, v).make_evolution();
             tt::steady_clock::time_point end_greedy = tt::now();
             auto duration_greedy = std::chrono::duration_cast<std::chrono::nanoseconds> (end_greedy - begin_greedy).count();
 
-            std::cout << std::scientific << "T = " << duration_greedy * 1e-9 << " s" << std::endl;
+            std::cout << std::scientific << "T_greedy = " << duration_greedy * 1e-9 << " s" << std::endl;
 
-//            if (duration * 1e-9 > 3.0) { throw std::runtime_error("Solution is too slow: " + std::to_string(duration * 1e-9) + " s"); }
+            tt::steady_clock::time_point begin_fast = tt::now();
+            auto res_fast = Fast(n, a, k, e, v).make_evolution();
+            tt::steady_clock::time_point end_fast = tt::now();
+            auto duration_fast = std::chrono::duration_cast<std::chrono::nanoseconds> (end_fast - begin_fast).count();
+
+            std::cout << std::scientific << "T_fast = " << duration_fast * 1e-9 << " s" << std::endl;
+
+//            assert(res_greedy == res_fast);
+
+            if (duration_fast * 1e-9 > 1.0) { throw std::runtime_error("Solution is too slow: " + std::to_string(duration_fast * 1e-9) + " s"); }
+
 
             a.clear();
             e.clear();
@@ -530,8 +571,8 @@ int main() {
         std::cout << "v = " << v << std::endl;
     }
 
-//    Greedy(n, a, k, e, v).make_evolution();
-    Fast(n, a, k, e, v).make_evolution();
+//    std::cout << Greedy(n, a, k, e, v).make_evolution() << std::endl;
+    std::cout << Fast(n, a, k, e, v).make_evolution() << std::endl;
 
 #elif MODE == 3
     StressTester::test();
