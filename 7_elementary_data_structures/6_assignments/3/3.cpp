@@ -205,7 +205,7 @@ private:
 class Fast {
 public:
     Fast(size n, std::vector<size>& a, size k, std::vector<size>& e, std::vector<size>& v)
-    : n_(n), a_(a), k_(k), e_(e), v_(v), sqrt_val_(317), left_bound_(0), right_bound_(0),
+    : n_(n), a_(a), k_(k), e_(e), v_(v), sqrt_val_(317), max_group_size_(2 * sqrt_val_), left_bound_(0), right_bound_(0),
     res_squared_sum_(0), number_of_nodes_(0) {
 
         for (size i = 0; i < sqrt_val_; ++i) {
@@ -214,7 +214,7 @@ public:
         }
 
         for (size i = 0; i < n_; ++i) {
-            auto group_number = number_of_nodes_ / 100000 / sqrt_val_;
+            auto group_number = number_of_nodes_ / 317;
             if (group_number > right_bound_) { right_bound_ = group_number; }
 
             groups_[group_number].push_back(a[i]);
@@ -224,13 +224,14 @@ public:
             number_of_nodes_++;
         }
 
-//        std::cout << "groups_ = " << groups_ << std::endl;
-//        std::cout << "sizes_ = " << sizes_ << std::endl;
-//        std::cout << "res_squared_sum = " << res_squared_sum_ << std::endl;
-//        std::cout << "number_of_nodes_ = " << number_of_nodes_ << std::endl;
-//        std::cout << "left_bound = " << left_bound_ << std::endl;
-//        std::cout << "right_bound = " << right_bound_ << std::endl;
-
+        if (VERBOSE) {
+            std::cout << "groups_ = " << groups_ << std::endl;
+            std::cout << "sizes_ = " << sizes_ << std::endl;
+            std::cout << "res_squared_sum = " << res_squared_sum_ << std::endl;
+            std::cout << "number_of_nodes_ = " << number_of_nodes_ << std::endl;
+            std::cout << "left_bound = " << left_bound_ << std::endl;
+            std::cout << "right_bound = " << right_bound_ << std::endl;
+        }
     }
 
     std::string make_evolution() {
@@ -238,33 +239,25 @@ public:
 
         output += std::to_string(res_squared_sum_);
 
-//        divide(3);
-//        bankrupt(2);
-
-//        std::cout << "groups_ = " << groups_ << std::endl;
-//        std::cout << "sizes_ = " << sizes_ << std::endl;
-//        std::cout << "res_squared_sum = " << res_squared_sum_ << std::endl;
-//        std::cout << "number_of_nodes_ = " << number_of_nodes_ << std::endl;
-//        std::cout << "left_bound = " << left_bound_ << std::endl;
-//        std::cout << "right_bound = " << right_bound_ << std::endl;
-
-
         for (size i = 0; i < k_; ++i) {
 
             if (e_[i] == 1) { bankrupt(v_[i]); }
             else if (e_[i] == 2) { divide(v_[i]); }
 
+            left_bound_ = find_first_nonempty_group(0, "forward");
+            right_bound_ = find_first_nonempty_group(groups_.size()-1, "backward");
+
             output += "\n" + std::to_string(res_squared_sum_);
 
-//            if (VERBOSE) {
-//                std::cout << "enterprises_ = " << enterprises_ << std::endl;
-//                std::cout << "===========================================" << std::endl;
-//            }
-
-
+            if (VERBOSE) {
+                std::cout << "groups_ = " << groups_ << std::endl;
+                std::cout << "sizes_ = " << sizes_ << std::endl;
+                std::cout << "res_squared_sum = " << res_squared_sum_ << std::endl;
+                std::cout << "number_of_nodes_ = " << number_of_nodes_ << std::endl;
+                std::cout << "left_bound = " << left_bound_ << std::endl;
+                std::cout << "right_bound = " << right_bound_ << std::endl;
+            }
         }
-//
-//        if (VERBOSE) { std::cout << "Enterprises after evolution: " << enterprises_ << std::endl; }
 
         return output;
     }
@@ -298,7 +291,6 @@ private:
         auto position = find_position(j);
         auto group_number = position.first;
         auto index_in_group = position.second;
-//        std::cout << "group_number = " << group_number << ", index in group = " << index_in_group << std::endl;
 
         auto it = groups_[group_number].begin();
         std::advance(it, index_in_group);
@@ -323,6 +315,27 @@ private:
         // update other
         sizes_[group_number]++;
         number_of_nodes_++;
+
+        if (sizes_[group_number] == max_group_size_) {
+            auto half = max_group_size_ / 2;
+
+            // insert new
+            groups_.insert(groups_.begin() + group_number + 1, std::list<size>());
+            sizes_.insert(sizes_.begin() + group_number + 1, half);
+
+            // copy remainder
+            auto copy_it = groups_[group_number].begin();
+            auto del_it = groups_[group_number].begin();
+            for (size i = 0; i < max_group_size_; ++i) {
+                if (i < half) { del_it = std::next(del_it); }
+                else { groups_[group_number + 1].push_back(*copy_it); }
+                copy_it = std::next(copy_it);
+            }
+
+            // delete remainder
+            groups_[group_number].erase(del_it, groups_[group_number].end());
+            sizes_[group_number] = half;
+        }
     }
 
     size find_first_nonempty_group(size start_idx, const std::string& direction) {
@@ -400,7 +413,6 @@ private:
             auto position = find_position(j);
             auto group_number = position.first;
             auto index_in_group = position.second;
-//            std::cout << "group_number = " << group_number << ", index in group = " << index_in_group << std::endl;
 
             auto it = groups_[group_number].begin();
             std::advance(it, index_in_group);
@@ -466,6 +478,7 @@ private:
     std::vector<size> v_;
 
     const size_t sqrt_val_;
+    const size_t max_group_size_;
     std::vector<std::list<size>> groups_;
     std::vector<size> sizes_;
     size res_squared_sum_;
@@ -489,13 +502,13 @@ public:
         const size MIN_VAL_A = 1, MAX_VAL_A = 10000;
         std::uniform_int_distribution<> dist_VAL_A(MIN_VAL_A, MAX_VAL_A);
 
-        const size MIN_K = 100000, MAX_K = 100000;
+        const size MIN_K = 5000, MAX_K = 5000;
         std::uniform_int_distribution<> dist_K(MIN_K, MAX_K);
 
         const size MIN_E = 1, MAX_E = 2;
         std::uniform_int_distribution<> dist_E(MIN_E, MAX_E);
 
-        const size MIN_V = 1, MAX_V = 70000;
+        size MIN_V = 50000, MAX_V = 50000;
         std::uniform_int_distribution<> dist_V(MIN_V, MAX_V);
 
         while (true) {
@@ -512,11 +525,11 @@ public:
                 v[i] = dist_V(gen);
             }
 
-            std::cout << "n = " << n << std::endl; //<< ", a = " << a << std::endl;
-            std::cout << "k = " << k << std::endl; //", ev = " << ev << std::endl;
+            std::cout << "n = " << n << std::endl;
+            std::cout << "k = " << k << std::endl;
 
             tt::steady_clock::time_point begin_greedy = tt::now();
-            auto res_greedy = 0; //Greedy(n, a, k, e, v).make_evolution();
+            auto res_greedy = Greedy(n, a, k, e, v).make_evolution();
             tt::steady_clock::time_point end_greedy = tt::now();
             auto duration_greedy = std::chrono::duration_cast<std::chrono::nanoseconds> (end_greedy - begin_greedy).count();
 
@@ -529,9 +542,9 @@ public:
 
             std::cout << std::scientific << "T_fast = " << duration_fast * 1e-9 << " s" << std::endl;
 
-//            assert(res_greedy == res_fast);
+            assert(res_greedy == res_fast);
 
-            if (duration_fast * 1e-9 > 1.0) { throw std::runtime_error("Solution is too slow: " + std::to_string(duration_fast * 1e-9) + " s"); }
+//            if (duration_fast * 1e-9 > 1.0) { throw std::runtime_error("Solution is too slow: " + std::to_string(duration_fast * 1e-9) + " s"); }
 
 
             a.clear();
