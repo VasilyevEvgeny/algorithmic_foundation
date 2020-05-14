@@ -55,6 +55,15 @@ std::ostream& operator << (std::ostream& os, const std::vector<std::pair<size, s
 }
 
 
+std::ostream& operator << (std::ostream& os, const std::vector<std::list<std::pair<size, size>>>& v) {
+    os << "########## GROUPS: ##########\n";
+    for (size_t i = 0; i < v.size(); ++i) {
+        os << "#" << i << " --> " << v[i] << std::endl;
+    }
+    return os;
+}
+
+
 class Greedy {
 public:
     Greedy(size q, std::vector<std::pair<size, std::vector<size>>>& events)
@@ -95,7 +104,11 @@ private:
 class Fast {
 public:
     Fast(size q, std::vector<std::pair<size, std::vector<size>>>& events)
-    : q_(q), events_(events) {}
+    : q_(q), events_(events), sqrt_val_(317), max_group_size_(2 * sqrt_val_) {
+        groups_.emplace_back(std::list<std::pair<size, size>>());
+
+        if (VERBOSE) { std::cout << groups_ << std::endl; }
+    }
 
     std::string solve() {
         std::string answer;
@@ -106,50 +119,90 @@ public:
             auto t = item.first;
             if (VERBOSE) { std::cout << "t = " << t << std::endl; }
             size r = 0, c = 0, x = 0;
+
             if (t == 1) {
                 r = item.second[0];
                 c = item.second[1];
                 if (VERBOSE) { std::cout << "r = " << r << ", c = " << c << std::endl; }
 
-                if (fence_stats_.empty()) {
-                    fence_stats_.emplace_back(r, c);
-                    if (VERBOSE) { std::cout << "empty! added first element" << std::endl; }
-                }
+                if (groups_.size() == 1 && groups_[0].empty()) { groups_[0].emplace_back(r, c); }
                 else {
                     bool less_than_others = true;
-                    for (auto it = fence_stats_.begin(); it != fence_stats_.end(); ++it) {
-                        if (r >= (*it).first) {
-                            fence_stats_.insert(it, {r, c});
-                            if (VERBOSE) { std::cout << "{" << r << ", " << c << "} inserted before {" <<
-                                           (*std::next(it)).first << ", " << (*std::next(it)).second << "}" << std::endl; }
+                    size n_target = 0;
+                    for (size n = 0; n < groups_.size(); ++n) {
+                        auto cur_high = groups_[n].front().first;
+                        auto cur_low = groups_[n].back().first;
+                        if (r >= cur_low) {
+                            for (auto it = groups_[n].begin(); it != groups_[n].end(); ++it) {
+                                if (r >= (*it).first) {
+                                    // insert
+                                    groups_[n].insert(it, {r, c});
+                                    if (VERBOSE) { std::cout << "{" << r << ", " << c << "} inserted before {" <<
+                                                   (*std::next(it)).first << ", " << (*std::next(it)).second << "}" << std::endl; }
 
-                            fence_stats_.erase(it, fence_stats_.end());
-                            less_than_others = false;
+                                    // erase remainder of cur group and other groups up to end
+                                    groups_[n].erase(it, groups_[n].end());
+                                    groups_.resize(n + 1);
+                                    less_than_others = false;
+
+                                    n_target = n;
+                                    break;
+                                }
+                            }
 
                             break;
                         }
                     }
                     if (less_than_others) {
-                        fence_stats_.emplace_back(r, c);
+                        auto last_index = groups_.size() - 1;
+                        groups_[last_index].emplace_back(r, c);
+                        n_target = last_index;
                         if (VERBOSE) { std::cout << "less than others! pushed back" << std::endl; }
                     }
-                }
 
-                if (VERBOSE) { std::cout << "fence_stats_: " << fence_stats_ << std::endl; }
+                    if (groups_[n_target].size() == max_group_size_) {
+                        // insert new group
+                        auto it = groups_.begin() + n_target + 1;
+                        groups_.insert(it, std::list<std::pair<size, size>>());
+
+                        // copy remainder to new group and del remainder
+                        auto copy_it = groups_[n_target].begin();
+                        auto del_it = groups_[n_target].begin();
+                        size half = max_group_size_ / 2;
+                        std::cout << "half = " << half << std::endl;
+                        for (size i = 0; i < groups_[n_target].size(); ++i) {
+                            if (i < half) { del_it = std::next(del_it); }
+                            else { groups_[n_target + 1].push_back(*copy_it); }
+                            copy_it = std::next(copy_it);
+                        }
+                        groups_[n_target].erase(del_it, groups_[n_target].end());
+                    }
+
+                }
             }
-            else if (t == 2) {
+            else {
                 x = item.second[0];
                 if (VERBOSE) { std::cout << "x = " << x << std::endl; }
 
                 bool greater_than_others = true;
-                for (auto it = fence_stats_.rbegin(); it != fence_stats_.rend(); ++it) {
-                    if (x <= (*it).first) {
-                        std::string cur_answer = std::to_string((*it).second);
-                        answer += cur_answer + "\n";
-                        greater_than_others = false;
+                for (auto it_group = groups_.rbegin(); it_group != groups_.rend(); ++it_group) {
+                    auto cur_high = (*it_group).front().first;
+                    auto cur_low = (*it_group).back().first;
+                    if (VERBOSE) { std::cout << "x = " << x << ", cur_low = " << cur_low << std::endl; }
 
-                        if (VERBOSE) { std::cout << "cur_answer = " << cur_answer << std::endl; }
+                    if (x <= cur_high) {
+                        for (auto it = (*it_group).rbegin(); it != (*it_group).rend(); ++it) {
+                            if (VERBOSE) { std::cout << "x = " << x << ", (*it).first = " << (*it).first << std::endl; }
+                            if (x <= (*it).first) {
+                                std::string cur_answer = std::to_string((*it).second);
+                                answer += cur_answer + "\n";
+                                greater_than_others = false;
 
+                                if (VERBOSE) { std::cout << "cur_answer = " << cur_answer << std::endl; }
+
+                                break;
+                            }
+                        }
                         break;
                     }
                 }
@@ -158,16 +211,86 @@ public:
                     if (VERBOSE) { std::cout << "greater than others! cur_answer = 0" << std::endl; }
                 }
             }
+
+            if (VERBOSE) { std::cout << groups_ << std::endl; }
         }
 
         return answer;
     }
 
+//    std::string solve() {
+//        std::string answer;
+//
+//        for (auto& item : events_) {
+//            if (VERBOSE) { std::cout << "==========================" << std::endl; }
+//
+//            auto t = item.first;
+//            if (VERBOSE) { std::cout << "t = " << t << std::endl; }
+//            size r = 0, c = 0, x = 0;
+//            if (t == 1) {
+//                r = item.second[0];
+//                c = item.second[1];
+//                if (VERBOSE) { std::cout << "r = " << r << ", c = " << c << std::endl; }
+//
+//                if (fence_stats_.empty()) {
+//                    fence_stats_.emplace_back(r, c);
+//                    if (VERBOSE) { std::cout << "empty! added first element" << std::endl; }
+//                }
+//                else {
+//                    bool less_than_others = true;
+//                    for (auto it = fence_stats_.begin(); it != fence_stats_.end(); ++it) {
+//                        if (r >= (*it).first) {
+//                            fence_stats_.insert(it, {r, c});
+//                            if (VERBOSE) { std::cout << "{" << r << ", " << c << "} inserted before {" <<
+//                                           (*std::next(it)).first << ", " << (*std::next(it)).second << "}" << std::endl; }
+//
+//                            fence_stats_.erase(it, fence_stats_.end());
+//                            less_than_others = false;
+//
+//                            break;
+//                        }
+//                    }
+//                    if (less_than_others) {
+//                        fence_stats_.emplace_back(r, c);
+//                        if (VERBOSE) { std::cout << "less than others! pushed back" << std::endl; }
+//                    }
+//                }
+//
+//                if (VERBOSE) { std::cout << "fence_stats_: " << fence_stats_ << std::endl; }
+//            }
+//            else if (t == 2) {
+//                x = item.second[0];
+//                if (VERBOSE) { std::cout << "x = " << x << std::endl; }
+//
+//                bool greater_than_others = true;
+//                for (auto it = fence_stats_.rbegin(); it != fence_stats_.rend(); ++it) {
+//                    if (x <= (*it).first) {
+//                        std::string cur_answer = std::to_string((*it).second);
+//                        answer += cur_answer + "\n";
+//                        greater_than_others = false;
+//
+//                        if (VERBOSE) { std::cout << "cur_answer = " << cur_answer << std::endl; }
+//
+//                        break;
+//                    }
+//                }
+//                if (greater_than_others) {
+//                    answer += "0\n";
+//                    if (VERBOSE) { std::cout << "greater than others! cur_answer = 0" << std::endl; }
+//                }
+//            }
+//        }
+//
+//        return answer;
+//    }
+
 private:
     size q_;
     std::vector<std::pair<size, std::vector<size>>> events_;
 
-    std::list<std::pair<size, size>> fence_stats_;
+    const size sqrt_val_;
+    const size max_group_size_;
+    std::vector<std::list<std::pair<size, size>>> groups_;
 
 };
 
