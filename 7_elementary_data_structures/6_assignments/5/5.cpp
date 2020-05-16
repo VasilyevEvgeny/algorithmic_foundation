@@ -138,7 +138,7 @@ public:
                                     // insert
                                     groups_[n].insert(it, {r, c});
                                     if (VERBOSE) { std::cout << "{" << r << ", " << c << "} inserted before {" <<
-                                                   (*std::next(it)).first << ", " << (*std::next(it)).second << "}" << std::endl; }
+                                                   (*it).first << ", " << (*it).second << "}" << std::endl; }
 
                                     // erase remainder of cur group and other groups up to end
                                     groups_[n].erase(it, groups_[n].end());
@@ -169,7 +169,7 @@ public:
                         auto copy_it = groups_[n_target].begin();
                         auto del_it = groups_[n_target].begin();
                         size half = max_group_size_ / 2;
-                        std::cout << "half = " << half << std::endl;
+                        if (VERBOSE) { std::cout << "half = " << half << std::endl; }
                         for (size i = 0; i < groups_[n_target].size(); ++i) {
                             if (i < half) { del_it = std::next(del_it); }
                             else { groups_[n_target + 1].push_back(*copy_it); }
@@ -177,7 +177,6 @@ public:
                         }
                         groups_[n_target].erase(del_it, groups_[n_target].end());
                     }
-
                 }
             }
             else {
@@ -295,6 +294,44 @@ private:
 };
 
 
+//class ManualTester {
+//public:
+//    ManualTester() = default;
+//
+//    static void test() {
+//        std::vector<std::map<std::string, std::string>> test_data = {
+//
+//                // basic
+//                {{"n", "1"}, {"s", "a"}, {"m", "1"}, {"t", "a"}, {"true", "1"}},
+//
+//
+//        };
+//
+//        for (auto& line : test_data) {
+//            size n = static_cast<size>(std::stoi(line.at("n")));
+//            std::string s = line.at("s");
+//            size m = static_cast<size>(std::stoi(line.at("m")));
+//            std::string t = line.at("t");
+//
+//            size res_true = static_cast<size>(std::stoi(line.at("true")));
+//            auto pred_greedy = GreedySolver(n, s, m, t).solve();
+//            auto pred_fast = FastSolver(n, s, m, t).solve();
+//
+//            std::cerr << "n = " << n << ", s = " << s << ", m = " << m <<  ", t = " << t << ", pred_greedy = " <<
+//                      pred_greedy << ", pred_fast = " << pred_fast << std::endl;
+//
+//            assert(res_true == pred_greedy);
+//            assert(res_true == pred_fast);
+//        }
+//
+//    }
+//
+//private:
+//
+//
+//};
+
+
 class StressTester {
 public:
     StressTester() = default;
@@ -303,19 +340,19 @@ public:
         std::random_device rd;
         std::mt19937 gen(rd());
 
-        const size MIN_Q = 1, MAX_Q = 5;
+        const size MIN_Q = 1, MAX_Q = 100;
         std::uniform_int_distribution<> dist_Q(MIN_Q, MAX_Q);
 
         const size MIN_T = 1, MAX_T = 2;
         std::uniform_int_distribution<> dist_T(MIN_T, MAX_T);
 
-        const size MIN_R = 1, MAX_R = 5;
+        const size MIN_R = 1, MAX_R = 100;
         std::uniform_int_distribution<> dist_R(MIN_R, MAX_R);
 
-        const size MIN_C = 1, MAX_C = 5;
+        const size MIN_C = 1, MAX_C = 100;
         std::uniform_int_distribution<> dist_C(MIN_C, MAX_C);
 
-        const size MIN_X = 1, MAX_X = 5;
+        const size MIN_X = 1, MAX_X = 100;
         std::uniform_int_distribution<> dist_X(MIN_X, MAX_X);
 
         while (true) {

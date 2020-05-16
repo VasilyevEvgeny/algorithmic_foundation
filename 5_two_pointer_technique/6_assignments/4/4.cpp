@@ -183,7 +183,7 @@ void manual_testing() {
             {{"n", "5"}, {"s", "abcde"}, {"m", "5"}, {"t", "de"}, {"true", "3"}},
 
             // medium
-            {{"n", "7_elementary_data_structures"}, {"s", "abacaba"}, {"m", "3"}, {"t", "abc"}, {"true", "15"}},
+            {{"n", "7"}, {"s", "abacaba"}, {"m", "3"}, {"t", "abc"}, {"true", "15"}},
             {{"n", "8"}, {"s", "acbacaba"}, {"m", "3"}, {"t", "abc"}, {"true", "19"}},
 
             // additional
