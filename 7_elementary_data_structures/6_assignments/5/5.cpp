@@ -217,72 +217,6 @@ public:
         return answer;
     }
 
-//    std::string solve() {
-//        std::string answer;
-//
-//        for (auto& item : events_) {
-//            if (VERBOSE) { std::cout << "==========================" << std::endl; }
-//
-//            auto t = item.first;
-//            if (VERBOSE) { std::cout << "t = " << t << std::endl; }
-//            size r = 0, c = 0, x = 0;
-//            if (t == 1) {
-//                r = item.second[0];
-//                c = item.second[1];
-//                if (VERBOSE) { std::cout << "r = " << r << ", c = " << c << std::endl; }
-//
-//                if (fence_stats_.empty()) {
-//                    fence_stats_.emplace_back(r, c);
-//                    if (VERBOSE) { std::cout << "empty! added first element" << std::endl; }
-//                }
-//                else {
-//                    bool less_than_others = true;
-//                    for (auto it = fence_stats_.begin(); it != fence_stats_.end(); ++it) {
-//                        if (r >= (*it).first) {
-//                            fence_stats_.insert(it, {r, c});
-//                            if (VERBOSE) { std::cout << "{" << r << ", " << c << "} inserted before {" <<
-//                                           (*std::next(it)).first << ", " << (*std::next(it)).second << "}" << std::endl; }
-//
-//                            fence_stats_.erase(it, fence_stats_.end());
-//                            less_than_others = false;
-//
-//                            break;
-//                        }
-//                    }
-//                    if (less_than_others) {
-//                        fence_stats_.emplace_back(r, c);
-//                        if (VERBOSE) { std::cout << "less than others! pushed back" << std::endl; }
-//                    }
-//                }
-//
-//                if (VERBOSE) { std::cout << "fence_stats_: " << fence_stats_ << std::endl; }
-//            }
-//            else if (t == 2) {
-//                x = item.second[0];
-//                if (VERBOSE) { std::cout << "x = " << x << std::endl; }
-//
-//                bool greater_than_others = true;
-//                for (auto it = fence_stats_.rbegin(); it != fence_stats_.rend(); ++it) {
-//                    if (x <= (*it).first) {
-//                        std::string cur_answer = std::to_string((*it).second);
-//                        answer += cur_answer + "\n";
-//                        greater_than_others = false;
-//
-//                        if (VERBOSE) { std::cout << "cur_answer = " << cur_answer << std::endl; }
-//
-//                        break;
-//                    }
-//                }
-//                if (greater_than_others) {
-//                    answer += "0\n";
-//                    if (VERBOSE) { std::cout << "greater than others! cur_answer = 0" << std::endl; }
-//                }
-//            }
-//        }
-//
-//        return answer;
-//    }
-
 private:
     size q_;
     std::vector<std::pair<size, std::vector<size>>> events_;
@@ -292,44 +226,6 @@ private:
     std::vector<std::list<std::pair<size, size>>> groups_;
 
 };
-
-
-//class ManualTester {
-//public:
-//    ManualTester() = default;
-//
-//    static void test() {
-//        std::vector<std::map<std::string, std::string>> test_data = {
-//
-//                // basic
-//                {{"n", "1"}, {"s", "a"}, {"m", "1"}, {"t", "a"}, {"true", "1"}},
-//
-//
-//        };
-//
-//        for (auto& line : test_data) {
-//            size n = static_cast<size>(std::stoi(line.at("n")));
-//            std::string s = line.at("s");
-//            size m = static_cast<size>(std::stoi(line.at("m")));
-//            std::string t = line.at("t");
-//
-//            size res_true = static_cast<size>(std::stoi(line.at("true")));
-//            auto pred_greedy = GreedySolver(n, s, m, t).solve();
-//            auto pred_fast = FastSolver(n, s, m, t).solve();
-//
-//            std::cerr << "n = " << n << ", s = " << s << ", m = " << m <<  ", t = " << t << ", pred_greedy = " <<
-//                      pred_greedy << ", pred_fast = " << pred_fast << std::endl;
-//
-//            assert(res_true == pred_greedy);
-//            assert(res_true == pred_fast);
-//        }
-//
-//    }
-//
-//private:
-//
-//
-//};
 
 
 class StressTester {
