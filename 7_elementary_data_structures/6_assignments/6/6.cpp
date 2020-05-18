@@ -12,7 +12,7 @@
 // 1 - work, 2 - manual testing
 #define MODE 1
 
-#define VERBOSE true
+#define VERBOSE false
 
 using size = int64_t;
 
@@ -129,96 +129,9 @@ Time operator+ (const Time& lhs, size dt) {
 }
 
 
-class Greedy {
+class Solution {
 public:
-    Greedy(size N, std::vector<std::pair<Time, size>>& clients)
-    : N_(N), T_MAX_(Time(3, 0)), clients_(clients), haircut_duration_(20) {
-        if (VERBOSE) { std::cout << "CLIENTS: " << clients_ << std::endl; }
-    }
-
-    std::string solve() {
-        std::string answer;
-
-        size n = 0;
-        auto client = clients_[n];
-        auto time = client.first;
-        auto impatience = client.second;
-
-        for (Time t; t < T_MAX_; t += 1) {
-            if (VERBOSE) { std::cout << "t = " << t << "\nCURRENT_CLIENT: " << time << " " << impatience << std::endl; }
-
-            // check and update queue
-            if (!q_.empty()) {
-                bool check_time, check_decline;
-                do {
-                    check_time = false; check_decline = false;
-
-                    // check end of haircut
-                    if (t == q_.front().first.first && q_.front().second == "wait") {
-                        check_time = true;
-                        answer += TimeToString(t) + "\n";
-                        q_.pop();
-                        // next in queue must be done after 20 minutes
-                        if (!q_.empty()) {
-                            if (q_.front().second == "wait") { q_.front().first.first = t + haircut_duration_; }
-                        }
-
-                        if (VERBOSE) { std::cout << "poped from q_! q_ --> " << q_ << std::endl; }
-                    }
-
-                    // check declined in queue
-                    if (q_.front().second == "decline") {
-                        check_decline = true;
-                        answer += TimeToString(q_.front().first.first) + "\n";
-
-                        q_.pop();
-                    }
-
-                } while (check_time || check_decline);
-            }
-
-            // work with new client
-            if (t == time) {
-                if (VERBOSE) { std::cout << "t = time!" << std::endl; }
-
-                if (q_.size() <= impatience) {
-                    q_.push({client, "wait"});
-                    q_.back().first.first += haircut_duration_;
-                }
-                else { q_.push({client, "decline"}); }
-
-                if (VERBOSE) { std::cout << "pushed to q_! q_ --> " << q_ << std::endl; }
-
-                n++;
-                if (n < clients_.size()) {
-                    client = clients_[n];
-                    time = client.first;
-                    impatience = client.second;
-                }
-            }
-        }
-
-
-        return answer;
-    }
-
-private:
-    static std::string TimeToString(Time& time) {
-        return std::to_string(time.hours_) + " " + std::to_string(time.minutes_);
-    }
-
-    const Time T_MAX_;
-    const size N_;
-    const size haircut_duration_;
-
-    std::vector<std::pair<Time, size>> clients_;
-    std::queue<std::pair<std::pair<Time, size>, std::string>> q_;
-};
-
-
-class Fast {
-public:
-    Fast(size N, std::vector<std::pair<Time, size>>& clients)
+    Solution(size N, std::vector<std::pair<Time, size>>& clients)
     : N_(N), clients_(clients), haircut_duration_(20) {
         if (VERBOSE) { std::cout << "CLIENTS: " << clients_ << std::endl; }
     }
@@ -226,52 +139,28 @@ public:
     std::string solve() {
         std::string answer;
 
-        for (auto& client : clients_) {
+        for (size i = 0; i < N_; ++i) {
+            auto client = clients_[i];
             auto time = client.first;
             auto impatience = client.second;
 
-            if (VERBOSE) {
-                std::cout << "=======================================" << std::endl;
-                std::cout << "client:\ntime = " << time << ", impatience = " << impatience << std::endl;
-            }
-
             if (!q_.empty()) {
-                while (q_.front().first + haircut_duration_ <= time) {
+                while (q_.front() <= time) {
                     q_.pop();
                     if (q_.empty()) { break; }
                 }
             }
 
-            if (VERBOSE) { std::cout << "q_ --> " << q_ << std::endl; }
-
             if (q_.empty()) {
-                q_.push(client);
-
-                haircut_end_ = time + haircut_duration_;
-                answer += TimeToString(haircut_end_) + "\n";
-
-                if (VERBOSE) {
-                    std::cout << "q_ is empty!" << std::endl;
-                    std::cout << "q_ --> " << q_ << std::endl;
-                    std::cout << "haircut_end_ --> " << haircut_end_ << std::endl;
-                }
-            }
-            else if (q_.size() <= impatience) {
-                q_.push(client);
-
-                haircut_end_ += haircut_duration_;
-                answer += TimeToString(haircut_end_) + "\n";
-
-                if (VERBOSE) {
-                    std::cout << "q_.size() <= impatience" << std::endl;
-                    std::cout << "q_ --> " << q_ << std::endl;
-                    std::cout << "haircut_end_ --> " << haircut_end_ << std::endl;
-                }
-            }
-            else {
+                auto haircut_end = time + haircut_duration_;
+                q_.push(haircut_end);
+                answer += TimeToString(haircut_end) + "\n";
+            } else if (q_.size() <= impatience) {
+                auto haircut_end = q_.back() + haircut_duration_;
+                q_.push(haircut_end);
+                answer += TimeToString(haircut_end) + "\n";
+            } else {
                 answer += TimeToString(time) + "\n";
-
-                if (VERBOSE) { std::cout << "declined!" << std::endl; }
             }
         }
 
@@ -288,8 +177,7 @@ private:
     const size haircut_duration_;
 
     std::vector<std::pair<Time, size>> clients_;
-    std::queue<std::pair<Time, size>> q_;
-    Time haircut_end_;
+    std::queue<Time> q_;
 };
 
 
@@ -336,7 +224,7 @@ public:
 
             {{"N", "8"},
              {"clients", "0 0 0\n0 19 1\n0 40 0\n0 50 1\n1 0 1\n1 10 1\n1 11 2\n2 20 0\n"},
-             {"true", "0 20\n0 40\n1 0\n1 20\n1 40\n2 0\n2 20\n2 40\n"}},
+             {"true", "0 20\n0 40\n1 0\n1 20\n1 40\n1 10\n2 0\n2 40\n"}},
 
         };
 
@@ -347,14 +235,11 @@ public:
             std::vector<std::pair<Time, size>> clients = parse_str(line.at("clients"));
 
             std::string res_true = line.at("true");
-            std::string pred_greedy = Greedy(N, clients).solve();
-            std::string pred_fast = Fast(N, clients).solve();
+            std::string pred = Solution(N, clients).solve();
 
-            std::cerr << "N = " << N << "\nclients:" << clients << "pred_greedy:\n" << pred_greedy << "pred_fast:\n"
-            << pred_fast << std::endl;
+            std::cerr << "N = " << N << "\nclients:" << clients << "pred:\n" << pred << std::endl;
 
-            assert(res_true == pred_greedy);
-            assert(res_true == pred_fast);
+            assert(res_true == pred);
         }
     }
 
@@ -393,8 +278,7 @@ int main () {
         clients.push_back({{hours, minutes}, impatience});
     }
 
-    std::cout << Greedy(N, clients).solve();
-//    std::cout << Fast(N, clients).solve();
+    std::cout << Solution(N, clients).solve();
 
 #elif MODE == 2
     ManualTester::test();
