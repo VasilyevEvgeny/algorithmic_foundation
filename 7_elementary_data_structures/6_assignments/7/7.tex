@@ -1,0 +1,69 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+Hazy Mountain goblins are very fond of going to their shamans. Since there are many goblins, shamans often form very long queue. And since many goblins in one place quickly form a noisy crowd, which prevents shamans from making complex medical manipulations, the latter decided to establish some rules regarding order in queue.
+
+Ordinary goblins when visiting shamans should stand at the end of the queue. Privileged goblins, who know a special password, stand exactly in its middle, and with an odd queue length, they stand right behind the center.
+
+Since goblins are also widely known for their disrespectful attitude to all kinds of rules and laws, the shamans asked you to write a program that would track the order of the goblins in the queue.
+
+The first line contains a single integer $N$ ($1 \le N \le 3 \cdot 10^5$) -- the number of requests to your program. The following $N$ lines contain descriptions of requests in the following format:
+
+\begin{itemize}
+\item <<$+ \ i$>> -- the goblin $i$ ($1 \le i \le N$) joins the queue and stands at its end;
+\item <<$* \ i$>> -- privileged goblin $i$ gets in the middle of the queue ($1 \le i \le N$);
+\item <<$-$>> -- the goblin leaves the queue and enters the shamans. It is guaranteed that at the time of each such request, the queue will not be empty.
+\end{itemize}
+
+For each request of the third type, in a separate line print the goblin number, which should go to the shamans.
+
+\LINE
+
+\noindent \textbf{Sample input 1:}\\
+7\\
++ 1\\
++ 2\\
+- \\
++ 3\\
++ 4\\
+-\\
+-\\
+
+
+\noindent \textbf{Sample output 1:}\\
+1\\
+2\\
+3\\
+
+
+\SPACE
+
+
+\noindent \textbf{Sample input 2:}\\
+10\\
++ 1\\
++ 2\\
+$*$ 3\\
+- \\
++ 4\\
+$*$ 5\\
+- \\
+- \\
+- \\
+- \\
+
+
+\noindent \textbf{Sample output 2:}\\
+1\\
+3\\
+2\\
+5\\
+4\\
+
+
+
+\end{document}
