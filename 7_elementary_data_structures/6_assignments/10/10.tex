@@ -1,0 +1,42 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+Implement a <<minimum queue>> data structure. The structure should support the following types of operations: add a number to the end of the queue, remove a number from the beginning of the queue, and output the minimum number in the queue.
+
+The queue is initially empty.
+
+The first line of the input contains an integer $q$ -- the number of operations with the queue $(1 \le q \le 10^6$).
+
+Each of the following $q$ lines contains a description of the operation with the queue:
+\begin{itemize}
+\item \textbf{push} $\mathbf{x}$ -- add an integer $x$ to the end of the queue ($0 \le x \le 10^9$);
+\item \textbf{pop} -- delete the number at the beginning of the queue. It is guaranteed that the queue is not empty;
+\item \textbf{min} -- print the minimum number in the queue. It is guaranteed that the queue is not empty.
+\end{itemize}
+
+
+For each min operation print the minimum number in the queue.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+7\\
+push 3\\
+push 2\\
+min\\
+pop\\
+min\\
+push 1\\
+min\\
+
+\noindent \textbf{Sample output:}\\
+2\\
+2\\
+1\\
+
+
+\end{document}
