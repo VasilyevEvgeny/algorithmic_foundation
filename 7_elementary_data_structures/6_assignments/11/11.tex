@@ -1,0 +1,29 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+Everyone knows that on Programmer's Day, many IT companies organize various competitions and prize draws. This year, Booble also decided to arrange its own cash prize draw.
+
+As a marketing move, to attract more interest, on the eve of Programmer's Day, the company published a sequence of $N$ integers. The organizers suggested that the draw will consist of several rounds. In every $i$-th round, the participant will be given a natural number $a_i$, then the participant selects a subsequence of $a_i$ consecutive numbers. Winning a participant in a round is equal to the minimum number among those selected.
+
+But marketers only at the last moment thought that the winnings can be very large, so you, the leading Booble programmers, are urgently tasked to calculate the maximum winnings of the participant.
+
+The first line contains two natural numbers $N$ and $K$ -- the number of numbers in the published sequence and the number of rounds ($1 \le N \le 10^4$; $1 \le K \le 100$). The second line contains $N$ integers not exceeding $10^7$ in absolute terms, the sequence itself. The third line contains $K$ integers $a_i$ ($1 \le a_i \le N$).
+
+Print one integer -- the maximum gain of the participant.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+5 1\\
+3 8 5 2 8\\
+2\\
+
+\noindent \textbf{Sample output:}\\
+5\\
+
+
+\end{document}
