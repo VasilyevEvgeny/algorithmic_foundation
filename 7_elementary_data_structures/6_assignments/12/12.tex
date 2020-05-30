@@ -1,0 +1,37 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+The tourism industry has faced serious difficulties this season. Conscientious tour operators are looking for new advertising moves to sell their tours. As you know, the most favorable weather for relaxation changes smoothly, and not only from one day to another, but also during the day. 
+
+For most tourist destinations, there are many years of per second measurement results of various climatic parameters, for example, temperature or humidity. 
+
+Each person has their own understanding of how different such values can be during a vacation, but everyone is interested in continuous tours of the greatest possible duration.
+
+Let us fix a tourist destination and some climatic parameter. We will call the variability of the tour the difference between the maximum and minimum values of the selected parameter for the entire trip. For each tourist, the maximum acceptable value of variability is known $k_i$. 
+
+The results of measurements of a certain climatic parameter at one of the resorts and the values of $k_i$ for several tourists. It is required for each of them to determine the maximum range suitable for vacation.
+
+The first line of the input contains an integer $N$ -- the number of measurements taken ($1 \le N \le 600 \ 000$). The second line contains $N$ integers modulo not exceeding $10^ 9$ -- data per second measurements.
+
+The third line contains the number $M$ -- the number of tourists for whom it is necessary to find the optimal range ($1 \le M \le 100$). The fourth line contains $M$ integers $k_1, k_2, \ldots, k_M$ ($0 \le k_i \le 10^9$) -- the maximum possible difference between the selected climatic parameter in a continuous range of days for each of the tourists.
+
+For each of the $M$ queries, print two numbers on a separate line: the number of the first dimension in the range and the number of the last dimension in the range. The numbering of measurements is carried out from one. If for some tourist there are several suitable ranges of maximum length, among them print the range with the smallest left border.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+7\\
+10 1 10 12 11 1 11\\
+2\\
+2 1\\
+
+\noindent \textbf{Sample output:}\\
+3 5\\
+4 5\\
+
+
+\end{document}
