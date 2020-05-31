@@ -13,11 +13,11 @@
 #include <chrono>
 
 // 1 - work, 2 - manual tests, 3 - stress tests
-#define MODE 3
+#define MODE 1
 
 #define VERBOSE false
 
-using size = int64_t;
+using size = int;
 using tt = std::chrono::steady_clock;
 
 
@@ -100,11 +100,11 @@ public:
     AdvancedStack() : size_(0) {}
 
     void push(size val) {
-        if (st_.empty()) { st_.push({{"val", val}, {"min", val}, {"max", val}}); }
+        if (st_.empty()) { st_.push({val, val, val}); }
         else {
-            auto min_element = std::min(val, st_.top().at("min"));
-            auto max_element = std::max(val, st_.top().at("max"));
-            st_.push({{"val", val}, {"min", min_element}, {"max", max_element}});
+            auto min_element = std::min(val, st_.top()[1]);
+            auto max_element = std::max(val, st_.top()[2]);
+            st_.push({val, min_element, max_element});
         }
         size_++;
     }
@@ -115,18 +115,18 @@ public:
     }
 
     size min() {
-        return st_.top().at("min");
+        return st_.top()[1];
     }
 
     size max() {
-        return st_.top().at("max");
+        return st_.top()[2];
     }
 
     bool empty() {
         return st_.empty();
     }
 
-    std::map<std::string, size> top() {
+    std::vector<size> top() {
         return st_.top();
     }
 
@@ -135,7 +135,7 @@ public:
     }
 
 private:
-    std::stack<std::map<std::string, size>> st_;
+    std::stack<std::vector<size>> st_;
     size size_;
 
 };
@@ -146,7 +146,7 @@ std::ostream& operator<< (std::ostream& os, const AdvancedStack& st) {
     os << "[ ";
     while (!st_copy.empty()) {
         auto top = st_copy.top();
-        os << "{" << top.at("val") << " -> " << top.at("min") << ", " << top.at("max") << "} ";
+        os << "{" << top[0] << " -> " << top[1] << ", " << top[2] << "} ";
         st_copy.pop();
     }
     os << "]";
@@ -166,7 +166,7 @@ public:
     void pop() {
         if (st2_.empty()) {
             while (!st1_.empty()) {
-                st2_.push(st1_.top().at("val"));
+                st2_.push(st1_.top()[0]);
                 st1_.pop();
             }
         }
@@ -223,6 +223,8 @@ public:
     std::string solve () {
         std::string answer;
 
+//        double duration_push = 0.0, duration_pop = 0.0;
+
         for (auto& k : variabilities_) {
             AdvancedQueue q;
 
@@ -234,7 +236,11 @@ public:
             << idx_right << ", len_max = " << len_max << std::endl; }
 
             for (size i = 1; i < N_; ++i) {
+//                tt::steady_clock::time_point begin_push = tt::now();
                 q.push(measurements_[i]);
+//                tt::steady_clock::time_point end_push = tt::now();
+//                duration_push += 1e-9 * std::chrono::duration_cast<std::chrono::nanoseconds> (end_push - begin_push).count();
+
                 idx_right++;
 
                 if (VERBOSE) { std::cout << "pushed " << measurements_[i] << "! idx_right --> " << idx_right << std::endl; }
@@ -255,11 +261,15 @@ public:
                     }
                 }
                 else {
+//                    tt::steady_clock::time_point begin_pop = tt::now();
                     while (q.max() - q.min() > k && q.len() > 1) {
                         q.pop();
                         idx_left++;
                         if (VERBOSE) { std::cout << ".....q --> " << q << ", idx_left --> " << idx_left << std::endl; }
                     }
+//                    tt::steady_clock::time_point end_pop = tt::now();
+//                    duration_pop += 1e-9 * std::chrono::duration_cast<std::chrono::nanoseconds> (end_pop - begin_pop).count();
+
                 }
 
                 if (VERBOSE) { std::cout << "q = " << q << ", idx_left = " << idx_left << ", idx_right = "
@@ -267,6 +277,10 @@ public:
             }
             answer += std::to_string(idx_left_target) + " " + std::to_string(idx_right_target) + "\n";
         }
+
+//        std::cout << "duration_push = " << duration_push << " s" << std::endl;
+//        std::cout << "duration_pop = " << duration_pop << " s" << std::endl;
+
 
         return answer;
     }
@@ -341,7 +355,7 @@ public:
         std::random_device rd;
         std::mt19937 gen(rd());
 
-        const size MIN_N = 10000, MAX_N = 10000;
+        const size MIN_N = 600000, MAX_N = 600000;
         std::uniform_int_distribution<> dist_N(MIN_N, MAX_N);
 
         const size MIN_MEASUREMENTS = -1e9, MAX_MEASUREMENTS = +1e9;
@@ -368,7 +382,7 @@ public:
             std::cout << "M = " << M << std::endl; //", variabilities = " << variabilities << std::endl;
 
             tt::steady_clock::time_point begin_greedy = tt::now();
-            auto res_greedy = Greedy(N, measurements, M, variabilities).solve();
+            auto res_greedy = 0; //Greedy(N, measurements, M, variabilities).solve();
             tt::steady_clock::time_point end_greedy = tt::now();
             auto duration_greedy = std::chrono::duration_cast<std::chrono::nanoseconds> (end_greedy - begin_greedy).count();
 
@@ -381,9 +395,9 @@ public:
 
             std::cout << std::scientific << "T_fast = " << duration_fast * 1e-9 << " s" << std::endl;
 
-            assert(res_greedy == res_fast);
+//            assert(res_greedy == res_fast);
 
-//            if (duration_fast * 1e-9 > 5.0) { throw std::runtime_error("Solution is too slow: " + std::to_string(duration_fast * 1e-9) + " s"); }
+            if (duration_fast * 1e-9 > 5.0) { throw std::runtime_error("Solution is too slow: " + std::to_string(duration_fast * 1e-9) + " s"); }
 
             measurements.clear();
             variabilities.clear();
