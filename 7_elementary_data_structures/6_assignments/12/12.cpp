@@ -6,10 +6,93 @@
 #include <vector>
 #include <stack>
 #include <map>
+#include <algorithm>
+#include <sstream>
+#include <cassert>
+#include <random>
+#include <chrono>
+
+// 1 - work, 2 - manual tests, 3 - stress tests
+#define MODE 3
 
 #define VERBOSE false
 
 using size = int64_t;
+using tt = std::chrono::steady_clock;
+
+
+std::ostream& operator << (std::ostream& os, const std::vector<size>& v) {
+    os << "[ ";
+    for (size_t i = 0; i < v.size(); ++i) {
+        os << v[i];
+        if (i != v.size() - 1) {
+            os << " ";
+        }
+    }
+    os << " ]";
+    return os;
+}
+
+
+class Greedy {
+public:
+    Greedy(size N, std::vector<size> measurements, size M, std::vector<size> variabilities)
+    : N_(N), measurements_(std::move(measurements)), M_(M), variabilities_(std::move(variabilities)) {}
+
+    std::string solve() {
+        std::string answer;
+
+        for (auto& k : variabilities_) {
+            if (VERBOSE) { std::cout << "k = " << k << std::endl; }
+
+            size idx_left_target = 1, idx_right_target = 1, len_max = 0;
+
+            for (size i = 0; i < N_; ++i) {
+                bool stop = false;
+                for (size j = i; j < N_; ++j) {
+                    auto left = measurements_.begin() + i, right = measurements_.begin() + j + 1;
+                    size min = *std::min_element(left, right);
+                    size max = *std::max_element(left, right);
+                    auto delta = max - min;
+                    auto len_cur = j - i + 1;
+
+                    if (VERBOSE) {
+                        std::cout << "*left = " << *left << ", *right = " << *std::prev(right) << std::endl;
+                        std::cout << "min = " << min << ", max = " << max << ", delta = " << delta << ", len_cur = " << len_cur << std::endl;
+                    }
+
+                    if (delta <= k) {
+                        if (len_cur > len_max) {
+                            idx_left_target = i + 1;
+                            idx_right_target = j + 1;
+                            len_max = len_cur;
+
+                            if (VERBOSE) {
+                                std::cout << "record!" << std::endl;
+                                std::cout << ".....idx_left_target --> " << idx_left_target << ", idx_right_target --> "
+                                          << idx_right_target << ", len_max --> " << len_max << std::endl;
+                            }
+                        }
+                    }
+                    else { stop = true; }
+
+                    if (stop) { break; }
+                }
+            }
+            answer += std::to_string(idx_left_target) + " " + std::to_string(idx_right_target) + "\n";
+        }
+
+        return answer;
+    }
+
+
+private:
+    const size N_;
+    const std::vector<size> measurements_;
+    const size M_;
+    const std::vector<size> variabilities_;
+
+};
 
 
 class AdvancedStack {
@@ -132,23 +215,23 @@ std::ostream& operator<< (std::ostream& os, const AdvancedQueue& q) {
 }
 
 
-class Solution {
+class Fast {
 public:
-    Solution(size N, std::vector<size> measurements, size M, std::vector<size> variability)
-    : N_(N), measurements_(std::move(measurements)), M_(M), variability_(std::move(variability)) {}
+    Fast(size N, std::vector<size> measurements, size M, std::vector<size> variabilities)
+    : N_(N), measurements_(std::move(measurements)), M_(M), variabilities_(std::move(variabilities)) {}
 
     std::string solve () {
         std::string answer;
 
-        for (auto& k : variability_) {
+        for (auto& k : variabilities_) {
             AdvancedQueue q;
 
             q.push(measurements_[0]);
             size idx_left = 1, idx_right = 1;
-            size idx_left_max = 1, idx_right_max = 1, delta_max = 0;
+            size idx_left_target = 1, idx_right_target = 1, len_max = 0;
 
             if (VERBOSE) { std::cout << "q = " << q << ", idx_left = " << idx_left << ", idx_right = "
-            << idx_right << ", delta_max = " << delta_max << std::endl; }
+            << idx_right << ", len_max = " << len_max << std::endl; }
 
             for (size i = 1; i < N_; ++i) {
                 q.push(measurements_[i]);
@@ -156,16 +239,20 @@ public:
 
                 if (VERBOSE) { std::cout << "pushed " << measurements_[i] << "! idx_right --> " << idx_right << std::endl; }
 
-                auto delta_cur = q.max() - q.min();
-                if (VERBOSE) { std::cout << "delta_cur = " << delta_cur << std::endl; }
+                auto delta = q.max() - q.min();
+                auto len_cur = q.len();
+                if (VERBOSE) { std::cout << "len_cur = " << len_cur << std::endl; }
 
-                if (delta_cur <= k && delta_cur > delta_max) {
-                    delta_max = idx_right - idx_left;
-                    idx_left_max = idx_left;
-                    idx_right_max = idx_right;
-                    if (VERBOSE) {
-                        std::cout << "idx_left_max = " << idx_left_max << ", idx_right_max --> " << idx_right_max
-                        << ", delta_max --> " << delta_max << std::endl; }
+                if (delta <= k) {
+                    if (len_cur > len_max) {
+                        len_max = idx_right - idx_left + 1;
+                        idx_left_target = idx_left;
+                        idx_right_target = idx_right;
+                        if (VERBOSE) {
+                            std::cout << "idx_left_target = " << idx_left_target << ", idx_right_target --> " << idx_right_target
+                                      << ", len_max --> " << len_max << std::endl;
+                        }
+                    }
                 }
                 else {
                     while (q.max() - q.min() > k && q.len() > 1) {
@@ -176,11 +263,10 @@ public:
                 }
 
                 if (VERBOSE) { std::cout << "q = " << q << ", idx_left = " << idx_left << ", idx_right = "
-                                         << idx_right << ", delta_max = " << delta_max << std::endl; }
+                                         << idx_right << ", len_max = " << len_max << std::endl; }
             }
-            answer += std::to_string(idx_left_max) + " " + std::to_string(idx_right_max) + "\n";
+            answer += std::to_string(idx_left_target) + " " + std::to_string(idx_right_target) + "\n";
         }
-
 
         return answer;
     }
@@ -189,12 +275,129 @@ private:
     const size N_;
     const std::vector<size> measurements_;
     const size M_;
-    const std::vector<size> variability_;
+    const std::vector<size> variabilities_;
+};
+
+
+class ManualTester {
+public:
+    ManualTester() = default;
+
+    static void test() {
+        std::vector<std::map<std::string, std::string>> test_data = {
+
+            // boundary
+            {{"N", "1"}, {"measurements", "1"}, {"M", "1"}, {"variabilities", "0"}, {"true", "1 1\n"}},
+            {{"N", "1"}, {"measurements", "1"}, {"M", "1"}, {"variabilities", "1"}, {"true", "1 1\n"}},
+            {{"N", "2"}, {"measurements", "1 1"}, {"M", "1"}, {"variabilities", "0"}, {"true", "1 2\n"}},
+            {{"N", "2"}, {"measurements", "1 1"}, {"M", "1"}, {"variabilities", "1"}, {"true", "1 2\n"}},
+
+            // simple
+            {{"N", "4"}, {"measurements", "1 5 -5 -3"}, {"M", "3"}, {"variabilities", "3 0 5"}, {"true", "3 4\n1 1\n1 2\n"}},
+            {{"N", "7"}, {"measurements", "10 1 10 12 11 1 11"}, {"M", "2"}, {"variabilities", "2 1"}, {"true", "3 5\n4 5\n"}},
+
+        };
+
+        for (auto& line : test_data) {
+            std::cerr << "===============================" << std::endl;
+
+            size N = static_cast<size>(std::stoi(line.at("N")));
+            std::vector<size> measurements = parse_str(line.at("measurements"));
+            size M = static_cast<size>(std::stoi(line.at("M")));
+            std::vector<size> variabilities = parse_str(line.at("variabilities"));
+
+            std::string res_true = line.at("true");
+            std::string pred = Greedy(N, measurements, M, variabilities).solve();
+
+            std::cerr << "N = " << N << ", measurements = " << measurements << "\nM = " << M << ", variablities = " <<
+            variabilities << std::endl;
+
+            std::cerr << "res_true:\n" << res_true << "pred:\n" << pred << std::endl;
+
+            assert(res_true == pred);
+        }
+    }
+
+
+private:
+
+    static std::vector<size> parse_str(const std::string& str) {
+        std::stringstream iss(str);
+        std::vector<size> res;
+        size k;
+        while (iss >> k) { res.push_back(k); }
+
+        return res;
+    }
+
+};
+
+
+class StressTester {
+public:
+    StressTester() = default;
+
+    static void test() {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+
+        const size MIN_N = 10000, MAX_N = 10000;
+        std::uniform_int_distribution<> dist_N(MIN_N, MAX_N);
+
+        const size MIN_MEASUREMENTS = -1e9, MAX_MEASUREMENTS = +1e9;
+        std::uniform_int_distribution<> dist_MEASUREMENTS(MIN_MEASUREMENTS, MAX_MEASUREMENTS);
+
+        const size MIN_M = 100, MAX_M = 100;
+        std::uniform_int_distribution<> dist_M(MIN_M, MAX_M);
+
+        const size MIN_VARIABILITY = 0, MAX_VARIABILITY = 1e9;
+        std::uniform_int_distribution<> dist_VARIABILITY(MIN_VARIABILITY, MAX_VARIABILITY);
+
+        while (true) {
+            std::cout << "======================" << std::endl;
+
+            size N = dist_N(gen);
+            std::vector<size> measurements(N);
+            for (size i = 0; i < N; ++i) { measurements[i] = dist_MEASUREMENTS(gen); }
+
+            size M = dist_M(gen);
+            std::vector<size> variabilities(M);
+            for (size i = 0; i < M; ++i) { variabilities[i] = dist_VARIABILITY(gen); }
+
+            std::cout << "N = " << N << std::endl; //", measurements = " << measurements << std::endl;
+            std::cout << "M = " << M << std::endl; //", variabilities = " << variabilities << std::endl;
+
+            tt::steady_clock::time_point begin_greedy = tt::now();
+            auto res_greedy = Greedy(N, measurements, M, variabilities).solve();
+            tt::steady_clock::time_point end_greedy = tt::now();
+            auto duration_greedy = std::chrono::duration_cast<std::chrono::nanoseconds> (end_greedy - begin_greedy).count();
+
+            std::cout << std::scientific << "T_greedy = " << duration_greedy * 1e-9 << " s" << std::endl;
+
+            tt::steady_clock::time_point begin_fast = tt::now();
+            auto res_fast = Fast(N, measurements, M, variabilities).solve();
+            tt::steady_clock::time_point end_fast = tt::now();
+            auto duration_fast = std::chrono::duration_cast<std::chrono::nanoseconds> (end_fast - begin_fast).count();
+
+            std::cout << std::scientific << "T_fast = " << duration_fast * 1e-9 << " s" << std::endl;
+
+            assert(res_greedy == res_fast);
+
+//            if (duration_fast * 1e-9 > 5.0) { throw std::runtime_error("Solution is too slow: " + std::to_string(duration_fast * 1e-9) + " s"); }
+
+            measurements.clear();
+            variabilities.clear();
+        }
+    }
+
+private:
+
 };
 
 
 int main() {
 
+#if MODE == 1
     size N = 0;
     std::cin >> N;
 
@@ -207,7 +410,16 @@ int main() {
     std::vector<size> variability(M);
     for (size i = 0; i < M; ++i) { std::cin >> variability[i]; }
 
-    std::cout << Solution(N, measurements, M, variability).solve();
+//    std::cout << Greedy(N, measurements, M, variability).solve();
+    std::cout << Fast(N, measurements, M, variability).solve();
+
+#elif MODE == 2
+    ManualTester::test();
+
+#elif MODE == 3
+    StressTester::test();
+
+#endif
 
     return 0;
 }
