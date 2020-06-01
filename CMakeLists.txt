@@ -111,39 +111,39 @@ add_executable(7_elementary_data_structures__2_linked_list__3
         7_elementary_data_structures/2_linked_list/3_remove_linked_list_elements/3.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__1
+add_executable(7_elementary_data_structures__6_assignments__01
         7_elementary_data_structures/6_assignments/1/1.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__2
+add_executable(7_elementary_data_structures__6_assignments__02
         7_elementary_data_structures/6_assignments/2/2.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__3
+add_executable(7_elementary_data_structures__6_assignments__03
         7_elementary_data_structures/6_assignments/3/3.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__4
+add_executable(7_elementary_data_structures__6_assignments__04
         7_elementary_data_structures/6_assignments/4/4.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__5
+add_executable(7_elementary_data_structures__6_assignments__05
         7_elementary_data_structures/6_assignments/5/5.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__6
+add_executable(7_elementary_data_structures__6_assignments__06
         7_elementary_data_structures/6_assignments/6/6.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__7
+add_executable(7_elementary_data_structures__6_assignments__07
         7_elementary_data_structures/6_assignments/7/7.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__8
+add_executable(7_elementary_data_structures__6_assignments__08
         7_elementary_data_structures/6_assignments/8/8.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__9
+add_executable(7_elementary_data_structures__6_assignments__09
         7_elementary_data_structures/6_assignments/9/9.cpp)
 
 # 6_assignments
@@ -157,4 +157,9 @@ add_executable(7_elementary_data_structures__6_assignments__11
 # 6_assignments
 add_executable(7_elementary_data_structures__6_assignments__12
         7_elementary_data_structures/6_assignments/12/12.cpp)
+
+# 6_assignments
+add_executable(7_elementary_data_structures__6_assignments__13
+        7_elementary_data_structures/6_assignments/13/13.cpp)
+
 
