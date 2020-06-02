@@ -8,7 +8,7 @@
 
 #define VERBOSE false
 
-using size = int64_t;
+using size = int;
 
 
 std::ostream& operator<< (std::ostream& os, const std::deque<size>& q) {
@@ -29,11 +29,12 @@ class Solution {
 public:
     Solution(const size n, std::string commands) : n_(n), commands_(std::move(commands)), a_size_(0), b_size_(0) {}
 
-    std::string solve() {
+    void solve() {
         std::string answer;
 
         size i = 1;
-        for (auto& symbol : commands_) {
+        for (size c = 0; c < n_; ++c) {
+            char symbol = commands_[c];
             if (VERBOSE) { std::cout << "====================================\nsymbol = " << symbol << std::endl; }
 
             if (symbol == 'a') {
@@ -43,11 +44,13 @@ public:
                 b_.push_back(i++);
                 b_size_++;
             } else if (symbol == 'A') {
-                answer += std::to_string(a_.front() % 10);
+//                answer += std::to_string(a_.front() % 10);
+                std::cout << a_.front() % 10;
                 a_.pop_front();
                 a_size_--;
             } else if (symbol == 'B') {
-                answer += std::to_string(b_.front() % 10);
+//                answer += std::to_string(b_.front() % 10);
+                std::cout << b_.front() % 10;
                 b_.pop_front();
                 b_size_--;
             } else if (symbol == '>') {
@@ -69,7 +72,7 @@ public:
             }
         }
 
-        return answer;
+//        return answer;
     }
 
 private:
@@ -111,7 +114,7 @@ int main() {
     std::string commands;
     std::getline(std::cin, commands);
 
-    std::cout << Solution(n, commands).solve() << std::endl;
+    Solution(n, commands).solve();
 
     return 0;
 }
