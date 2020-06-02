@@ -5,10 +5,15 @@
 #include <iostream>
 #include <string>
 #include <deque>
+#include <chrono>
+
+// 1 - work, 3 - stress testing
+#define MODE 3
 
 #define VERBOSE false
 
 using size = int;
+using tt = std::chrono::steady_clock;
 
 
 std::ostream& operator<< (std::ostream& os, const std::deque<size>& q) {
@@ -104,8 +109,45 @@ private:
 };
 
 
+class StressTester {
+public:
+    StressTester() = default;
+
+    static void test() {
+        std::string commands;
+        size n = 100000;
+        for (size i = 0; i < n / 4; ++i) { commands += 'a'; }
+        for (size i = 0; i < n / 4; ++i) { commands += 'b'; }
+        for (size i = 0; i < n / 4; ++i) {
+            char symbol;
+            if (!(i % 2)) { symbol = '>'; } else { symbol = '<'; }
+            commands += symbol;
+        }
+        for (size i = 0; i < n / 4; ++i) {
+            char symbol;
+            if (!(i % 2)) { symbol = ']'; } else { symbol = '['; }
+            commands += symbol;
+        }
+
+        tt::steady_clock::time_point begin = tt::now();
+        Solution(n, commands).solve();
+        tt::steady_clock::time_point end = tt::now();
+        auto duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count();
+
+        std::cout << std::scientific << "T = " << duration * 1e-9 << " s" << std::endl;
+
+    }
+
+private:
+
+
+};
+
+
+
 int main() {
 
+#if MODE == 1
     size n = 0;
     std::cin >> n;
 
@@ -115,6 +157,11 @@ int main() {
     std::getline(std::cin, commands);
 
     Solution(n, commands).solve();
+
+#elif MODE == 3
+    StressTester::test();
+
+#endif
 
     return 0;
 }
