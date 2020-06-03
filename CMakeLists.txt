@@ -170,3 +170,7 @@ add_executable(7_elementary_data_structures__6_assignments__13
 # 2_introduction
 add_executable(9_graph_algorithms__2_introduction__2
         9_graph_algorithms/2_introduction/2/2.cpp)
+
+# 2_introduction
+add_executable(9_graph_algorithms__2_introduction__3
+        9_graph_algorithms/2_introduction/3/3.cpp)
