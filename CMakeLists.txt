@@ -174,3 +174,7 @@ add_executable(9_graph_algorithms__2_introduction__2
 # 2_introduction
 add_executable(9_graph_algorithms__2_introduction__3
         9_graph_algorithms/2_introduction/3/3.cpp)
+
+# 2_introduction
+add_executable(9_graph_algorithms__2_introduction__4
+        9_graph_algorithms/2_introduction/4/4.cpp)

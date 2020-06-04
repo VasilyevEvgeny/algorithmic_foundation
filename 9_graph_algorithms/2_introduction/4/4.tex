@@ -1,0 +1,32 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+A vertex of a directed graph is called a source if no edges enter into it, and a sink if no edges come out of it.
+
+The directed graph is given by the adjacency matrix. Find all of its source peaks and all sink peaks.
+
+The first line of the input contains the number $N$ -- the number of vertices in the graph ($1 \le N \le 100$), then the adjacency matrix is written -- $N$ rows with $N$ numbers, each of which is $0$ or $1$.
+
+In the first line print $K$ -- the number of sources in the graph, then the numbers of vertices that are sources in ascending order. In the second line, output information about sinks in the same format.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+5\\
+0 0 0 0 0\\
+0 0 0 0 1\\
+1 1 0 0 0\\
+0 0 0 0 0\\
+0 0 0 0 0\\
+
+\noindent \textbf{Sample output:}\\
+2 3 4\\
+3 1 4 5\\
+
+
+
+\end{document}
