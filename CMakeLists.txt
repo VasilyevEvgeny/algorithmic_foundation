@@ -178,3 +178,7 @@ add_executable(9_graph_algorithms__2_introduction__3
 # 2_introduction
 add_executable(9_graph_algorithms__2_introduction__4
         9_graph_algorithms/2_introduction/4/4.cpp)
+
+# 3_depth-first_search
+add_executable(9_graph_algorithms__3_depth-first_search__2
+        9_graph_algorithms/3_depth-first_search/2_clone_graph/2.cpp)
