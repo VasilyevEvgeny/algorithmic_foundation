@@ -182,3 +182,11 @@ add_executable(9_graph_algorithms__2_introduction__4
 # 3_depth-first_search
 add_executable(9_graph_algorithms__3_depth-first_search__2
         9_graph_algorithms/3_depth-first_search/2_clone_graph/2.cpp)
+
+# 3_depth-first_search
+add_executable(9_graph_algorithms__3_depth-first_search__5
+        9_graph_algorithms/3_depth-first_search/5_redundant_connection/5.cpp)
+
+# 3_depth-first_search
+add_executable(9_graph_algorithms__3_depth-first_search__6
+        9_graph_algorithms/3_depth-first_search/6/6.cpp)
