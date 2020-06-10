@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+Stirlitz was driving a car, saw Bormann voting, and drove by. After some time, he again saw the voting Bormann, and again drove by. Soon, he again saw the voting Bormann.
+
+\textit{-- Mocking! -- thought Bormann.}
+
+\textit{-- Ring! -- Stirlitz guessed.}
+
+The city has $N$ squares. Some areas are interconnected by exactly one two-way road. Stirlitz recently moved to this city. Stirlitz has a hobby -- he loves to get out of the house on Sunday morning, get into the car, choose some ring route and ride along it. He imagines that somewhere on this path is Bormann. And so Stirlitz rides all Sunday until his head is spinning and rejoices$\dots$
+
+Write a program that will check whether Stirlitz can build such a route in this city. First, the number $N$ is written in the input data ($3 \le N \le 100$), and then the matrix $N \times N$. The unit at position $i$, $j$ means that there is a road connecting the $i$-th and $j$-th squares. The matrix is symmetrical with respect to the main diagonal, $0$ are on the main diagonal.
+
+Print $\textbf{YES}$ if such a route can be constructed, and $\textbf{NO}$ otherwise.
+
+\SPACE
+
+\noindent \textbf{Sample input 1:}\\
+6\\
+0 1 1 0 0 0\\
+1 0 1 0 0 0\\
+1 1 0 0 0 0\\
+0 0 0 0 1 0\\
+0 0 0 1 0 0\\
+0 0 0 0 0 0\\
+
+
+\noindent \textbf{Sample output 1:}\\
+YES
+
+\SPACE
+
+\noindent \textbf{Sample input 2:}\\
+3\\
+0 1 0\\
+1 0 1\\
+0 1 0\\
+
+
+\noindent \textbf{Sample output 2:}\\
+NO
+
+
+
+
+
+
+
+
+\end{document}
