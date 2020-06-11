@@ -198,3 +198,7 @@ add_executable(9_graph_algorithms__3_depth-first_search__7
 # 3_depth-first_search
 add_executable(9_graph_algorithms__3_depth-first_search__8
         9_graph_algorithms/3_depth-first_search/8/8.cpp)
+
+# 4_breadth-first_search
+add_executable(9_graph_algorithms__4_breadth-first_search__3
+        9_graph_algorithms/4_breadth-first_search/3_word_ladder/3.cpp)
