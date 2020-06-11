@@ -1,0 +1,31 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+Given oriented graph. Find the distances from the vertex $x$ to all other vertices of the graph.
+
+The first line of the input contains two positive integers $N$ and $x$ ($1 \le N \le 1 \ 000$, $1 \le x \le N$) -- the number of vertices in the graph and the starting vertex, respectively. Next, in $N$ rows along $N$ numbers, is the graph adjacency matrix: in the $i$-th row, at the $j$-th place, there are $1$ if there is an edge from vertex $i$ to $j$ and $0$ if there is no edge between them. Zeros are on the main diagonal of the matrix.
+
+Print $d_1, d_2, \dots, d_n$, where $d_i$ is $-1$ if there are no paths between $x$ and $i$, and the minimum distance between $x$ and $i$ otherwise.
+
+\SPACE
+
+\noindent \textbf{Sample input 1:}\\
+6 5\\
+0 1 1 0 0 0\\
+1 0 0 0 0 0\\
+1 1 0 0 0 0\\
+0 0 0 0 1 0\\
+0 0 1 1 0 0\\
+0 1 0 0 0 0\\
+
+
+\noindent \textbf{Sample output 1:}\\
+2 2 1 1 0 -1
+
+
+
+\end{document}
