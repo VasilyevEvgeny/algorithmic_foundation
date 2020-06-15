@@ -206,3 +206,15 @@ add_executable(9_graph_algorithms__4_breadth-first_search__3
 # 4_breadth-first_search
 add_executable(9_graph_algorithms__4_breadth-first_search__4
         9_graph_algorithms/4_breadth-first_search/4/4.cpp)
+
+# 4_breadth-first_search
+add_executable(9_graph_algorithms__4_breadth-first_search__5
+        9_graph_algorithms/4_breadth-first_search/5/5.cpp)
+
+# 5_loop_search_and_topological_sorting
+add_executable(9_graph_algorithms__5_loop_search_and_topological_sorting__3
+        9_graph_algorithms/5_loop_search_and_topological_sorting/3_course_shedule_2/3.cpp)
+
+# 5_loop_search_and_topological_sorting
+add_executable(9_graph_algorithms__5_loop_search_and_topological_sorting__4
+        9_graph_algorithms/5_loop_search_and_topological_sorting/4/4.cpp)

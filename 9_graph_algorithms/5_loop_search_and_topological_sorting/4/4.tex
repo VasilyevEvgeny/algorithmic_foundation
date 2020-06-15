@@ -1,0 +1,28 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+A directed unweighted graph is given. It is necessary to determine if there are cycles in it, and if there is, then output any of them.
+
+The first line of the input contains two natural numbers $N$ and $M$ ($1 \le N \le 100 \ 000$, $0 \le M \le 100 \ 000$) -- the number of vertices and edges in the graph, respectively. Further in the $M$ lines are listed the edges of the graph. Each edge is defined by a pair of numbers -- the numbers of the initial and final vertices, respectively.
+
+If there is no loop in the graph, then print \textbf{NO}, otherwise \textbf{YES} and then list all the vertices in the loop traversal order.
+
+\SPACE
+
+\noindent \textbf{Sample input:}\\
+3 3\\
+1 2\\
+2 3\\
+3 1\\
+
+
+\noindent \textbf{Sample output:}\\
+YES\\
+1 2 3\\
+
+
+\end{document}
