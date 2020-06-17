@@ -1,0 +1,30 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+$n$ farmer John cows are numbered sequentially from $1$ to $n$. Milking cow $i$ requires $t_i$ units of time. However, some cows must be milked earlier than others (due to their position on the farm). If the $A$ cow needs to be milked before the $B$ cow, farmer John must completely finish milking the $A$ cow before milking the $B$ cow.
+
+In order to milk all of his cows as quickly as possible, farmer John hired a large number of milkmaids -- sufficient to milk any number of cows at a time. Determine the minimum amount of time required to milk all cows.
+
+The first line of input contains $n$ and $m$ -- the number of cows and the number of restrictions, respectively ($1 \le n \le 10 \ 000$, $1 \le m \le 50 \ 000$). The next $n$ lines contain $t_i$ times required to reach the cows ($1 \le t_i \le 100 \ 000$). The following $m$ lines contain the numbers $a_i$ and $b_i$ -- milking restrictions ($1 \le a_i, b_i \le n$, $a_i \ne b_i$).
+
+Print the minimum amount of time required to milk all the cows.
+
+\SPACE
+
+\noindent \textbf{Sample input:}\\
+3 1\\
+10\\
+5\\
+6\\
+3 2\\
+
+
+\noindent \textbf{Sample output:}\\
+11\\
+
+
+\end{document}

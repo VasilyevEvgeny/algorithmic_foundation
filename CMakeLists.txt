@@ -218,3 +218,7 @@ add_executable(9_graph_algorithms__5_loop_search_and_topological_sorting__3
 # 5_loop_search_and_topological_sorting
 add_executable(9_graph_algorithms__5_loop_search_and_topological_sorting__4
         9_graph_algorithms/5_loop_search_and_topological_sorting/4/4.cpp)
+
+# 5_loop_search_and_topological_sorting
+add_executable(9_graph_algorithms__5_loop_search_and_topological_sorting__5
+        9_graph_algorithms/5_loop_search_and_topological_sorting/5/5.cpp)
