@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+\textbf{Task A. Increasing Priority (1 point)}
+
+\SPACE
+
+The maximum heap is given and requests are executed on it.
+
+The query is given by two integers $i$ and $x$. It is required to increase the value of the $i$-th element of the heap by $x$ and perform \textit{SiftUp} to restore the heap.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line contains the heap size $N$ ($1 \le N \le 10^5$).
+
+The second line introduces the heap itself -- $N$ different integers, each of which modulo does not exceed $10^9$. It is guaranteed that these numbers make up the correct maximum heap.
+
+The third line introduces the number $M$ ($0 \le M \le 10^5)$ -- the number of requests.
+
+The following $M$ lines introduce the queries themselves, one per line.
+
+It is guaranteed that $1 \le i \le N$, $x \ge 0$, the new value of the heap element does not exceed $10^9$ and differs from the current values of all other elements of the heap.
+
+\SPACE
+
+\textbf{Output format}
+
+As a response to the query, it is required to display one number in a separate line -- the number of the heap element in which the changed element turned out after \textit{SiftUp}.
+
+In addition, after all the requests have been completed, it is necessary to display the heap in its final state.
+
+\SPACE
+
+\noindent \textbf{Sample input:}\\
+6\\
+12 6 8 3 4 7\\
+2\\
+5 11\\
+3 6\\
+
+
+\noindent \textbf{Sample output:}\\
+1\\
+3\\
+15 12 14 3 6 7\\
+
+
+\end{document}

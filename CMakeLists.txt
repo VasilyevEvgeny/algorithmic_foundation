@@ -171,6 +171,10 @@ add_executable(7_elementary_data_structures__6_assignments__13
 add_executable(10_heap__3_tasks_simple_binary_heap__2
         10_heap/3_tasks_simple_binary_heap/2_last_stone_weight/2.cpp)
 
+# 3_tasks_simple_binary_heap
+add_executable(10_heap__3_tasks_simple_binary_heap__3
+        10_heap/3_tasks_simple_binary_heap/3/3.cpp)
+
 
 
 ##############################
