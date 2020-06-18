@@ -164,61 +164,71 @@ add_executable(7_elementary_data_structures__6_assignments__13
 
 
 ##############################
-# 9_graph_algorithms
+# 10_heap
+##############################
+
+# 3_tasks_simple_binary_heap
+add_executable(10_heap__3_tasks_simple_binary_heap__2
+        10_heap/3_tasks_simple_binary_heap/2_last_stone_weight/2.cpp)
+
+
+
+##############################
+# 12_graph_algorithms
 ##############################
 
 # 2_introduction
-add_executable(9_graph_algorithms__2_introduction__2
-        9_graph_algorithms/2_introduction/2/2.cpp)
+add_executable(12_graph_algorithms__2_introduction__2
+        12_graph_algorithms/2_introduction/2/2.cpp)
 
 # 2_introduction
-add_executable(9_graph_algorithms__2_introduction__3
-        9_graph_algorithms/2_introduction/3/3.cpp)
+add_executable(12_graph_algorithms__2_introduction__3
+        12_graph_algorithms/2_introduction/3/3.cpp)
 
 # 2_introduction
-add_executable(9_graph_algorithms__2_introduction__4
-        9_graph_algorithms/2_introduction/4/4.cpp)
+add_executable(12_graph_algorithms__2_introduction__4
+        12_graph_algorithms/2_introduction/4/4.cpp)
 
 # 3_depth-first_search
-add_executable(9_graph_algorithms__3_depth-first_search__2
-        9_graph_algorithms/3_depth-first_search/2_clone_graph/2.cpp)
+add_executable(12_graph_algorithms__3_depth-first_search__2
+        12_graph_algorithms/3_depth-first_search/2_clone_graph/2.cpp)
 
 # 3_depth-first_search
-add_executable(9_graph_algorithms__3_depth-first_search__5
-        9_graph_algorithms/3_depth-first_search/5_redundant_connection/5.cpp)
+add_executable(12_graph_algorithms__3_depth-first_search__5
+        12_graph_algorithms/3_depth-first_search/5_redundant_connection/5.cpp)
 
 # 3_depth-first_search
-add_executable(9_graph_algorithms__3_depth-first_search__6
-        9_graph_algorithms/3_depth-first_search/6/6.cpp)
+add_executable(12_graph_algorithms__3_depth-first_search__6
+        12_graph_algorithms/3_depth-first_search/6/6.cpp)
 
 # 3_depth-first_search
-add_executable(9_graph_algorithms__3_depth-first_search__7
-        9_graph_algorithms/3_depth-first_search/7/7.cpp)
+add_executable(12_graph_algorithms__3_depth-first_search__7
+        12_graph_algorithms/3_depth-first_search/7/7.cpp)
 
 # 3_depth-first_search
-add_executable(9_graph_algorithms__3_depth-first_search__8
-        9_graph_algorithms/3_depth-first_search/8/8.cpp)
+add_executable(12_graph_algorithms__3_depth-first_search__8
+        12_graph_algorithms/3_depth-first_search/8/8.cpp)
 
 # 4_breadth-first_search
-add_executable(9_graph_algorithms__4_breadth-first_search__3
-        9_graph_algorithms/4_breadth-first_search/3_word_ladder/3.cpp)
+add_executable(12_graph_algorithms__4_breadth-first_search__3
+        12_graph_algorithms/4_breadth-first_search/3_word_ladder/3.cpp)
 
 # 4_breadth-first_search
-add_executable(9_graph_algorithms__4_breadth-first_search__4
-        9_graph_algorithms/4_breadth-first_search/4/4.cpp)
+add_executable(12_graph_algorithms__4_breadth-first_search__4
+        12_graph_algorithms/4_breadth-first_search/4/4.cpp)
 
 # 4_breadth-first_search
-add_executable(9_graph_algorithms__4_breadth-first_search__5
-        9_graph_algorithms/4_breadth-first_search/5/5.cpp)
+add_executable(12_graph_algorithms__4_breadth-first_search__5
+        12_graph_algorithms/4_breadth-first_search/5/5.cpp)
 
 # 5_loop_search_and_topological_sorting
-add_executable(9_graph_algorithms__5_loop_search_and_topological_sorting__3
-        9_graph_algorithms/5_loop_search_and_topological_sorting/3_course_shedule_2/3.cpp)
+add_executable(12_graph_algorithms__5_loop_search_and_topological_sorting__3
+        12_graph_algorithms/5_loop_search_and_topological_sorting/3_course_shedule_2/3.cpp)
 
 # 5_loop_search_and_topological_sorting
-add_executable(9_graph_algorithms__5_loop_search_and_topological_sorting__4
-        9_graph_algorithms/5_loop_search_and_topological_sorting/4/4.cpp)
+add_executable(12_graph_algorithms__5_loop_search_and_topological_sorting__4
+        12_graph_algorithms/5_loop_search_and_topological_sorting/4/4.cpp)
 
 # 5_loop_search_and_topological_sorting
-add_executable(9_graph_algorithms__5_loop_search_and_topological_sorting__5
-        9_graph_algorithms/5_loop_search_and_topological_sorting/5/5.cpp)
+add_executable(12_graph_algorithms__5_loop_search_and_topological_sorting__5
+        12_graph_algorithms/5_loop_search_and_topological_sorting/5/5.cpp)
