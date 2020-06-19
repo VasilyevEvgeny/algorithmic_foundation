@@ -21,30 +21,32 @@ class MaxHeap {
 public:
     MaxHeap(const integer N, std::vector<integer> data) : N_(N), data_(std::move(data)) {}
 
+    integer Size() const {
+        return static_cast<integer>(data_.size());
+    }
+
+    void Add(integer val) {
+        data_.push_back(val);
+        SiftUp(data_.size() - 1);
+    }
+
     void SiftUp(integer i) {
         integer parent = (i - 1) / 2;
         if (data_[i] > data_[parent]) {
             std::swap(data_[i], data_[parent]);
-            SiftUp(i);
+            SiftUp(parent);
         }
-    }
-
-    void Add(integer e) {
-        data_.push_back(e);
-        SiftUp(data_.size() - 1);
     }
 
     std::vector<integer> GetData() const { return data_; }
 
     integer GetMax() { return data_[0]; }
 
-    integer Size() { return data_.size(); }
-
-private:
+public:
     const integer N_;
     std::vector<integer> data_;
-};
 
+};
 
 
 class Solution {
@@ -55,7 +57,7 @@ public:
     void solve() {
         for (const auto& query : queries_) {
            std::istringstream iss(query);
-           integer type = 0;
+            integer type = 0;
            iss >> type;
            if (type == 1) {
                if (!heap_.Size()) { std::cout << -1 << std::endl; }
