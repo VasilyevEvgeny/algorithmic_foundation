@@ -1,0 +1,51 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+\textbf{Task B. Priority Queue (1 point)}
+
+\SPACE
+
+It is required to implement a priority queue that supports two operations: add an element and display the maximum element (you do not need to delete it). After each addition of an element, it is necessary to display the state of the array in which the priority queue is stored.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line contains two numbers -- the maximum size of the priority queue $N$ ($1 \le N \le 10^3$) and the number of queries $M$ ($1 \le M \le 10^3$).
+
+Further there are $M$ lines, in each line -- one request. The first number is$k_i$ in request sets its type. Value $k_i = 1$ means that it is necessary to derive the maximum element, and the value $k_i = 2$ means you need to add an item to the queue. The second type of request has one parameter $a$ ($-10^9 \le a \le 10^9$) -- is the number to be added.
+
+\SPACE
+
+\textbf{Output format}
+
+In response to each request of the second type, you need to output a string from the elements of the array in which the priority queue is stored. If there is no space in the queue when requesting to add an item or if the priority queue is empty when requesting to retrieve an item, print the number $-1$.
+
+\SPACE
+
+\noindent \textbf{Sample input:}\\
+4 7\\
+1\\
+2 9\\
+2 4\\
+2 9\\
+2 9\\
+2 7\\
+1\\
+
+
+\noindent \textbf{Sample output:}\\
+-1\\
+9\\
+9 4\\
+9 4 9\\
+9 9 9 4\\
+-1\\
+9\\
+
+
+\end{document}
