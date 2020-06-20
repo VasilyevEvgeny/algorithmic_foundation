@@ -179,6 +179,11 @@ add_executable(10_heap__3_tasks_simple_binary_heap__3
 add_executable(10_heap__3_tasks_simple_binary_heap__4
         10_heap/3_tasks_simple_binary_heap/4/4.cpp)
 
+# 3_tasks_simple_binary_heap
+add_executable(10_heap__3_tasks_simple_binary_heap__5
+        10_heap/3_tasks_simple_binary_heap/5/5.cpp)
+
+
 ##############################
 # 12_graph_algorithms
 ##############################

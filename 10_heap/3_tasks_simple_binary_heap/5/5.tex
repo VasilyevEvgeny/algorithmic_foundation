@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+\textbf{Task C. Decrease Priority (1 point)}
+
+\SPACE
+
+The maximum heap is given and requests are executed on it.
+
+The query is given by two integers $i$ and $x$. It is required to reduce the value of the $i$-th element of the heap by $x$ and perform $SiftDown$ to restore the heap.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line contains the heap size $N$ ($1 \le N \le 10^5$). 
+
+The second line introduces the heap itself -- $N$ different integers, each of which modulo does not exceed $10^9$. It is guaranteed that these numbers make up the correct maximum heap.
+
+The third line introduces the number $M$ ($1 \le M \le 10^5$ -- the number of requests.
+
+The following $M$ lines introduce the queries themselves, one per line.
+
+It is guaranteed that $1 \le i \le N$, $x \ge 0$, the new value of the heap element modulo does not exceed $10^9$ and differs from the current values of all other elements of the heap.
+
+\SPACE
+
+\textbf{Output format}
+
+As a response to the request, it is required to display one number on a separate line -- the number of the heap element in which the changed element turned out after $SiftDown$.
+
+In addition, after all the requests have been completed, it is necessary to display the heap in its final state.
+
+\SPACE
+
+\noindent \textbf{Sample input:}\\
+6\\
+12 6 8 3 4 7\\
+2\\
+2 5\\
+1 2\\
+
+
+\noindent \textbf{Sample output:}\\
+5\\
+1\\
+10 4 8 3 1 7\\
+
+
+\end{document}
