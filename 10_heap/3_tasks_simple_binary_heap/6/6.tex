@@ -1,0 +1,41 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+\textbf{Task D. Extraction of the maximum (1 point)}
+
+\SPACE
+
+Given a maximum heap of size $N$. Is reqired $N-1$ times to extract the maximum element. After each extraction, you need to display the state of the array in which the heap is stored.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line contains the heap size $N$ ($1 < N \le 10^3$). The second line introduces the heap itself -- $N$ different integers $a_i$ ($-10^9 \le a_i \le 10^9$). It is guaranteed that these numbers make up the correct maximum heap.
+
+\SPACE
+
+\textbf{Output format}
+
+It is required to output $N-1$ lines -- the state of the array after deleting each element.
+
+\SPACE
+
+\noindent \textbf{Sample input:}\\
+6\\
+12 6 8 3 4 7\\
+
+
+\noindent \textbf{Sample output:}\\
+8 6 7 3 4\\
+7 6 4 3\\
+6 3 4\\
+4 3\\
+3\\
+
+
+\end{document}
