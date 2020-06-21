@@ -1,0 +1,53 @@
+\documentclass[a4paper]{article}
+
+\usepackage{/home/evasilyev/CLionProjects/algorithmic_foundation/settings}
+
+
+\begin{document}
+
+\textbf{Task F. King of Misopotamia (1 point)}
+
+\SPACE
+
+The king of Misopotamia is a very generous man: when they come to him and ask for help, he gives exactly one of the most expensive gift he has in the treasury. He also has another interesting feature -- he accepts any gift presented to him. But he cannot receive visitors all day, so only $N$ people can get to him per day. For each visitor, the vizier keeps a record. In order not to write a lot, the vizier came up with a system: if a visitor brought a gift in the amount of $S$, then in the protocol he writes $0 \ S$, and if he asks for help, then $1$.
+
+Retrieve the list of King-given gifts according to the protocol.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line contains the number of visitors $N$ ($1 \le N \le 100000$). This is followed by $N$ lines, in the $i$-th of which there is an entry about the $i$-th visitor.
+
+It is guaranteed that at the time of issuing a gift in the treasury there is at least one gift, and the cost of prizes is integers in the range from $0$ to $10^9$.
+
+\SPACE
+
+\textbf{Output format}
+
+For each line of issue it is necessary to print a number in a separate line -- the value of the issued gift.
+
+\SPACE
+
+\noindent \textbf{Sample input:}\\
+10\\
+0 941\\
+0 6077\\
+1\\
+0 9560\\
+1\\
+0 12770\\
+1\\
+0 2117\\
+0 1791\\
+1\\
+
+
+\noindent \textbf{Sample output:}\\
+6077\\
+9560\\
+12770\\
+2117\\
+
+
+\end{document}
