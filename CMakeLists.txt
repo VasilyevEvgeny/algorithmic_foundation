@@ -191,6 +191,10 @@ add_executable(10_heap__3_tasks_simple_binary_heap__6
 add_executable(10_heap__4_asymptotics_sorting__2
         10_heap/4_asymptotics_sorting/2/2.cpp)
 
+# 4_asymptotics_sorting
+add_executable(10_heap__4_asymptotics_sorting__3
+        10_heap/4_asymptotics_sorting/3/3.cpp)
+
 
 ##############################
 # 12_graph_algorithms
