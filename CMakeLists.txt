@@ -164,6 +164,17 @@ add_executable(7_elementary_data_structures__6_assignments__13
 
 
 ##############################
+# 9_sorting
+##############################
+
+# 1_introduction
+add_executable(9_sorting__1_introduction__3
+        9_sorting/1_introduction/3/3.cpp)
+
+
+
+
+##############################
 # 10_heap
 ##############################
 
