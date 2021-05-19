@@ -1,9 +1,9 @@
 .idea
 .venv
-.aux
-.bbl
-.blg
-.log
-.syntex.gz
+*.aux
+*.bbl
+*.blg
+*.log
+*.synctex.gz
 __pycache__
 cmake-build-debug
