@@ -4,6 +4,11 @@ import numpy as np
 import os
 from tqdm import tqdm
 from matplotlib import pyplot as plt
+from matplotlib import rc
+rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
+rc('text', usetex=True)
+rc('text.latex', preamble=r'\usepackage[utf8]{inputenc}')
+rc('text.latex', preamble=r'\usepackage[russian]{babel}')
 
 from functions import measure_time, normalize_by_last
 
@@ -85,9 +90,9 @@ plt.plot(C_list, t_list_4, linewidth=2, linestyle='solid', label='$\sqrt{C}$')
 plt.plot(C_list, t_list_5, linewidth=2, linestyle='solid', label='$C$')
 plt.grid(linewidth=1, linestyle='dotted', color='gray', alpha=0.5)
 plt.ylim([0, 0.05])
-plt.xlabel('C', fontweight='bold')
-plt.ylabel('t, a.u.', fontweight='bold')
+plt.xlabel('C', fontsize=14, fontweight='bold')
+plt.ylabel('t, a.u.', fontsize=14, fontweight='bold')
 plt.legend()
 path_to_save = '/'.join(os.path.abspath(__file__).split('.')[:-1]) + '.png'
-plt.savefig(path_to_save, bbox_inches='tight')
+plt.savefig(path_to_save, bbox_inches='tight', dpi=500)
 plt.close()
