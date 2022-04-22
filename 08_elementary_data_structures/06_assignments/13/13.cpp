@@ -4,7 +4,7 @@
 #include <chrono>
 
 // 1 - work, 3 - stress testing
-#define MODE 3
+#define MODE 1
 
 #define VERBOSE false
 
