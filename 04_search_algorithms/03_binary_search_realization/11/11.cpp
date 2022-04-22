@@ -1,7 +1,3 @@
-//
-// Created by evasilyev on 26.01.2020.
-//
-
 #include <iostream>
 #include <vector>
 

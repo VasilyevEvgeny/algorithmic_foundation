@@ -1,7 +1,3 @@
-//
-// Created by evasilyev on 29.04.2020.
-//
-
 struct ListNode {
     explicit ListNode(int x) : val(x), next(nullptr) {}
 

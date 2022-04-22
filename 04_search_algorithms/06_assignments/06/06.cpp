@@ -1,7 +1,3 @@
-//
-// Created by evasilyev on 14.02.2020.
-//
-
 #include <iostream>
 #include <algorithm>
 #include <random>

@@ -1,8 +1,3 @@
-//
-// Created by evasilyev on 22.02.2020.
-//
-
-
 #include <iostream>
 #include <vector>
 #include <random>

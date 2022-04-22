@@ -1,7 +1,3 @@
-//
-// Created by evasilyev on 01.06.2020.
-//
-
 #include <iostream>
 #include <string>
 #include <deque>
