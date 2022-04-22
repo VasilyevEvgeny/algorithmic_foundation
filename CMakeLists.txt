@@ -9,46 +9,46 @@ set(CMAKE_CXX_STANDARD 14)
 #####################
 
 # 3_binary_search_realization
-add_executable(3_search_algorithms__3_binary_search_realization__11
-        3_search_algorithms/3_binary_search_realization/11/11.cpp)
+add_executable(04_search_algorithms__03_binary_search_realization__11
+        04_search_algorithms/03_binary_search_realization/11/11.cpp)
 
 # 5_binary_search_by_answer
-add_executable(3_search_algorithms__5_binary_search_by_answer__2
-        3_search_algorithms/5_binary_search_by_answer/2/2.cpp)
+add_executable(04_search_algorithms__05_binary_search_by_answer__02
+        04_search_algorithms/05_binary_search_by_answer/02/02.cpp)
 
-add_executable(3_search_algorithms__5_binary_search_by_answer__3
-        3_search_algorithms/5_binary_search_by_answer/3/3.cpp)
+add_executable(04_search_algorithms__05_binary_search_by_answer__03
+        04_search_algorithms/05_binary_search_by_answer/03/03.cpp)
 
-add_executable(3_search_algorithms__5_binary_search_by_answer__6
-        3_search_algorithms/5_binary_search_by_answer/6/6.cpp)
-
-# 6_assignments
-add_executable(3_search_algorithms__6_assignments__1
-        3_search_algorithms/6_assignments/1/1.cpp)
+add_executable(04_search_algorithms__05_binary_search_by_answer__06
+        04_search_algorithms/05_binary_search_by_answer/06/06.cpp)
 
 # 6_assignments
-add_executable(3_search_algorithms__6_assignments__2
-        3_search_algorithms/6_assignments/2/2.cpp)
+add_executable(04_search_algorithms__06_assignments__01
+        04_search_algorithms/06_assignments/01/01.cpp)
 
 # 6_assignments
-add_executable(3_search_algorithms__6_assignments__3
-        3_search_algorithms/6_assignments/3/3.cpp)
+add_executable(04_search_algorithms__06_assignments__02
+        04_search_algorithms/06_assignments/02/02.cpp)
 
 # 6_assignments
-add_executable(3_search_algorithms__6_assignments__4
-        3_search_algorithms/6_assignments/4/4.cpp)
+add_executable(04_search_algorithms__06_assignments__03
+        04_search_algorithms/06_assignments/03/03.cpp)
 
 # 6_assignments
-add_executable(3_search_algorithms__6_assignments__5
-        3_search_algorithms/6_assignments/5/5.cpp)
+add_executable(04_search_algorithms__06_assignments__04
+        04_search_algorithms/06_assignments/04/04.cpp)
 
 # 6_assignments
-add_executable(3_search_algorithms__6_assignments__6
-        3_search_algorithms/6_assignments/6/6.cpp)
+add_executable(04_search_algorithms__06_assignments__05
+        04_search_algorithms/06_assignments/05/05.cpp)
 
 # 6_assignments
-add_executable(3_search_algorithms__6_assignments__7
-        3_search_algorithms/6_assignments/7/7.cpp)
+add_executable(04_search_algorithms__06_assignments__06
+        04_search_algorithms/06_assignments/06/06.cpp)
+
+# 6_assignments
+add_executable(04_search_algorithms__06_assignments__07
+        04_search_algorithms/06_assignments/07/07.cpp)
 
 
 
@@ -58,48 +58,48 @@ add_executable(3_search_algorithms__6_assignments__7
 ############################
 
 # 2_segment_with_a_given_sum
-add_executable(5_two_pointer_technique__2_segment_with_a_given_sum__5
-        5_two_pointer_technique/2_segment_with_a_given_sum/5/5.cpp)
+add_executable(06_two_pointer_technique__02_segment_with_a_given_sum__05
+        06_two_pointer_technique/02_segment_with_a_given_sum/05/05.cpp)
 
 # 3_sorted_arrays
-add_executable(5_two_pointer_technique__3_sorted_arrays__4
-        5_two_pointer_technique/3_sorted_arrays/4/4.cpp)
+add_executable(06_two_pointer_technique__03_sorted_arrays__04
+        06_two_pointer_technique/03_sorted_arrays/04/04.cpp)
 
 # 4_long_pressed_name
-add_executable(5_two_pointer_technique__4_long_pressed_name__2
-        5_two_pointer_technique/4_long_pressed_name/2/2.cpp)
+add_executable(06_two_pointer_technique__04_long_pressed_name__02
+        06_two_pointer_technique/04_long_pressed_name/02/02.cpp)
 
 # 6_assignments
-add_executable(5_two_pointer_technique__6_assignments__1
-        5_two_pointer_technique/6_assignments/1/1.cpp)
+add_executable(06_two_pointer_technique__06_assignments__01
+        06_two_pointer_technique/06_assignments/01/01.cpp)
 
 # 6_assignments
-add_executable(5_two_pointer_technique__6_assignments__2
-        5_two_pointer_technique/6_assignments/2/2.cpp)
+add_executable(06_two_pointer_technique__06_assignments__02
+        06_two_pointer_technique/06_assignments/02/02.cpp)
 
 # 6_assignments
-add_executable(5_two_pointer_technique__6_assignments__3
-        5_two_pointer_technique/6_assignments/3/3.cpp)
+add_executable(06_two_pointer_technique__06_assignments__03
+        06_two_pointer_technique/06_assignments/03/03.cpp)
 
 # 6_assignments
-add_executable(5_two_pointer_technique__6_assignments__4
-        5_two_pointer_technique/6_assignments/4/4.cpp)
+add_executable(06_two_pointer_technique__06_assignments__04
+        06_two_pointer_technique/06_assignments/04/04.cpp)
 
 # 6_assignments
-add_executable(5_two_pointer_technique__6_assignments__5
-        5_two_pointer_technique/6_assignments/5/5.cpp)
+add_executable(06_two_pointer_technique__06_assignments__05
+        06_two_pointer_technique/06_assignments/05/05.cpp)
 
 # 6_assignments
-add_executable(5_two_pointer_technique__6_assignments__6
-        5_two_pointer_technique/6_assignments/6/6.cpp)
+add_executable(06_two_pointer_technique__06_assignments__06
+        06_two_pointer_technique/06_assignments/06/06.cpp)
 
 # 6_assignments
-add_executable(5_two_pointer_technique__6_assignments__7
-        5_two_pointer_technique/6_assignments/7/7.cpp)
+add_executable(06_two_pointer_technique__06_assignments__07
+        06_two_pointer_technique/06_assignments/07/07.cpp)
 
 # 6_assignments
-add_executable(5_two_pointer_technique__6_assignments__8
-        5_two_pointer_technique/6_assignments/8/8.cpp)
+add_executable(06_two_pointer_technique__06_assignments__08
+        06_two_pointer_technique/06_assignments/08/08.cpp)
 
 
 ##############################
@@ -107,60 +107,60 @@ add_executable(5_two_pointer_technique__6_assignments__8
 ##############################
 
 # 2_linked_list
-add_executable(7_elementary_data_structures__2_linked_list__3
-        7_elementary_data_structures/2_linked_list/3_remove_linked_list_elements/3.cpp)
+add_executable(08_elementary_data_structures__02_linked_list__03
+        08_elementary_data_structures/02_linked_list/03_remove_linked_list_elements/03.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__01
-        7_elementary_data_structures/6_assignments/1/1.cpp)
+add_executable(08_elementary_data_structures__06_assignments__01
+        08_elementary_data_structures/06_assignments/01/01.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__02
-        7_elementary_data_structures/6_assignments/2/2.cpp)
+add_executable(08_elementary_data_structures__06_assignments__02
+        08_elementary_data_structures/06_assignments/02/02.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__03
-        7_elementary_data_structures/6_assignments/3/3.cpp)
+add_executable(08_elementary_data_structures__06_assignments__03
+        08_elementary_data_structures/06_assignments/03/03.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__04
-        7_elementary_data_structures/6_assignments/4/4.cpp)
+add_executable(08_elementary_data_structures__06_assignments__04
+        08_elementary_data_structures/06_assignments/04/04.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__05
-        7_elementary_data_structures/6_assignments/5/5.cpp)
+add_executable(08_elementary_data_structures__06_assignments__05
+        08_elementary_data_structures/06_assignments/05/05.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__06
-        7_elementary_data_structures/6_assignments/6/6.cpp)
+add_executable(08_elementary_data_structures__06_assignments__06
+        08_elementary_data_structures/06_assignments/06/06.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__07
-        7_elementary_data_structures/6_assignments/7/7.cpp)
+add_executable(08_elementary_data_structures__06_assignments__07
+        08_elementary_data_structures/06_assignments/07/07.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__08
-        7_elementary_data_structures/6_assignments/8/8.cpp)
+add_executable(08_elementary_data_structures__06_assignments__08
+        08_elementary_data_structures/06_assignments/08/08.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__09
-        7_elementary_data_structures/6_assignments/9/9.cpp)
+add_executable(08_elementary_data_structures__06_assignments__09
+        08_elementary_data_structures/06_assignments/09/09.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__10
-        7_elementary_data_structures/6_assignments/10/10.cpp)
+add_executable(08_elementary_data_structures__06_assignments__10
+        08_elementary_data_structures/06_assignments/10/10.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__11
-        7_elementary_data_structures/6_assignments/11/11.cpp)
+add_executable(08_elementary_data_structures__06_assignments__11
+        08_elementary_data_structures/06_assignments/11/11.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__12
-        7_elementary_data_structures/6_assignments/12/12.cpp)
+add_executable(08_elementary_data_structures__06_assignments__12
+        08_elementary_data_structures/06_assignments/12/12.cpp)
 
 # 6_assignments
-add_executable(7_elementary_data_structures__6_assignments__13
-        7_elementary_data_structures/6_assignments/13/13.cpp)
+add_executable(08_elementary_data_structures__06_assignments__13
+        08_elementary_data_structures/06_assignments/13/13.cpp)
 
 
 ##############################
@@ -168,101 +168,101 @@ add_executable(7_elementary_data_structures__6_assignments__13
 ##############################
 
 # 1_introduction
-add_executable(9_sorting__1_introduction__3
-        9_sorting/1_introduction/3/3.cpp)
+add_executable(10_sorting__01_introduction__03
+        10_sorting/01_introduction/03/03.cpp)
 
 
 
 
 ##############################
-# 10_heap
+# 12_heap
 ##############################
 
 # 3_tasks_simple_binary_heap
-add_executable(10_heap__3_tasks_simple_binary_heap__2
-        10_heap/3_tasks_simple_binary_heap/2_last_stone_weight/2.cpp)
+add_executable(12_heap__03_tasks_simple_binary_heap__02
+        12_heap/03_tasks_simple_binary_heap/02_last_stone_weight/02.cpp)
 
 # 3_tasks_simple_binary_heap
-add_executable(10_heap__3_tasks_simple_binary_heap__3
-        10_heap/3_tasks_simple_binary_heap/3/3.cpp)
+add_executable(12_heap__03_tasks_simple_binary_heap__03
+        12_heap/03_tasks_simple_binary_heap/03/03.cpp)
 
 # 3_tasks_simple_binary_heap
-add_executable(10_heap__3_tasks_simple_binary_heap__4
-        10_heap/3_tasks_simple_binary_heap/4/4.cpp)
+add_executable(12_heap__03_tasks_simple_binary_heap__04
+        12_heap/03_tasks_simple_binary_heap/04/04.cpp)
 
 # 3_tasks_simple_binary_heap
-add_executable(10_heap__3_tasks_simple_binary_heap__5
-        10_heap/3_tasks_simple_binary_heap/5/5.cpp)
+add_executable(12_heap__03_tasks_simple_binary_heap__05
+        12_heap/03_tasks_simple_binary_heap/05/05.cpp)
 
 # 3_tasks_simple_binary_heap
-add_executable(10_heap__3_tasks_simple_binary_heap__6
-        10_heap/3_tasks_simple_binary_heap/6/6.cpp)
+add_executable(12_heap__03_tasks_simple_binary_heap__06
+        12_heap/03_tasks_simple_binary_heap/06/06.cpp)
 
 # 4_asymptotics_sorting
-add_executable(10_heap__4_asymptotics_sorting__2
-        10_heap/4_asymptotics_sorting/2/2.cpp)
+add_executable(12_heap__04_asymptotics_sorting__02
+        12_heap/04_asymptotics_sorting/02/02.cpp)
 
 # 4_asymptotics_sorting
-add_executable(10_heap__4_asymptotics_sorting__3
-        10_heap/4_asymptotics_sorting/3/3.cpp)
+add_executable(12_heap__04_asymptotics_sorting__03
+        12_heap/04_asymptotics_sorting/03/03.cpp)
 
 
 ##############################
-# 12_graph_algorithms
+# 14_graph_algorithms
 ##############################
 
 # 2_introduction
-add_executable(12_graph_algorithms__2_introduction__2
-        12_graph_algorithms/2_introduction/2/2.cpp)
+add_executable(14_graph_algorithms__02_introduction__02
+        14_graph_algorithms/02_introduction/02/02.cpp)
 
 # 2_introduction
-add_executable(12_graph_algorithms__2_introduction__3
-        12_graph_algorithms/2_introduction/3/3.cpp)
+add_executable(14_graph_algorithms__02_introduction__03
+        14_graph_algorithms/02_introduction/03/03.cpp)
 
 # 2_introduction
-add_executable(12_graph_algorithms__2_introduction__4
-        12_graph_algorithms/2_introduction/4/4.cpp)
+add_executable(14_graph_algorithms__02_introduction__04
+        14_graph_algorithms/02_introduction/04/04.cpp)
 
 # 3_depth-first_search
-add_executable(12_graph_algorithms__3_depth-first_search__2
-        12_graph_algorithms/3_depth-first_search/2_clone_graph/2.cpp)
+add_executable(14_graph_algorithms__03_depth-first_search__02
+        14_graph_algorithms/03_depth-first_search/02_clone_graph/02.cpp)
 
 # 3_depth-first_search
-add_executable(12_graph_algorithms__3_depth-first_search__5
-        12_graph_algorithms/3_depth-first_search/5_redundant_connection/5.cpp)
+add_executable(14_graph_algorithms__03_depth-first_search__05
+        14_graph_algorithms/03_depth-first_search/05_redundant_connection/05.cpp)
 
 # 3_depth-first_search
-add_executable(12_graph_algorithms__3_depth-first_search__6
-        12_graph_algorithms/3_depth-first_search/6/6.cpp)
+add_executable(14_graph_algorithms__03_depth-first_search__06
+        14_graph_algorithms/03_depth-first_search/06/06.cpp)
 
 # 3_depth-first_search
-add_executable(12_graph_algorithms__3_depth-first_search__7
-        12_graph_algorithms/3_depth-first_search/7/7.cpp)
+add_executable(14_graph_algorithms__03_depth-first_search__07
+        14_graph_algorithms/03_depth-first_search/07/07.cpp)
 
 # 3_depth-first_search
-add_executable(12_graph_algorithms__3_depth-first_search__8
-        12_graph_algorithms/3_depth-first_search/8/8.cpp)
+add_executable(14_graph_algorithms__03_depth-first_search__08
+        14_graph_algorithms/03_depth-first_search/08/08.cpp)
 
 # 4_breadth-first_search
-add_executable(12_graph_algorithms__4_breadth-first_search__3
-        12_graph_algorithms/4_breadth-first_search/3_word_ladder/3.cpp)
+add_executable(14_graph_algorithms__04_breadth-first_search__03
+        14_graph_algorithms/04_breadth-first_search/03_word_ladder/03.cpp)
 
 # 4_breadth-first_search
-add_executable(12_graph_algorithms__4_breadth-first_search__4
-        12_graph_algorithms/4_breadth-first_search/4/4.cpp)
+add_executable(14_graph_algorithms__04_breadth-first_search__04
+        14_graph_algorithms/04_breadth-first_search/04/04.cpp)
 
 # 4_breadth-first_search
-add_executable(12_graph_algorithms__4_breadth-first_search__5
-        12_graph_algorithms/4_breadth-first_search/5/5.cpp)
+add_executable(14_graph_algorithms__04_breadth-first_search__05
+        14_graph_algorithms/04_breadth-first_search/05/05.cpp)
 
 # 5_loop_search_and_topological_sorting
-add_executable(12_graph_algorithms__5_loop_search_and_topological_sorting__3
-        12_graph_algorithms/5_loop_search_and_topological_sorting/3_course_shedule_2/3.cpp)
+add_executable(14_graph_algorithms__05_loop_search_and_topological_sorting__03
+        14_graph_algorithms/05_loop_search_and_topological_sorting/03_course_shedule_2/03.cpp)
 
 # 5_loop_search_and_topological_sorting
-add_executable(12_graph_algorithms__5_loop_search_and_topological_sorting__4
-        12_graph_algorithms/5_loop_search_and_topological_sorting/4/4.cpp)
+add_executable(14_graph_algorithms__05_loop_search_and_topological_sorting__04
+        14_graph_algorithms/05_loop_search_and_topological_sorting/04/04.cpp)
 
 # 5_loop_search_and_topological_sorting
-add_executable(12_graph_algorithms__5_loop_search_and_topological_sorting__5
-        12_graph_algorithms/5_loop_search_and_topological_sorting/5/5.cpp)
+add_executable(14_graph_algorithms__05_loop_search_and_topological_sorting__05
+        14_graph_algorithms/05_loop_search_and_topological_sorting/05/05.cpp)
