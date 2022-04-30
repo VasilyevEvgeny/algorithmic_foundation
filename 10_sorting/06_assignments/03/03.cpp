@@ -1,5 +1,5 @@
 #include <iostream>
-#include <vector>
+#include <deque>
 
 #define MODE 1
 #define VERBOSE false
@@ -9,7 +9,7 @@ using size = size_t;
 
 
 template <typename T>
-std::ostream& operator << (std::ostream& os, const std::vector<T>& v) {
+std::ostream& operator << (std::ostream& os, const std::deque<T>& v) {
     os << "[ ";
     for (size_t i = 0; i < v.size(); ++i) {
         os << v[i];
@@ -23,7 +23,7 @@ std::ostream& operator << (std::ostream& os, const std::vector<T>& v) {
 
 class Solution {
 public:
-    Solution(std::vector<size> skates, std::vector<size> students)
+    Solution(std::deque<size> skates, std::deque<size> students)
     : skates_(std::move(skates))
     , students_(std::move(students)) {
 
@@ -46,12 +46,12 @@ public:
 private:
     const size MAX_SIZE_ = 100;
 
-    void sort(std::vector<size>& arr) {
+    void sort(std::deque<size>& arr) {
         if (VERBOSE) {
             std::cout << "In sort()..." << std::endl;
         }
 
-        std::vector<size> cnt(MAX_SIZE_);
+        std::deque<size> cnt(MAX_SIZE_);
         for (const auto& e : arr) {
             ++cnt[e - 1];
         }
@@ -72,33 +72,16 @@ private:
 
     size solve() {
         size n = 0;
-        for (size i = 0, j = 0; i < students_.size(), j < skates_.size(); ++i, ++j) {
-
-            if (VERBOSE) {
-                std::cout << "i = " << i << ", j = " << j << std::endl;
+        while (!students_.empty()) {
+            while (!skates_.empty() && skates_[0] < students_[0]) {
+                skates_.pop_front();
             }
-
-            while (students_[i] > skates_[j] && j < skates_.size()) {
-                ++j;
-
-                if (VERBOSE) {
-                    std::cout << "j = " << j << std::endl;
-                }
-            }
-
-            if (j < skates_.size()) {
-                ++n;
-
-                if (VERBOSE) {
-                    std::cout << "n = " << n << std::endl;
-                }
+            if (!skates_.empty()) {
+                students_.pop_front();
+                skates_.pop_front();
+                n += 1;
             }
             else {
-
-                if (VERBOSE) {
-                    std::cout << "break..." << std::endl;
-                }
-
                 break;
             }
         }
@@ -106,8 +89,8 @@ private:
         return n;
     }
 
-    std::vector<size> skates_;
-    std::vector<size> students_;
+    std::deque<size> skates_;
+    std::deque<size> students_;
 };
 
 
@@ -115,14 +98,14 @@ int main() {
 
     size N = 0;
     std::cin >> N;
-    std::vector<size> skates(N);
+    std::deque<size> skates(N);
     for (size i = 0; i < N; ++i) {
         std::cin >> skates[i];
     }
 
     size M = 0;
     std::cin >> M;
-    std::vector<size> students(M);
+    std::deque<size> students(M);
     for (size i = 0; i < M; ++i) {
         std::cin >> students[i];
     }
