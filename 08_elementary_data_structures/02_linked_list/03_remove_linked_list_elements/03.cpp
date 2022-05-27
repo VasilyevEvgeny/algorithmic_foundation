@@ -90,7 +90,7 @@ bool operator == (ListNode& lhs_head, ListNode& rhs_head) {
 class Solution {
 public:
     static ListNode* removeElements(ListNode* head, int val) {
-        if (!head) { return nullptr }
+        if (!head) { return nullptr; }
 
         for (ListNode* node = head; node; node = node->next) {
             if (node->next) {
