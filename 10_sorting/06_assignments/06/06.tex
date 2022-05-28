@@ -1,0 +1,40 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+The young programmer Sasha wrote his first testing system. He was so happy that it compiled that he decided to invite his school friends to his own contest.
+
+But at the end of the round, it turned out that the system does not know how to sort the teams in the results table. Help Sasha implement this sorting.
+
+Teams are ordered according to ACM rules:
+\begin{itemize}
+\item by the number of tasks solved in descending order;
+\item if the number of solved problems is equal -- by penalty time in ascending order;
+\item ceteris paribus -- by team number in ascending order.
+\end{itemize}
+
+The first line contains a natural number $N$ ($1 \le N \le 100$) -- the number of teams participating in the contest.
+
+The $i$-th of the next $N$ lines contains the number of solved problems $S$ ($0 \le S \le 100$) and the penalty time $T$ ($0 \le T \le 100$) of the team with number $i$.
+
+Print $N$ numbers -- the numbers of the commands in the order in which they should appear in the table.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+5\\
+3 50\\
+5 720\\
+1 7\\
+0 0\\
+8 500\\
+
+
+\noindent \textbf{Sample output:}\\
+5 2 1 3 4
+
+
+\end{document}
