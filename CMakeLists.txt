@@ -197,6 +197,10 @@ add_executable(10_sorting__06_assignments__05
 add_executable(10_sorting__06_assignments__06
         10_sorting/06_assignments/06/06.cpp)
 
+# 06_assignments
+add_executable(10_sorting__06_assignments__07
+        10_sorting/06_assignments/07/07.cpp)
+
 
 ##############################
 # 12_heap
