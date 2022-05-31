@@ -1,5 +1,5 @@
 #include <iostream>
-#include <deque>
+#include <vector>
 #include <algorithm>
 #include <string>
 
@@ -11,87 +11,94 @@ using size = uint64_t;
 
 
 template <typename T>
-std::ostream& operator << (std::ostream& os, const std::deque<T>& v) {
-    os << "[ ";
-    for (size_t i = 0; i < v.size(); ++i) {
-        os << v[i];
-        if (i != v.size() - 1) {
-            os << " ";
-        }
+std::ostream& operator << (std::ostream& os, const std::vector<T>& v) {
+  os << "[ ";
+  for (size_t i = 0; i < v.size(); ++i) {
+    os << v[i];
+    if (i != v.size() - 1) {
+      os << " ";
     }
-    os << " ]";
-    return os;
+  }
+  os << " ]";
+  return os;
 }
 
 class Solution {
 public:
-    Solution(std::deque<std::string> parts)
-            : parts_(std::move(parts)) {
+  Solution(std::vector<size> arr)
+      : arr_(std::move(arr)) {
 
-        sort(begin(parts_), end(parts_), [](const std::string& lhs, const std::string& rhs) {
-            return lhs + rhs > rhs + lhs;
-            /*
-            size_t i = 0, j = 0;
-            for (; i < lhs.size() && j < rhs.size(); ++i, ++j) {
-                if (lhs[i] == rhs[j]) {
-                    continue;
-                }
-                else {
-                    return lhs[i] > rhs[j];
-                }
-            }
-            if (i == lhs.size()) {
-                while (j < rhs.size()) {
-                    if (lhs[i - 1] == rhs[j]) {
-                        ++j;
-                        continue;
-                    } else {
-                        return lhs[i - 1] > rhs[j];
-                    }
-                }
-            }
-            else {
-                while (i < lhs.size()) {
-                    if (rhs[j - 1] == lhs[i]) {
-                        ++i;
-                        continue;
-                    } else {
-                        return rhs[j - 1] < lhs[i];
-                    }
-                }
-            }
-            return true;*/
-        });
-
-        for (const auto& e : parts_) {
-            std::cout << e;
-        }
-        std::cout << std::endl;
+    if (arr_.size() == 1) {
+      std::cout << 0 << std::endl;
     }
 
+    MergeSort(0, arr_.size() - 1);
+
+    std::cout << n_inv_ << std::endl;
+  }
+
 private:
-    std::deque<std::string> parts_;
+
+  void MergeSort(size left, size right) {
+    if (left < right) {
+      size middle = left + (right - left) / 2;
+
+      MergeSort(left, middle);
+      MergeSort(middle + 1, right);
+      Merge(left, middle, right);
+    }
+  }
+
+  void Merge(size left, size middle, size right) {
+    std::vector<size> buf;
+    buf.reserve(right - left + 1);
+
+    for (size l = left, r = middle + 1; l <= middle || r <= right;) {
+      if (r > right || (arr_[l] < arr_[r] && l <= middle)) {
+        buf.push_back(arr_[l]);
+        ++l;
+
+
+      }
+      else {
+        n_inv_++;
+
+        buf.push_back(arr_[r]);
+        ++r;
+      }
+    }
+
+    /*for (size i = left; i <= right; ++i) {
+        arr_[i] = buf[i - left];
+    }*/
+
+  }
+
+
+  std::vector<size> arr_;
+  size n_inv_ = 0;
 };
 
 
 int main() {
 
-    size_t N = 0;
-    std::cin >> N;
+  size_t N = 0;
+  std::cin >> N;
 
-    std::deque<std::string> parts(N);
-    for (size_t i = 0; i < N; ++i) {
-        std::cin >> parts[i];
+  std::vector<size> arr(N);
+  for (size_t i = 0; i < N; ++i) {
+    std::cin >> arr[i];
+  }
+
+  if (VERBOSE) {
+    std::cout << "Initial data:" << std::endl;
+    for (const auto& e : arr) {
+      std::cout << e << " ";
     }
+    std::cout << std::endl;
+  }
 
-    if (VERBOSE) {
-        std::cout << "Initial data:" << std::endl;
-        for (const auto& e : parts) {
-            std::cout << e << std::endl;
-        }
-    }
+  Solution solution(arr);
 
-    Solution solution(parts);
-
-    return 0;
+  return 0;
 }
