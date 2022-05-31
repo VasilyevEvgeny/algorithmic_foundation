@@ -1,0 +1,36 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+Find the number of inversions in the array of numbers. In other words, for a given array $A = \langle a_1, a_2, \dots, a_n \rangle$ find the number of pairs $(i, j)$ such that $i < j$ and $a_i > a_j$.
+
+The first line of the input contains a natural number $N$ ($1 \le N \le 100 \ 000$) -- the number of array elements. The second line contains $N$ pairwise distinct elements of the array $A$ -- non-negative integers not exceeding $10^9$.
+
+Print one number -- the number of inversions.
+
+\LINE
+
+\noindent \textbf{Sample input 1:}\\
+5\\
+6 11 18 28 31\\
+
+
+\noindent \textbf{Sample output 1:}\\
+0
+
+\SPACE
+
+\noindent \textbf{Sample input 2:}\\
+8\\
+999994 999989 999982 999972 999969 999961 999954 999950\\
+
+
+\noindent \textbf{Sample output 2:}\\
+28
+
+
+
+\end{document}
