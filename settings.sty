@@ -10,49 +10,17 @@
 
 \usepackage{bm}
 
-\lstdefinestyle{C++}{
-	backgroundcolor=\color{black!5}, % set backgroundcolor
-    basicstyle=\footnotesize,% basic font setting
-    frame=tb,
-    tabsize=4,
-    showstringspaces=false,
-    numbers=left,
-    upquote=true,
-    commentstyle=\color{commentgreen},
-    keywordstyle=\color{eminence},
-    stringstyle=\color{red},
-    basicstyle=\small\ttfamily, % basic font setting
-    emph={int,char,double,float,unsigned,void,bool,return,while,include,
-    for,if},
-    emphstyle={\color{blue}},
-    escapechar=\&,
-    % keyword highlighting
-    classoffset=1, % starting new class
-    morekeywords={>,<,.,;,,,-,!,=,~},
-    keywordstyle=\color{weborange},
-    classoffset=0,
+\lstdefinestyle{CodeStyle}{
+    belowcaptionskip=1\baselineskip,
+    breaklines=true,
+    frame=none,
+    numbers=none, 
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\bfseries\color{green!40!black},
+    commentstyle=\itshape\color{purple!40!black},
+    identifierstyle=\color{blue},
+    backgroundcolor=\color{gray!10!white},
 }
-
-\lstdefinestyle{Python}{
-	backgroundcolor=\color{black!5}, % set backgroundcolor
-    basicstyle=\footnotesize,% basic font setting
-    frame=tb,
-    tabsize=4,
-    showstringspaces=false,
-    numbers=left,
-    upquote=true,
-    commentstyle=\color{commentgreen},
-    keywordstyle=\color{eminence},
-    stringstyle=\color{red},
-    basicstyle=\small\ttfamily, % basic font setting
-    emph={def,float,int,return,while,for,if},
-    emphstyle={\color{blue}},
-    escapechar=\&,
-    % keyword highlighting
-    classoffset=1, % starting new class
-    morekeywords={>,<,.,;,,,-,!,=,~},
-    keywordstyle=\color{weborange},
-    classoffset=0,}
 
 \newcommand{\LINE}{
 \begin{center}
