@@ -1,0 +1,27 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+\begin{document}
+
+Given $n$ segments on a number line and $m$ points on the same line. For each of the given points, determine how many segments it belongs to. A point $x$ is considered to belong to a segment with ends $a$ and $b$ if the double inequality $\min(a, b) \le x \le \max(a, b)$ is satisfied.
+
+The first line contains two integers $n$ and $m$ -- the number of segments and the number of points ($1 \le n, m \le 10^5$). The next $n$ lines contain two integers $a_i$ and $b_i$ are the coordinates of the ends of the corresponding segment. The last line contains $m$ integers -- the coordinates of the points. All numbers in the input file do not exceed modulo $10^9$.
+
+Print $m$ numbers -- for each point, print the number of segments that contain it.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+2 2\\
+0 5\\
+7 10\\
+1 6\\
+
+
+\noindent \textbf{Sample output:}\\
+1 0\\
+
+
+
+\end{document}
