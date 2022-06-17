@@ -1,0 +1,25 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+\begin{document}
+
+You again need to sort an array of $N$ numbers in non-decreasing order. This time, you don't know the values of the array elements, but you are given a helper function that can handle groups of element comparison requests. The helper function has the following signature:
+
+\lstinputlisting[language=C++, style=CodeStyle]{ask.cpp}
+
+The \textit{lhs}, \textit{rhs} and \textit{result} vectors must have the same length. The vectors \textit{lhs} and \textit{rhs} must contain the indices of the array elements. After calling the function, the \textit{result} vector will contain the results of comparing the corresponding elements of the array, namely:
+\begin{itemize}
+\item If the element at index \textit{lhs}$_i$ less than element at index \textit{rhs}$_i$, then \textit{result}$_i$ = $-1$
+\item If the element at index \textit{lhs}$_i$ greater than element at index \textit{rhs}$_i$, then \textit{result}$_i$ = $1$
+\item If the element at index \textit{lhs}$_i$ equals the element at index \textit{rhs}$_i$, then \textit{result}$_i$ = $0$
+\end{itemize}
+
+You only need to implement the \textit{solve} function, which takes one parameter $N$ -- the size of the array ($1 \le N \le 100$).
+
+The function must return a vector containing the indexes of the array elements (elements are indexed from zero), in the desired order.
+
+Your program can call the \textit{ask} function no more than $50$ times, otherwise it will get <<Wrong answer>>.
+
+
+\end{document}

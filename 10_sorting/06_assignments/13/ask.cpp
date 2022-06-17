@@ -1,0 +1,1 @@
+void ask(const vector<int>& lhs, const vector<int>& rhs, vector<int>& result)
