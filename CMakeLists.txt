@@ -230,32 +230,32 @@ add_executable(10_sorting__06_assignments__13
 ##############################
 
 # 03_tasks_simple_binary_heap
-add_executable(12_heap__03_tasks_simple_binary_heap__02
-        12_heap/03_tasks_simple_binary_heap/02_last_stone_weight/02.cpp)
+add_executable(12_heap__04_tasks_simple_binary_heap__02
+        12_heap/04_tasks_simple_binary_heap/02_last_stone_weight/02.cpp)
 
 # 03_tasks_simple_binary_heap
-add_executable(12_heap__03_tasks_simple_binary_heap__03
-        12_heap/03_tasks_simple_binary_heap/03/03.cpp)
+add_executable(12_heap__04_tasks_simple_binary_heap__03
+        12_heap/04_tasks_simple_binary_heap/03/03.cpp)
 
 # 03_tasks_simple_binary_heap
-add_executable(12_heap__03_tasks_simple_binary_heap__04
-        12_heap/03_tasks_simple_binary_heap/04/04.cpp)
+add_executable(12_heap__04_tasks_simple_binary_heap__04
+        12_heap/04_tasks_simple_binary_heap/04/04.cpp)
 
 # 03_tasks_simple_binary_heap
-add_executable(12_heap__03_tasks_simple_binary_heap__05
-        12_heap/03_tasks_simple_binary_heap/05/05.cpp)
+add_executable(12_heap__04_tasks_simple_binary_heap__05
+        12_heap/04_tasks_simple_binary_heap/05/05.cpp)
 
 # 03_tasks_simple_binary_heap
-add_executable(12_heap__03_tasks_simple_binary_heap__06
-        12_heap/03_tasks_simple_binary_heap/06/06.cpp)
+add_executable(12_heap__04_tasks_simple_binary_heap__06
+        12_heap/04_tasks_simple_binary_heap/06/06.cpp)
 
 # 04_asymptotics_sorting
-add_executable(12_heap__04_asymptotics_sorting__02
-        12_heap/04_asymptotics_sorting/02/02.cpp)
+add_executable(12_heap__05_asymptotics_sorting__02
+        12_heap/05_asymptotics_sorting/02/02.cpp)
 
 # 04_asymptotics_sorting
-add_executable(12_heap__04_asymptotics_sorting__03
-        12_heap/04_asymptotics_sorting/03/03.cpp)
+add_executable(12_heap__05_asymptotics_sorting__03
+        12_heap/05_asymptotics_sorting/03/03.cpp)
 
 
 ##############################
@@ -317,3 +317,12 @@ add_executable(14_graph_algorithms__05_loop_search_and_topological_sorting__04
 # 05_loop_search_and_topological_sorting
 add_executable(14_graph_algorithms__05_loop_search_and_topological_sorting__05
         14_graph_algorithms/05_loop_search_and_topological_sorting/05/05.cpp)
+
+
+##############################
+# 16_binary_search_trees
+##############################
+
+# 06_assignments
+add_executable(16_binary_search_trees__06_assignments
+        16_binary_search_trees/06_assignments/01/01.cpp)

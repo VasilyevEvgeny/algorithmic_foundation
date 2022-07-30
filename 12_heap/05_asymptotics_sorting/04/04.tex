@@ -1,0 +1,55 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<Game in the break>>}
+
+\SPACE
+
+War is war, but rest is also needed. Therefore, Rey, Finn and Han Solo, after another hard day, got together and decided to play one entertaining game. One of the players wrote down $n$ numbers $a_i$ on the board, then the following actions could be performed with them:
+\begin{itemize}
+\item Take any even number from those written out and write two numbers on the board instead, two times less than the chosen one;
+\item Replace two identical written numbers with one equal to their sum.
+\end{itemize}
+
+The winner is the one who can present a sequence of actions that maximizes the largest number in the array. You became a casual witness of this game, and you wondered what this largest number is equal to.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line contains the number $n$ ($1 \le n \le 100'000$) -- the number of numbers written initially on the board.
+
+The second line contains $n$ numbers $a_i$ ($1 \le a_i \le 2 \cdot 10^9$) -- the numbers originally written on the board.
+
+\SPACE
+
+\textbf{Output format}
+
+In a single line of output print the maximum number that can be obtained using the operations described above.
+
+\LINE
+
+\noindent \textbf{Sample input 1:}\\
+4\\
+1 3 3 6\\
+
+
+\noindent \textbf{Sample output 1:}\\
+12\\
+
+\SPACE
+
+\noindent \textbf{Sample input 2:}\\
+6\\
+2 2 2 2 4 4\\
+
+
+\noindent \textbf{Sample output 2:}\\
+16\\
+
+
+\end{document}

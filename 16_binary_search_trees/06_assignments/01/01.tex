@@ -1,0 +1,50 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<Tree walks>>}
+
+\SPACE
+
+Given a binary tree of $n$ vertices, numbered from $1$ to $n$. For each vertex, you are given the numbers of its left and right sons. Print preorder, inorder, and postorder traversals for the given tree.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line of the input contains an integer $n$ -- the number of vertices in the tree ($1 \le n \le 100'000$).
+
+Each of the next $n$ lines contains two integers $l_i$ and $r_i$ -- the numbers of the left and right sons of the vertex numbered $i$ ($0 \le l_i, r_i \le n$). The number $0$ means that the given vertex does not have a corresponding son.
+
+It is guaranteed that the input describes a valid binary tree.
+
+
+\SPACE
+
+\textbf{Output format}
+
+Output three lines. On the first line print the preorder traversal, on the second line the inorder traversal, and on the third line the postorder traversal of the given tree.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+8\\
+8 6\\
+5 3\\
+4 7\\
+0 0\\
+1 0\\
+0 0\\
+0 0\\
+0 0\\
+
+
+\noindent \textbf{Sample output:}\\
+2 5 1 8 6 3 4 7\\
+8 1 6 5 2 4 3 7\\
+8 6 1 5 4 7 3 2\\
+
+\end{document}
