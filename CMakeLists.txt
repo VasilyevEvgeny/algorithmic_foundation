@@ -324,5 +324,9 @@ add_executable(14_graph_algorithms__05_loop_search_and_topological_sorting__05
 ##############################
 
 # 06_assignments
-add_executable(16_binary_search_trees__06_assignments
+add_executable(16_binary_search_trees__06_assignments__01
         16_binary_search_trees/06_assignments/01/01.cpp)
+
+# 06_assignments
+add_executable(16_binary_search_trees__06_assignments__02
+        16_binary_search_trees/06_assignments/02/02.cpp)

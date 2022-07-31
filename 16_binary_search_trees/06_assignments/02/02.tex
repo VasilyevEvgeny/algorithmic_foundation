@@ -1,0 +1,66 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<Binary search tree?>>}
+
+\SPACE
+
+Given a binary tree of $n$ vertices, numbered from $1$ to $n$. Each vertex contains a key. Check if the given tree is a binary search tree.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line of the input contains an integer $n$ -- the number of vertices in the tree ($1 \le n \le 100'000$).
+
+The second line contains $n$ non-negative integers separated by spaces -- the keys written in the vertices (first the key of the first vertex, then the key of the second, and so on). Numbers do not exceed $10^9$.
+
+Each of the next $n$ lines contains two integers $l_i$ and $r_i$ are the numbers of the left and right sons of the vertex numbered $i$ ($0 \le l_i, r_i \le n$). The number $0$ means that the given vertex has no corresponding son.
+
+It is guaranteed that the input describes a valid binary tree.
+
+\SPACE
+
+\textbf{Output format}
+
+Print YES if the tree is a binary search tree and NO if not.
+
+\LINE
+
+\noindent \textbf{Sample input 1:}\\
+8\\
+3 10 15 11 7 4 18 1\\
+8 6\\
+5 3\\
+4 7\\
+0 0\\
+1 0\\
+0 0\\
+0 0\\
+0 0\\
+
+\noindent \textbf{Sample output 1:}\\
+YES\\
+
+\SPACE
+
+\noindent \textbf{Sample input 2:}\\
+8\\
+1 2 3 4 5 6 7 8\\
+8 6\\
+5 3\\
+4 7\\
+0 0\\
+1 0\\
+0 0\\
+0 0\\
+0 0\\
+
+\noindent \textbf{Sample output 2:}\\
+NO\\
+
+\end{document}
