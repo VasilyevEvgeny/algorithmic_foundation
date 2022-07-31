@@ -1,0 +1,61 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<Binary search tree!>>}
+
+\SPACE
+
+A description of a binary search tree is given, all elements of which are different and are natural numbers. It is also known that the tree is balanced and all its levels are completely filled.
+
+You need to answer $M$ requests to this tree. For each query, you need to find the node in the tree with the given key and determine the value of the keys in the parent, left child, and right child of that node.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line of the input contains an integer $N$ -- the number of tree levels ($1 \le N \le 20$).
+
+The second line contains the elements of the tree in the order they appear on the levels: first, all the elements of the first level from left to right, then the second level, and so on.
+
+The third line contains an integer $M$ -- the number of requests ($1 \le M \le 10^4$). The fourth line contains $M$ natural numbers not exceeding $2 \times 10^9$ the requests themselves.
+
+It is guaranteed that the requested numbers exist in the tree.
+
+\SPACE
+
+\textbf{Output format}
+
+For each query, it is required to output three numbers in a separate line: the values of the keys of the parent, left and right sons of the given vertex. If you need to print a node that is not in the tree, you should print $-1$ instead.
+
+\LINE
+
+\noindent \textbf{Sample input 1:}\\
+2\\
+5 2 7\\
+2\\
+5 2\\
+
+\noindent \textbf{Sample output 1:}\\
+-1 2 7\\
+5 -1 -1\\
+
+\SPACE
+
+\noindent \textbf{Sample input 2:}\\
+3\\
+15 10 50 5 12 36 74\\
+4\\
+10 15 50 12\\
+
+\noindent \textbf{Sample output 2:}\\
+15 5 12\\
+-1 10 50\\
+15 36 74\\
+10 -1 -1\\
+
+
+\end{document}
