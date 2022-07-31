@@ -1,0 +1,41 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<Naive insertion>>}
+
+You are given a sequence of $n$ distinct non-negative integers. Create an empty binary search tree and insert the given numbers into it one by one.
+
+Insertion should be performed <<naively>>, that is, when inserting, the structure of the tree does not change, and the new element is simply suspended from one of the leaves of the tree, becoming a new leaf.
+
+For the resulting tree, output preorder, inorder, and postorder traversals.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line of the input contains an integer $n$ -- the number of numbers in the sequence ($1 \le n \le 1000$).
+
+The second line contains $n$ different non-negative integers -- the elements of the sequence. Numbers do not exceed $10^9$.
+
+\SPACE
+
+\textbf{Output format}
+
+Output three lines. On the first line print the preorder traversal, on the second line the inorder traversal, and on the third line the postorder traversal of the resulting tree.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+5\\
+6 9 0 1 7\\
+
+\noindent \textbf{Sample output:}\\
+6 0 1 9 7\\
+0 1 6 7 9\\
+1 0 7 9 6\\
+
+\end{document}
