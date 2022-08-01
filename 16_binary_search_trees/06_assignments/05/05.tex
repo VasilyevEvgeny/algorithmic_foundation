@@ -1,0 +1,40 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<Another round>>}
+
+You are given preorder and inorder traversals of some binary tree. Get it postorder bypass.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line of the input contains an integer $n$ -- the number of vertices in the tree ($1 \le n \le 100'000$).
+
+The second line contains $n$ different non-negative integers -- preorder traversal of the tree.
+
+The third line contains $n$ different non-negative integers -- inorder traversal of the tree.
+
+It is guaranteed that these traversals are indeed correct preorder and inorder traversals of some binary tree.
+
+\SPACE
+
+\textbf{Output format}
+
+In a single line print $n$ numbers -- postorder traversal of the given tree.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+8\\
+2 5 1 8 6 3 4 7\\
+8 1 6 5 2 4 3 7\\
+
+\noindent \textbf{Sample output:}\\
+8 6 1 5 4 7 3 2\\
+
+\end{document}

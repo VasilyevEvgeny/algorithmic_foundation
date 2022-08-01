@@ -338,3 +338,7 @@ add_executable(16_binary_search_trees__06_assignments__03
 # 06_assignments
 add_executable(16_binary_search_trees__06_assignments__04
         16_binary_search_trees/06_assignments/04/04.cpp)
+
+# 06_assignments
+add_executable(16_binary_search_trees__06_assignments__05
+        16_binary_search_trees/06_assignments/05/05.cpp)
