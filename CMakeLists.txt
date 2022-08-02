@@ -342,3 +342,41 @@ add_executable(16_binary_search_trees__06_assignments__04
 # 06_assignments
 add_executable(16_binary_search_trees__06_assignments__05
         16_binary_search_trees/06_assignments/05/05.cpp)
+
+
+##############################
+# 18_cartesian_trees
+##############################
+
+# 05_assignments
+add_executable(18_cartesian_trees__05_assignments__01
+        18_cartesian_trees/05_assignments/01/01.cpp)
+
+# 05_assignments
+add_executable(18_cartesian_trees__05_assignments__02
+        18_cartesian_trees/05_assignments/02/02.cpp)
+
+# 05_assignments
+add_executable(18_cartesian_trees__05_assignments__03
+        18_cartesian_trees/05_assignments/03/03.cpp)
+
+# 05_assignments
+add_executable(18_cartesian_trees__05_assignments__04
+        18_cartesian_trees/05_assignments/04/04.cpp)
+
+# 05_assignments
+add_executable(18_cartesian_trees__05_assignments__05
+        18_cartesian_trees/05_assignments/05/05.cpp)
+
+# 05_assignments
+add_executable(18_cartesian_trees__05_assignments__06
+        18_cartesian_trees/05_assignments/06/06.cpp)
+
+# 05_assignments
+add_executable(18_cartesian_trees__05_assignments__07
+        18_cartesian_trees/05_assignments/07/07.cpp)
+
+# 05_assignments
+add_executable(18_cartesian_trees__05_assignments__08
+        18_cartesian_trees/05_assignments/08/08.cpp)
+

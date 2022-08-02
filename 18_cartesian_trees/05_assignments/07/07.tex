@@ -1,0 +1,51 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<$K$-th zero>>}
+
+Implement an efficient data structure that allows you to change the elements of an array and calculate the index of the $k$-th zero from the left in a given segment in the array.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line of the input contains an integer $N$ ($1 \le N \le 200'000$) -- the number of numbers in the array.
+
+The second line contains $N$ numbers from $0$ to $100'000$ -- array elements.
+
+The third line contains an integer $M$ ($1 \le M \le 200'000$) -- the number of requests.
+
+Each of the following $M$ lines is a description of the request. First comes a single letter that encodes the type of request:
+\begin{itemize}
+\item <<s>> -- calculate the index of the $k$-th zero;
+\item <<u>> -- update the value of the element.
+\end{itemize}
+
+Three numbers follow the <<s>> -- the left and right ends of the segment and the number $k$ ($1 \le k \le N$).
+
+The <<u>> is followed by two numbers -- the element number and its new value.
+
+\SPACE
+
+\textbf{Output format}
+
+For each <<s>> query, print the answer to that query. Print all numbers on one line separated by spaces. If there is no required number of zeros in the requested segment, print $-1$ for this query.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+5\\
+0 0 3 0 2\\
+3\\
+u 1 5\\
+u 1 0\\
+s 1 5 3\\
+
+\noindent \textbf{Sample output:}\\
+4\\
+
+\end{document}

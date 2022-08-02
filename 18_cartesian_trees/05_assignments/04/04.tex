@@ -1,0 +1,55 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<Sum>>}
+
+Implement a data structure that stores a set $S$ of integers that is allowed to perform the following operations:
+\begin{itemize}
+\item add(i) -- add the number ii to the set $S$ (if it is already there, then the set does not change);
+\item sum(l, r) -- print the sum of all elements $x$ from $S$ that satisfy the inequality $l \le x \le r$.
+\end{itemize}
+
+The set $S$ is initially empty.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line of the input contains an integer $n$ -- the number of operations ($1 \le n \le 300'000$).
+
+The next $n$ lines contain descriptions of operations. Each operation is either <<+ $i$>> or <<? $l$ $r$>>.
+
+Operation <<? $l$ $r$>> specifies the query $sum(l, r)$.
+
+If the <<+ $i$>> operation is the first of all operations, or comes immediately after another <<+>> operation, then it specifies an $add(i)$ operation.
+
+If it comes immediately after the query <<?>>, and the result of this query was $y$, then the operation is performed $add ((i + y) \bmod 10^9)$).
+
+In all queries and adding operations, the parameters are in the range from $0$ to $10^9$.
+
+\SPACE
+
+\textbf{Output format}
+
+For each query print one number -- the answer to the query.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+6\\
++ 1\\
++ 3\\
++ 3\\
+? 2 4\\
++ 1\\
+? 2 4\\
+
+\noindent \textbf{Sample output:}\\
+3\\
+7\\
+
+\end{document}

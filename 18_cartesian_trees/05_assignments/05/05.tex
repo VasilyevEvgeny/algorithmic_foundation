@@ -1,0 +1,36 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<Task planning>>}
+
+There are some set of tasks and one executor. It takes a unit of time to complete one task. Jobs can be executed starting from time $0$. Each job has two characteristics: deadline $d_i$ and fine $w_i$. If the job has not been completed by time $d_i$, a fine of $w_i$ is charged. It is required to complete a certain number of tasks in such a way as to minimize the total penalty received.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line of the input file contains a natural number $n$ -- the number of jobs ($1 \le n \le 100'000$).
+
+The next $n$ lines contain two space-separated integers -- $d_i$ and $w_i$ ($1 \le d_i, w_i \le 10^9$).
+
+\SPACE
+
+\textbf{Output format}
+
+Print one number — the minimum total penalty.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+2\\
+1 1\\
+1 2\\
+
+\noindent \textbf{Sample output:}\\
+1\\
+
+\end{document}

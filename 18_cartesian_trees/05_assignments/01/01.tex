@@ -1,0 +1,48 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<Construct a Cartesian tree>>}
+
+You are given pairs of numbers ($a_i, b_i$). It is necessary to construct a Cartesian tree such that the $i$-th vertex has keys ($a_i, b_i$), while by the keys $a_i$ vertices form a binary search tree, and by keys $b_i$ the vertices form a heap.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line contains the number $N$ -- the number of pairs ($1 \le N \le 50'000$). This is followed by $N$ pairs ($a_i, b_i$). For all pairs $|a_i|$, $|b_i| \le 30'000$, $a_i \neq a_j$ and $b_i \neq b_j$ for all $i \neq j$.
+
+\SPACE
+
+\textbf{Output format}
+
+If it is possible to build a Cartesian tree with such a set of keys, print YES in the first line, otherwise print NO.
+
+If the answer is YES, print $N$ lines, the $i$-th of which should describe the vertex with number $i$ (that is, the vertex with the pair of keys ($a_i, b_i$). The vertex description consists of three numbers: the number of the ancestor, the number of the left son, and the number of the right son. If the vertex does not have an ancestor or any of its sons, print the number $0$ in its place.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+7\\
+5 4\\
+2 2\\
+3 9\\
+0 5\\
+1 3\\
+6 6\\
+4 11\\
+
+\noindent \textbf{Sample output:}\\
+YES\\
+2 3 6\\
+0 5 1\\
+1 0 7\\
+5 0 0\\
+2 4 0\\
+1 0 0\\
+3 0 0\\
+
+\end{document}

@@ -1,0 +1,59 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<$K$-th maximum>>}
+
+Implement a balanced binary search tree.
+
+Write a program that implements a data structure that allows adding and removing elements, as well as finding the $k$-th maximum.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line of the input file contains an integer $n$ -- the number of commands ($1 \le n \le 100'000$).
+
+The next $n$ lines contain one command each. The command is written as two numbers $c_i$ and $k_i$ are the type and argument of the command, respectively ($|k_i| \le 10^9$). Commands are of three types:
+\begin{itemize}
+\item +1 (or just 1): Add element with key $k_i$;
+\item 0: Find and output $k_i$-th maximum;
+\item -1: Remove element with key $k_i$.
+\end{itemize}
+
+It is guaranteed that in the course of work in the structure it is not required to store elements with equal keys or delete non-existent elements. It is also guaranteed that when requesting $k_i$-th maximum, it exists.
+
+\SPACE
+
+\textbf{Output format}
+
+For each command of type $0$, print a line containing a single number -- $k_i$-th maximum.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+11\\
++1 5\\
++1 3\\
++1 7\\
+0 1\\
+0 2\\
+0 3\\
+-1 5\\
++1 10\\
+0 1\\
+0 2\\
+0 3\\
+
+\noindent \textbf{Sample output:}\\
+7\\
+5\\
+3\\
+10\\
+7\\
+3\\
+
+\end{document}

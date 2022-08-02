@@ -1,0 +1,51 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<Geometry>>}
+
+Implement a data structure that stores a set of points on a plane with rectangular Cartesian coordinates and handles two types of queries:
+\begin{itemize}
+\item Add point with coordinates $(x, y)$. If a point with such coordinates has already been added, the set does not change;
+\item Check whether inside or the border of a rectangle with sides parallel to the coordinate axes and opposite angles at points $(0, 0)$ and $(x, y)$ contains at least one of the added points.
+\end{itemize}
+
+Initially, the set of points is empty.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line of the input contains an integer $N$ ($1 \le N \le 100'000$) -- the number of requests.
+
+Each of the following $N$ lines contains a description of the next request: three integers $t$, $x$ and $y$ -- the request type and point coordinates ($1 \le t \le 2$; $1 \le x, y \le 10^9$).
+
+If $t = 1$, then this is a request to add a point $(x, y)$.
+
+If $t = 2$, then this is a request to check if one of the added points exists in a rectangle with corners at points $(0, 0)$ and $(x, y)$.
+
+\SPACE
+
+\textbf{Output format}
+
+For each query of the second type, print <<YES>> if at least one of the added points lies inside or on the border of the given rectangle, and <<NO>> otherwise.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+5\\
+1 2 2\\
+2 3 3\\
+1 4 4\\
+2 5 1\\
+2 5 5\\
+
+\noindent \textbf{Sample output:}\\
+YES\\
+NO\\
+YES\\
+
+\end{document}
