@@ -1,0 +1,58 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<Set>>}
+
+Petya launches another startup. The business idea, as usual with Petya, is simple, brilliant, and promises a lot of profit. You work for Petya as a programmer, which means that you have to implement all his crazy ideas.
+
+Today's idea is an assistant app for mathematicians. It allows you to store a set of integers and modify it. The app prototype will have only three functions:
+\begin{itemize}
+\item Add an integer $x$ to the set. If this number is already in the set, the set does not change;
+\item Remove an integer $x$ from the set. If this number is not in the set, the set does not change;
+\end{itemize}
+
+Calculate the sum of all numbers in the set. Initially, the set is empty. Help Petya get rich by implementing an application prototype that supports these operations.
+
+\SPACE
+
+\textbf{Input format}
+
+The first line of the input contains a single integer $n$ -- the number of requests ($1 \le n \le 5 \cdot 10^5$).
+
+Each of the next $n$ lines contains a description of the next request. First, in the description there is an integer $t$ -- the request type ($1 \le t \le 3$):
+\begin{itemize}
+\item If $t = 1$, then an integer $x$ follows, and this is a request to add $x$ to the set;
+\item If $t = 2$, then an integer $x$ follows, and this is a request to remove the number $x$ from the set;
+\item If $t = 3$, then this is a request to calculate the sum of numbers in the set.
+\end{itemize}
+
+All added and removed numbers do not exceed $10^9$ in absolute value.
+
+\SPACE
+
+\textbf{Output format}
+
+For each query of the third type, print the sum of the numbers in the set on a separate line.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+7\\
+1 3\\
+1 4\\
+3\\
+1 3\\
+3\\
+2 4\\
+3\\
+
+\noindent \textbf{Sample output:}\\
+7\\
+7\\
+3\\
+
+\end{document}

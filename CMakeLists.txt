@@ -380,3 +380,12 @@ add_executable(18_cartesian_trees__05_assignments__07
 add_executable(18_cartesian_trees__05_assignments__08
         18_cartesian_trees/05_assignments/08/08.cpp)
 
+
+
+##############################
+# 20_hash_tables
+##############################
+
+# 06_assignments
+add_executable(20_hash_tables__06_assignments__01
+        20_hash_tables/06_assignments/01/01.cpp)
