@@ -1,0 +1,59 @@
+\documentclass[a4paper]{article}
+
+\usepackage{../../../settings}
+
+
+\begin{document}
+
+\textbf{Task <<Multiuser Set>>}
+
+It seems that Petya's idea worked, and his application began to gain popularity. The next step in its development is to make the application multi-user. You have to write a prototype server that will process requests from users.
+
+Each application user has their own set of integers that can be modified. Requests to the server are similar to requests to the previous version of the application, but now, along with each request, the server is given the string $s$ -- the name of the user who performs the request. Thus, the server receives three types of requests:
+\begin{itemize}
+\item Add an integer $x$ to the user set $s$. If this number is already in the set, the set does not change;
+\item Remove the integer $x$ from the user set $s$. If this number is not in the set, the set does not change;
+\end{itemize}
+
+Calculate the sum of all numbers in the set of user $s$.
+Initially, the set for each user is empty. Help Petya one more time -- implement a server prototype!
+
+\SPACE
+
+\textbf{Input format}
+
+The first line of the input contains a single integer $n$ -- the number of requests ($1 \le n \le 5 \cdot 10^5$).
+
+Each of the next $n$ lines contains a description of the next request. First in the description is the username $s$ -- a string consisting of lowercase Latin letters, from $1$ to $10$ characters long, and an integer $t$ -- the request type ($1 \le t \le 3$):
+\begin{itemize}
+\item If $t = 1$, then an integer $x$ follows, and this is a request to add $x$ to the set of user $s$;
+\item If $t = 2$, then an integer $x$ follows, and this is a request to remove the number $x$ from the set of user $s$;
+\item If $t = 3$, then this is a request to calculate the sum of numbers in the set of user $s$.
+\end{itemize}
+
+All added and removed numbers do not exceed $10^9$ in absolute value.
+
+\SPACE
+
+\textbf{Output format}
+
+For each query of the third type print on a separate line the sum of the numbers in the set of the user $s$.
+
+\LINE
+
+\noindent \textbf{Sample input:}\\
+7\\
+petya 1 3\\
+vova 1 4\\
+vova 3\\
+petya 1 3\\
+petya 3\\
+vova 2 4\\
+vova 3\\
+
+\noindent \textbf{Sample output:}\\
+4\\
+3\\
+0\\
+
+\end{document}
